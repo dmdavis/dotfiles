@@ -1,0 +1,8 @@
+- clean: ['~']
+
+- link:
+	~/.vimrc: $HOME/.vim/janus/vim/vimrc
+	~/.gvimrc: $HOME/.vim/janus/vim/gvimrc
+
+- shell: 
+  	- [git submodule update --init --recursive, Installing submodules]
