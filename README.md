@@ -20,25 +20,25 @@ To install, execute the following commands in a shell:
 git clone git@github.com:dmdavis/dotfiles.git ~/.files && ~/.files/install
 ```
 
-The [installation script](install) will update repository [submodules](.gitmodules), create symlinks to dotfiles within the repo, and install [Janus VIM][janus] if needed.
+The [installation script](install) will update repository [submodules](./.gitmodules), create symlinks to dotfiles within the repo, and install [Janus VIM][janus] if needed.
 
 Cheers! :beer:
 
 ## Updating
 
-To update repository [submodules](.gitmodules) and [Janus VIM][janus], execute the `[install](install)` script again.
+To update repository [submodules](.gitmodules) and [Janus VIM][janus], execute the [install](./install) script again.
 
 ```bash
 ~/.files/install
-````
+```
 
 ### Thanks
 
-This project would not be possible without the clever work of the contributors to the many [[open-source software|Open-source_software]] tools upon which it is based.
+This project would not be possible without the clever work of the contributors to the many [open-source software](w-oss) tools upon which it is based.
 
-> If I have seen further, it is by standing on the shoulders of giants.
+> "If I have seen further, it is by standing on the shoulders of giants."
 
-- [[Sir Isaac Newton|Isaac_Newton]] *and [[others|Standing_on_the_shoulders_of_giants]]*
+- [Sir Isaac Newton][w-isaac] *and [others][w-giants]*
 
 ### Fork Moi?
 
@@ -46,12 +46,15 @@ I tried the fork and customize model with [prezto][] for a while, but I've since
 
 Still, I've gotten this far through the generous sharing of other clever dotfile enthusiasts, so all this is [open source](LICENSE). If you see anything useful, please copy it with my compliments.
 
+[a.vim]:    http://www.vim.org/scripts/script.php?script_id=31
+[dotbot]:   https://github.com/anishathalye/dotbot
 [Dropbox]:  https://www.dropbox.com
 [git]:      https://git-scm.com
-[dotbot]:   https://github.com/anishathalye/dotbot
-[zplug]:    https://github.com/b4b4r07/zplug
-[Vim]:      http://www.vim.org
 [janus]:    https://github.com/carlhuda/janus
-[a.vim]:    http://www.vim.org/scripts/script.php?script_id=31
-[prezto]:   [https://github.com/sorin-ionescu/prezto]
 [personal]: http://www.anishathalye.com/2014/08/03/managing-your-dotfiles/
+[prezto]:   [https://github.com/sorin-ionescu/prezto]
+[Vim]:      http://www.vim.org
+[w-giants]: https://en.wikipedia.org/wiki/Standing_on_the_shoulders_of_giants
+[w-isaac]:  https://en.wikipedia.org/wiki/Isaac_Newton
+[w-oss]:    https://en.wikipedia.org/wiki/Open-source_software
+[zplug]:    https://github.com/b4b4r07/zplug
