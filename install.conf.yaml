@@ -1,8 +1,16 @@
 - clean: ['~']
 
-- link:
-	~/.vimrc: $HOME/.vim/janus/vim/vimrc
-	~/.gvimrc: $HOME/.vim/janus/vim/gvimrc
-
 - shell: 
-  	- [git submodule update --init --recursive, Installing submodules]
+    - [git submodule update --init --recursive, Configuring dotfile submodules]
+    - [vim/install-janus.sh, Configuring Janus VIM distribution (new installs can be slow)]
+
+- link:
+    ~/.janus:
+        force: true
+        path: vim/janus-plugins
+    ~/.vimrc.before:
+        force: true
+        path: vim/vimrc.before
+    ~/.vimrc.after:
+        force: true
+        path: vim/vimrc.after
