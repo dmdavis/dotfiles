@@ -1,0 +1,304 @@
+# I got this from https://github.com/mattjj/my-oh-my-zsh/blob/master/history.zsh
+HISTSIZE=10000
+SAVEHIST=10000
+
+
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
+setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
+setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
+setopt HIST_BEEP                 # Beep when accessing nonexistent history.
+
+export DOTFILES="$HOME/.files"
+export DEFAULT_USER=`whoami`
+export HOSTNAME=`hostname -s`
+export PROJECT_HOME="$HOME/Source"
+export HOMEBREW_EDITOR=/usr/bin/nano
+export TERM='xterm-256color'
+export BULLETTRAIN_VIRTUALENV_FG='black'
+export BULLETTRAIN_DIR_FG='black'
+export BULLETTRAIN_RUBY_FG='black'
+export BULLETTRAIN_GIT_UNTRACKED="%F{208}✭%F{black}"
+export BULLETTRAIN_PERL_BG="99"
+export BULLETTRAIN_PERL_FG="yellow"
+export BULLETTRAIN_TIME_12HR='true'
+export BULLETTRAIN_PERL_SHOW='true'
+export DISABLE_AUTO_TITLE='true'
+export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Teh fukc, d00d? Next time, try: "
+
+source ~/.zplug/zplug
+
+# Virtualwrapper
+if [[ -s "/usr/local/bin/pyenv" ]]; then
+    # pyenv's virtualenvwrapper
+    zplug "$DOTFILES/pyenv", from:local
+else
+    # pyenv shims don't support sourcing (it'll blow up zsh)
+    # Only load this guy if you're not running pyenv
+    zplug "plugins/virtualenvwrapper", from:oh-my-zsh, if:"command -v workon"
+fi
+
+# Load plugins (use double quotes!)
+zplug "plugins/history", from:oh-my-zsh
+zplug "plugins/fasd", from:oh-my-zsh
+zplug "plugins/rsync", from:oh-my-zsh
+zplug "plugins/cp", from:oh-my-zsh
+zplug "plugins/colorize", from:oh-my-zsh
+zplug "plugins/emoji-clock", from:oh-my-zsh
+zplug "plugins/colored-man-pages", from:oh-my-zsh
+zplug "plugins/git", from:oh-my-zsh, if:"command -v git"
+zplug "plugins/pip", from:oh-my-zsh
+zplug "plugins/python", from:oh-my-zsh
+zplug "plugins/virtualenv", from:oh-my-zsh, if:"command -v virtualenv"
+zplug "plugins/rand-quote", from:oh-my-zsh
+zplug "plugins/fabric", from:oh-my-zsh
+zplug "plugins/perl", from:oh-my-zsh
+zplug "plugins/cpanm", from:oh-my-zsh
+zplug "plugins/thefuck", from:oh-my-zsh, if:"command -v fuck"
+zplug "plugins/rbenv", from:oh-my-zsh, if:"command -v rbenv"
+zplug "plugins/osx", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
+zplug "plugins/brew", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
+zplug "plugins/forklift", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
+zplug "plugins/textmate", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
+zplug "plugins/ubuntu", from:oh-my-zsh, if:"[[ $OS == Ubuntu* ]]"
+zplug "plugins/command-not-found", from:oh-my-zsh, if:"[[ $OS == Ubuntu* ]]"
+zplug "lib/clipboard", from:oh-my-zsh
+zplug "jocelynmallon/zshmarks"
+zplug "Tarrasch/zsh-autoenv"
+zplug "djui/alias-tips"
+zplug "caiogondim/bullet-train-oh-my-zsh-theme"
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-syntax-highlighting", nice:18       # Should be loaded 2nd last
+zplug "zsh-users/zsh-history-substring-search", nice:19  # Should be loaded last
+zplug "$DOTFILES/git", from:local
+zplug "$DOTFILES/python", from:local
+zplug "$DOTFILES/vim", from:local
+zplug "$DOTFILES/perl", from:local
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load --verbose
+
+# date
+alias gmt="date -u"
+alias utc='date -u'
+
+# cd/fasd
+alias cd..='cd ..'
+alias cd...='cd ...'
+alias j='fasd_cd -d'
+
+# ls
+alias dir=ls
+alias l='ls -CF'
+alias lla="ll -a"
+alias lld='ls -ld */'
+
+# grep
+alias fsize='du -ch | grep total'
+alias hig='history | grep'
+if (( $+commands[ag] )); then
+    alias ack=`which ag`  # Silver Searcher > ack, but you can't teach old fingers new tricks
+fi
+alias ag='alias | grep'
+
+# ruby
+alias lsr="rbenv versions"
+
+# copy/paste
+alias pwdc="pwd | pbcopy"
+
+# colorize/cat
+alias ct='colorize'
+
+# bullet train theme
+bt-ruby-on() {
+    BULLETTRAIN_RUBY_SHOW=true
+}
+bt-ruby-off() {
+    BULLETTRAIN_RUBY_SHOW=false
+}
+bt-python-on() {
+    BULLETTRAIN_VIRTUALENV_SHOW=true
+}
+bt-python-off() {
+    BULLETTRAIN_VIRTUALENV_SHOW=false
+}
+bt-perl-on() {
+    BULLETTRAIN_PERL_SHOW=true
+}
+bt-perl-off() {
+    BULLETTRAIN_PERL_SHOW=false
+}
+
+# tmux
+alias tls='tmux ls'
+
+if [[ "$OSTYPE" == darwin* ]]; then
+    alias ep="mate $DOTFILES"
+    alias mft='find . -name Makefile | xargs trash'
+    alias dash="$DOTFILES/python/dash.py"
+    alias psql=/Applications/Postgres.app/Contents/Versions/9.4/bin/psql
+    alias htop='sudo htop'
+
+    # Homebrew
+    alias brewc='brew cleanup'
+    alias brewu='brew update'
+    alias brewo='brew outdated'
+    alias brewU='brew update && brew upgrade'
+    alias brewC='brew cleanup --force'
+    alias brewi='brew install'
+    alias brewl='brew list'
+    alias brews='brew search'
+    alias brewx='brew remove'
+    alias bu="brewu"
+    alias bo="brewo"
+    alias bi="brewi"
+    alias bU="brew upgrade"
+    alias bs="brews"
+    alias bx="brew uninstall"
+
+    # Homebrew Cask
+    alias cask='brew cask'
+    alias caskc='brew cask cleanup --outdated'
+    alias caskC='brew cask cleanup'
+    alias caski='brew cask install'
+    alias caskl='brew cask list'
+    alias casks='brew cask search'
+    alias caskx='brew cask uninstall'
+    alias ci="caski"
+    alias cl="caskl"
+    alias cs="casks"
+
+    # iTerm 2
+    alias imgcat="$SCRIPTS/iterm2/imgcat"
+
+    # Qt 5.5.1
+    export PATH=$HOME/Tools/Qt5.5.1/5.5/clang_64/bin:$PATH
+    # Iterm2 scripts
+    export PATH=$HOME:$PATH
+
+    # Growl
+    function growl {
+        echo -e $'\e]9;'$1'\007'
+    }
+elif [[ -f /etc/lsb-release ]]; then
+    alias sysinfo='inxi -Fxz'
+fi
+
+# Conversion
+function b2d() {
+    echo $((2#$1))
+}
+
+function o2d() {
+    echo $((8#$1))
+}
+
+function h2d() {
+    echo $((16#$1))
+}
+
+# Search
+function fid {
+    find . -name $1 -print
+}
+
+# Recursive deletion of glob
+function rmr {
+    find . -name "$1" -exec rm '{}' ';'
+}
+
+# Set window/tab title
+function title {
+    echo -ne "\e]1;$1\a"
+}
+
+# Set iTerm3 badge
+badge() {
+    printf "\e]1337;SetBadgeFormat=%s\a" \
+        $(echo -n "$1" | base64)
+}
+
+# Set (ba)dge and (t)itle
+bat() {
+    local msg=$1
+    title $msg && badge $msg
+}
+
+_wt() {
+    printf "$1$(date +"%I:%M %p")  $(emoji-clock)\n"
+}
+
+# Current time at various locations
+function wt {
+    echo
+    echo "$fg[blue]===== Current Times =====$fg[default]"
+    echo
+    export TZ=US/Pacific
+    _wt "San Jose:      "
+    export TZ=America/Phoenix
+    _wt "Phoenix:       "
+    export TZ=US/Mountain
+    _wt "Boise:         "
+    _wt "Silver City:   "
+    export TZ=US/Central
+    _wt "Austin:        "
+    export TZ=America/Toronto
+    _wt "Toronto, CA:   "
+    export TZ=UTC
+    _wt "UTC:           "
+    export TZ=Europe/Berlin
+    _wt "Karlsruhe, DE: "
+    export TZ=Asia/Kolkata
+    _wt "Bangalore, IN: "
+    # Don't forget to reset to local
+    export TZ=US/Pacific
+    echo
+    echo "$fg[blue]=========================$fg[default]"
+}
+
+function upall {
+    echo "$fg[blue][Updating zplug ZSH plugin framework]$fg[default]"
+    zplug update
+    if [[ -d $HOME/.vim/janus ]]; then
+        echo "$fg[blue][Updating Janus VIM distribution]$fg[default]"
+        jvu
+    fi
+    # TODO Add Python, Ruby, Perl, apt, brew, node, app store
+}
+
+# Check for Sparkle vulnerability
+# http://www.macrumors.com/2016/02/09/sparkle-hijacking-vulnerability/
+check-for-sparkle() {
+    echo "Anything below $fg[red]1.13.1$fg[default] is potentially vulnerable"
+    find /Applications/ -path '*Sparkle.framework*/Info.plist' -exec echo {} \; -exec grep -A1 CFBundleShortVersionString '{}' \; | grep -v CFBundleShortVersionString
+}
+
+# Show all 255 terminal colors and their codes
+show-colors() {
+    for code in {000..255}; do print -P -- "$code: %F{$code}Test%f"; done
+}
+
+test -e ${HOME}/.iterm2_shell_integration.bash && source ${HOME}/.iterm2_shell_integration.bash
+
+# Anonymous function to load machine-specific aliases and functions without
+# polluting the global namespace.
+function {
+    local host_specific_script="$SCRIPTS/zsh/$HOSTNAME"
+    if [[ -e "$host_specific_script" ]]; then
+        . $host_specific_script
+    fi
+}
