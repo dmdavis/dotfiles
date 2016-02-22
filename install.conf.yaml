@@ -12,3 +12,5 @@
     ~/.vimrc.before: vim/vimrc.before
     ~/.zplug/.gitignore: git/gitignore-zplug
     ~/.zshrc: zsh/zshrc
+
+# TODO: Add `zplug load` after link creation for new ~/.zplug installs
