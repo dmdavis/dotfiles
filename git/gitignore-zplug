@@ -1,0 +1,8 @@
+# z-plug artifacts #
+####################
+zplug
+.cache
+repos/
+init.sh
+zcompdump
+.gitignore

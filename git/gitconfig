@@ -1,0 +1,60 @@
+[user]
+    name = Dale Davis
+[core]
+    excludesfile = /Users/dale/.gitignore_global
+    autocrlf = input
+    editor = mate -w
+    pager = less -+$LESS -FRX
+[branch]
+    autosetupmerge = true
+[color]
+    ui = auto
+[push]
+    default = current
+[alias]
+    b  = branch
+    ba = branch -a
+    bd = !sh -c 'git branch -D $1 && git push origin :$1 && git remote prune origin' -
+    br = !sh -c 'git branch -vv | sed "s/].*/]/"' -
+    co = checkout
+    cp = cherry-pick
+    d = diff -w
+    dc = diff -w --cached
+    df = !sh -c 'git d $1^! -- $2' -
+    dr = !sh -c 'git d `cat .git/rebase-merge/stopped-sha`^! -- $1' -
+    ds = diff -w --stat=,80
+    dsc = diff -w --stat=,80 --cached
+    dsf = !sh -c 'git ds $1^!' -
+    fix = commit --amend -m
+    l = log --pretty=format:'%C(red)%h%Creset - %C(yellow)%s %Creset%C(green)(%an) %Creset%C(cyan)%ar%Creset' --no-merges
+    la = log -6 --pretty=format:'%C(red)%h%Creset - %C(yellow)%s %Creset%C(green)(%an) %Creset%C(cyan)%ar%Creset'
+    laa = log -12 --pretty=format:'%C(red)%h%Creset - %C(yellow)%s %Creset%C(green)(%an) %Creset%C(cyan)%ar%Creset'
+    lc = log -1 --pretty=format:'%C(red)%h%Creset - %C(yellow)%s %Creset%C(green)(%an) %Creset%C(cyan)%ar%Creset'
+    lg = log --graph --pretty=format:'%C(red)%h%Creset - %C(yellow)%s %Creset%C(green)(%an) %Creset%C(cyan)%ar%Creset'
+    lga = log --graph -10 --pretty=format:'%C(red)%h%Creset - %C(yellow)%s %Creset%C(green)(%an) %Creset%C(cyan)%ar%Creset'
+    lgfp = log --graph --first-parent --pretty=format:'%C(red)%h%Creset - %C(yellow)%s %Creset%C(green)(%an) %Creset%C(cyan)%ar%Creset'
+    lr = log --pretty=format:'%C(red)%h%Creset - %C(yellow)%s %Creset%C(green)(%an) %Creset%C(cyan)%ar%Creset' --reverse
+    ls = log --stat=,80 --pretty=format:'%C(red)%h%Creset - %C(yellow)%s %Creset%C(green)(%an) %Creset%C(cyan)%ar%Creset' --no-merges
+    nd = !sh -c 'git ds $1@{1}..$1@{0} \"$@\"' -
+    new = !sh -c 'git ls $1@{1}..$1@{0} \"$@\"' -
+    out = push
+    pr = remote prune origin
+    rc = !sh -c 'git add . && git rebase --continue' -
+    root = rev-parse --show-toplevel
+    so = remote show origin
+    st = status -sb
+    up = !sh -c 'git fetch && git rebase -p && git la' -
+    ups = !sh -c 'git fetch && git rebase -p && git la && git submodule update' -
+[rerere]
+    enabled = true
+[difftool "sourcetree"]
+    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+    path = 
+[mergetool "sourcetree"]
+    cmd = /Applications/SourceTree.localized/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+    trustExitCode = true
+[filter "media"]
+    clean = git-media-clean %f
+    smudge = git-media-smudge %f
+[credential]
+    helper = osxkeychain
