@@ -1,7 +1,7 @@
+#!/usr/bin/env zsh
 # I got this from https://github.com/mattjj/my-oh-my-zsh/blob/master/history.zsh
 HISTSIZE=10000
 SAVEHIST=10000
-
 
 setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
 setopt SHARE_HISTORY             # Share history between all sessions.
@@ -36,7 +36,7 @@ source ~/.zplug/zplug
 # Virtualwrapper
 if [[ -s "/usr/local/bin/pyenv" ]]; then
     # pyenv's virtualenvwrapper
-    zplug "$DOTFILES/pyenv", from:local
+    zplug "$DOTFILES/pyenv/pyenv.plugin.zsh", from:local
 else
     # pyenv shims don't support sourcing (it'll blow up zsh)
     # Only load this guy if you're not running pyenv
@@ -57,9 +57,10 @@ zplug "plugins/python", from:oh-my-zsh
 zplug "plugins/virtualenv", from:oh-my-zsh, if:"command -v virtualenv"
 zplug "plugins/rand-quote", from:oh-my-zsh
 zplug "plugins/fabric", from:oh-my-zsh
+zplug "plugins/vagrant", from:oh-my-zsh
 zplug "plugins/perl", from:oh-my-zsh
 zplug "plugins/cpanm", from:oh-my-zsh
-zplug "plugins/thefuck", from:oh-my-zsh, if:"command -v fuck"
+zplug "plugins/thefuck", from:oh-my-zsh
 zplug "plugins/rbenv", from:oh-my-zsh, if:"command -v rbenv"
 zplug "plugins/osx", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
 zplug "plugins/brew", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
@@ -75,10 +76,11 @@ zplug "caiogondim/bullet-train-oh-my-zsh-theme"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting", nice:18       # Should be loaded 2nd last
 zplug "zsh-users/zsh-history-substring-search", nice:19  # Should be loaded last
-zplug "$DOTFILES/git", from:local
-zplug "$DOTFILES/python", from:local
-zplug "$DOTFILES/vim", from:local
-zplug "$DOTFILES/perl", from:local
+zplug "$DOTFILES/git", as:plugin, from:local, of:git.plugin.zsh
+zplug "$DOTFILES/python", from:local, of:python.plugin.zsh
+zplug "$DOTFILES/pyenv", from:local, of:pyenv.plugin.zsh
+zplug "$DOTFILES/vim", from:local, of:vim.plugin.zsh
+zplug "$DOTFILES/perl", from:local, of:perl.plugin.zsh
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
