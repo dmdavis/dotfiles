@@ -1,5 +1,5 @@
 # Aliases
-alias yolk='python $SCRIPTS/python/yolk2.py'
+alias yolk="python $DOTFILES/python/yolk2.py"
 alias pf='pip freeze'
 alias pi='pip install'
 alias pind='pip install --no-deps'
