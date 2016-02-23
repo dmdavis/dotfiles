@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # git
 alias wip='git add .; git commit -m "wip"'
 alias yolo='git push --force'

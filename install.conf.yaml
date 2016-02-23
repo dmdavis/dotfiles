@@ -3,7 +3,6 @@
 - shell:
     - [git submodule update --init --recursive, Configuring dotfile submodules]
     - [vim/install-janus.sh, Configuring Janus VIM distribution (new installs can be slow)]
-    - [zsh/install-zplug.sh, Configuring Zsh Plugin Manager zplug]
 
 - link:
     ~/.gitconfig: git/gitconfig
@@ -13,5 +12,3 @@
     ~/.vimrc.before: vim/vimrc.before
     ~/.zplug/.gitignore: git/gitignore-zplug
     ~/.zshrc: zsh/zshrc
-
-# TODO: Add `zplug load` after link creation for new ~/.zplug installs

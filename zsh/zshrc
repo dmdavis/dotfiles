@@ -14,12 +14,26 @@ setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history 
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
+ARCH=$(uname -m)
+KERNEL=$(uname -r)
+if [ -f /etc/lsb-release ]; then
+    OS=$(lsb_release -s -d)
+elif [ -f /etc/debian_version ]; then
+    OS="Debian $(cat /etc/debian_version)"
+elif [ -f /etc/redhat-release ]; then
+    OS=`cat /etc/redhat-release`
+else
+    OS="$(uname -s) $(uname -r)"
+fi
+
 export DOTFILES="$HOME/.files"
 export DEFAULT_USER=`whoami`
 export HOSTNAME=`hostname -s`
 export PROJECT_HOME="$HOME/Source"
-export HOMEBREW_EDITOR=/usr/bin/nano
+export HOMEBREW_EDITOR=/usr/local/bin/vim
 export TERM='xterm-256color'
+
+# Bullet Train theme tweaks
 export BULLETTRAIN_VIRTUALENV_FG='black'
 export BULLETTRAIN_DIR_FG='black'
 export BULLETTRAIN_RUBY_FG='black'
@@ -29,69 +43,81 @@ export BULLETTRAIN_PERL_FG="yellow"
 export BULLETTRAIN_TIME_12HR='true'
 export BULLETTRAIN_PERL_SHOW='true'
 export DISABLE_AUTO_TITLE='true'
+
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Teh fukc, d00d? Next time, try: "
 
-source ~/.zplug/zplug
-
-# Virtualwrapper
-if [[ -s "/usr/local/bin/pyenv" ]]; then
-    # pyenv's virtualenvwrapper
-    zplug "$DOTFILES/pyenv/pyenv.plugin.zsh", from:local
-else
-    # pyenv shims don't support sourcing (it'll blow up zsh)
-    # Only load this guy if you're not running pyenv
-    zplug "plugins/virtualenvwrapper", from:oh-my-zsh, if:"command -v workon"
-fi
-
-# Load plugins (use double quotes!)
-zplug "plugins/history", from:oh-my-zsh
-zplug "plugins/fasd", from:oh-my-zsh
-zplug "plugins/rsync", from:oh-my-zsh
-zplug "plugins/cp", from:oh-my-zsh
-zplug "plugins/colorize", from:oh-my-zsh
-zplug "plugins/emoji-clock", from:oh-my-zsh
-zplug "plugins/colored-man-pages", from:oh-my-zsh
-zplug "plugins/git", from:oh-my-zsh, if:"command -v git"
-zplug "plugins/pip", from:oh-my-zsh
-zplug "plugins/python", from:oh-my-zsh
-zplug "plugins/virtualenv", from:oh-my-zsh, if:"command -v virtualenv"
-zplug "plugins/rand-quote", from:oh-my-zsh
-zplug "plugins/fabric", from:oh-my-zsh
-zplug "plugins/vagrant", from:oh-my-zsh
-zplug "plugins/perl", from:oh-my-zsh
-zplug "plugins/cpanm", from:oh-my-zsh
-zplug "plugins/thefuck", from:oh-my-zsh
-zplug "plugins/rbenv", from:oh-my-zsh, if:"command -v rbenv"
-zplug "plugins/osx", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
-zplug "plugins/brew", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
-zplug "plugins/forklift", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
-zplug "plugins/textmate", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
-zplug "plugins/ubuntu", from:oh-my-zsh, if:"[[ $OS == Ubuntu* ]]"
-zplug "plugins/command-not-found", from:oh-my-zsh, if:"[[ $OS == Ubuntu* ]]"
-zplug "lib/clipboard", from:oh-my-zsh
-zplug "jocelynmallon/zshmarks"
-zplug "Tarrasch/zsh-autoenv"
-zplug "djui/alias-tips"
-zplug "caiogondim/bullet-train-oh-my-zsh-theme"
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-syntax-highlighting", nice:18       # Should be loaded 2nd last
-zplug "zsh-users/zsh-history-substring-search", nice:19  # Should be loaded last
-zplug "$DOTFILES/git", as:plugin, from:local, of:git.plugin.zsh
-zplug "$DOTFILES/python", from:local, of:python.plugin.zsh
-zplug "$DOTFILES/python", from:local, of:pyenv.plugin.zsh
-zplug "$DOTFILES/vim", from:local, of:vim.plugin.zsh
-zplug "$DOTFILES/perl", from:local, of:perl.plugin.zsh
-
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
+# Load plugins
+source "$DOTFILES/zgen/zgen.zsh"
+if ! zgen saved; then
+    print "Creating a zgen save"
+    zgen prezto prompt theme 'bullet-train'
+    zgen prezto '*:*' case-sensitive 'yes'
+	zgen prezto '*:*' color 'yes'
+    zgen prezto
+    zgen prezto 'environment'
+    zgen prezto 'terminal'
+    zgen prezto 'editor'
+    zgen prezto 'history'
+    zgen prezto 'spectrum'
+    zgen prezto 'utility'
+    zgen prezto 'completion'
+    zgen prezto 'archive'
+    zgen prezto 'terminal'
+    zgen prezto 'fasd'
+    zgen prezto 'rsync'
+    zgen prezto 'git'
+    zgen prezto 'ssh'
+    zgen prezto 'ruby'
+#    zgen prezto 'python'
+    zgen prezto 'spectrum'
+    # zgen prezto 'tmux' ## When current changes have stabilized
+    # python, node, and perl are on you
+    if [[ "$OS" == Darwin* ]]; then
+        zgen prezto 'osx'
+        zgen prezto 'homebrew'
+    elif [[ "$OS" == Fedora* ]]; then
+        zgen prezto 'yum'
+    else  # Debian, Ubuntu, Linux Mint, and other apt-based distros
+        zgen prezto 'dpkg'
+        zgen prezto 'command-not-found'
     fi
+    zgen oh-my-zsh plugins/cp
+    zgen oh-my-zsh plugins/colorize
+    zgen oh-my-zsh plugins/emoji-clock
+    zgen oh-my-zsh plugins/colored-man-pages
+    zgen oh-my-zsh plugins/rand-quote
+    zgen oh-my-zsh plugins/fabric
+    zgen oh-my-zsh plugins/vagrant
+    zgen oh-my-zsh plugins/perl
+    zgen oh-my-zsh plugins/cpanm
+    zgen oh-my-zsh plugins/thefuck
+    zgen oh-my-zsh plugins/rbenv
+    zgen oh-my-zsh plugins/osx
+    zgen oh-my-zsh plugins/bre
+    zgen oh-my-zsh plugins/forklift
+    zgen oh-my-zsh plugins/textmate
+    zgen load jocelynmallon/zshmarks
+    zgen load Tarrasch/zsh-autoenv
+    zgen load djui/alias-tips
+    zgen load "$DOTFILES/git"
+    zgen load "$DOTFILES/python"
+    zgen load "$DOTFILES/vim"
+    zgen load "$DOTFILES/perl"
+    if [[ -s "/usr/local/bin/pyenv" ]]; then
+        # pyenv's virtualenvwrapper
+        zgen load "$DOTFILES/pyenv"
+    else
+        # pyenv shims don't support sourcing (it'll blow up zsh)
+        # Only load this guy if you're not running pyenv
+        zplug oh-my-zsh virtualenvwrapper
+    fi
+    zgen load bhilburn/powerlevel9k powerlevel9k
+    zgen prezto 'syntax-highlighting'
+    zgen prezto 'history-substring-search'
+    zgen prezto 'prompt'
+    zgen save
 fi
-
-# Then, source plugins and add commands to $PATH
-zplug load --verbose
+# Probably prefer oh-my-zsh plenv or personal to prezto/perl
 
 # date
 alias gmt="date -u"
@@ -296,6 +322,7 @@ show-colors() {
 
 test -e ${HOME}/.iterm2_shell_integration.bash && source ${HOME}/.iterm2_shell_integration.bash
 
+# TODO: Convert to plugins
 # Anonymous function to load machine-specific aliases and functions without
 # polluting the global namespace.
 function {
