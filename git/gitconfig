@@ -1,7 +1,7 @@
 [user]
     name = Dale Davis
 [core]
-    excludesfile = /Users/dale/.gitignore_global
+    excludesfile = ~/.gitignore
     autocrlf = input
     editor = mate -w
     pager = less -+$LESS -FRX
