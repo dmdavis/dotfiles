@@ -10,5 +10,4 @@
     ~/.janus: vim/janus-plugins
     ~/.vimrc.after: vim/vimrc.after
     ~/.vimrc.before: vim/vimrc.before
-    ~/.zplug/.gitignore: git/gitignore-zplug
     ~/.zshrc: zsh/zshrc

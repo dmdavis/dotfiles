@@ -13,14 +13,21 @@ alias cmc6="ss chief-cmc6"
 alias cmc4="ss chief-cmc4"
 alias sh277="ss chief-sh277"
 
-function dale-devcc {
-	bat "dale-devcc";
+function ssh-to {
+	bat $1;
 	echo -e "\033]6;1;bg;red;brightness;209\a"
 	echo -e "\033]6;1;bg;green;brightness;209\a"
 	echo -e "\033]6;1;bg;blue;brightness;254\a"
-	ssh root@10.5.108.203;
+	ssh $2;
 	bat ""
 	echo -e "\033]6;1;bg;*;default\a"
+}
+
+function dale-devcc {
+    ssh-to dale-devcc root@10.5.108.203
+}
+function dale-tiger {
+    ssh-to dale-tiger root@10.5.108.72
 }
 
 alias install-olympus-config-dev="$HOME/Dropbox/Scripts/riverbed/install-olympus-config-dev.sh"
