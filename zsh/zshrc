@@ -176,37 +176,10 @@ if [[ "$OSTYPE" == darwin* ]]; then
     alias ep="mate $DOTFILES"
     alias mft='find . -name Makefile | xargs trash'
     alias dash="$DOTFILES/python/dash.py"
-    alias psql=/Applications/Postgres.app/Contents/Versions/9.4/bin/psql
+    if [[ -f /Applications/Postgres.app/Contents/Versions/9.4/bin/psql ]]; then
+        alias psql=/Applications/Postgres.app/Contents/Versions/9.4/bin/psql
+    fi
     alias htop='sudo htop'
-
-    # Homebrew
-    alias brewc='brew cleanup'
-    alias brewu='brew update'
-    alias brewo='brew outdated'
-    alias brewU='brew update && brew upgrade'
-    alias brewC='brew cleanup --force'
-    alias brewi='brew install'
-    alias brewl='brew list'
-    alias brews='brew search'
-    alias brewx='brew remove'
-    alias bu="brewu"
-    alias bo="brewo"
-    alias bi="brewi"
-    alias bU="brew upgrade"
-    alias bs="brews"
-    alias bx="brew uninstall"
-
-    # Homebrew Cask
-    alias cask='brew cask'
-    alias caskc='brew cask cleanup --outdated'
-    alias caskC='brew cask cleanup'
-    alias caski='brew cask install'
-    alias caskl='brew cask list'
-    alias casks='brew cask search'
-    alias caskx='brew cask uninstall'
-    alias ci="caski"
-    alias cl="caskl"
-    alias cs="casks"
 
     # iTerm 2
     alias imgcat="$SCRIPTS/iterm2/imgcat"

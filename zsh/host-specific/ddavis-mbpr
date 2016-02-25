@@ -1,4 +1,4 @@
-#!/usr/local/bin/zsh
+#!/usr/bin/env zsh
 
 ss() {
 	ssh root@$1.lab.nbttech.com
