@@ -50,7 +50,6 @@ export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Teh fukc, d00d? Next time, try: "
 source "$DOTFILES/zgen/zgen.zsh"
 if ! zgen saved; then
     print "Creating a zgen save"
-    zgen prezto prompt theme 'bullet-train'
     zgen prezto '*:*' case-sensitive 'yes'
 	zgen prezto '*:*' color 'yes'
     zgen prezto
@@ -90,7 +89,6 @@ if ! zgen saved; then
     zgen oh-my-zsh plugins/vagrant
     zgen oh-my-zsh plugins/perl
     zgen oh-my-zsh plugins/cpanm
-    zgen oh-my-zsh plugins/thefuck
     zgen oh-my-zsh plugins/rbenv
     zgen oh-my-zsh plugins/osx
     zgen oh-my-zsh plugins/bre
@@ -321,6 +319,10 @@ show-colors() {
 }
 
 test -e ${HOME}/.iterm2_shell_integration.bash && source ${HOME}/.iterm2_shell_integration.bash
+
+if (( $+commands[ag] )); then
+    eval $(thefuck --alias)
+fi
 
 # TODO: Convert to plugins
 # Anonymous function to load machine-specific aliases and functions without
