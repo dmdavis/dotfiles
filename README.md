@@ -35,6 +35,13 @@ To update repository [submodules](.gitmodules) and [Janus VIM][janus], execute t
 ~/.files/install
 ```
 
+## Conventions
+
+I'm trying to follow a few basic coding conventions with the files in this repository.
+
+* Installation files executed by [dotbot][] should be portable and target /bin/sh so that install will work regardless of shell
+* Z shell plugin files have a *.plug.zsh extension
+
 ### Thanks
 
 This project would not be possible without the clever work of the contributors to the many [open-source software](w-oss) tools upon which it is based.

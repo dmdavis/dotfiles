@@ -1,0 +1,88 @@
+#!/usr/local/bin/zsh
+
+ss() {
+	ssh root@$1.lab.nbttech.com
+}
+
+ssd() {
+	ssh ddavis@$1.lab.nbttech.com
+}
+
+alias vcmc3="ss scc-vcmc3"
+alias cmc6="ss chief-cmc6"
+alias cmc4="ss chief-cmc4"
+alias sh277="ss chief-sh277"
+
+function dale-devcc {
+	bat "dale-devcc";
+	echo -e "\033]6;1;bg;red;brightness;209\a"
+	echo -e "\033]6;1;bg;green;brightness;209\a"
+	echo -e "\033]6;1;bg;blue;brightness;254\a"
+	ssh root@10.5.108.203;
+	bat ""
+	echo -e "\033]6;1;bg;*;default\a"
+}
+
+alias install-olympus-config-dev="$HOME/Dropbox/Scripts/riverbed/install-olympus-config-dev.sh"
+
+push-python() {
+	local src="/Users/ddavis/Source/$1"
+	local dest="root@$2.lab.nbttech.com:/$3"
+	echo "Compiling local Python files..." | lolcat
+	python -m compileall $src;
+	echo "Rsyncing files to server..." | lolcat
+	rsync -r -l -v $src $dest
+}
+
+push-dotfiles-to-boxes() {
+	echo "$fg[blue]Rsyncing latest dotfiles to root@10.5.108.203$fg[default]"
+	rsync -r -l -v $SCRIPTS/zsh root@10.5.108.203:/root/.scripts
+	echo "$fg[green]DONE$fg[default]"
+}
+
+# alias push-vcmc3-qos="push-python olympus-qos/olympus_svc_qos scc-vcmc3 data"
+alias push-cmc6-securetransport="push-python secure-transport-mgmt/olympus_svc_sectransport chief-cmc6 usr/lib/python2.7/site-packages"
+alias push-cmc6-appliance-inventory="push-python olympus-appliance-inventory/olympus_svc_applianceinventory chief-cmc6 usr/lib/python2.7/site-packages"
+alias push-cmc6-config="push-python olympus-config/olympus_svc_config chief-cmc6 usr/lib/python2.7/site-packages"
+
+# easy_install PyCharm pdbd locally
+alias ei-pydevd="easy_install /Applications/PyCharm.app/Contents/debug-eggs/pycharm-debug.egg"
+
+scp-pydevd-to() {
+	if [[ $# -eq 0 ]]; then
+		echo 'SCP-PYDEVD-TO: scp PyCharm remote debugging egg to /var/home/root on specified lab box'
+		echo
+	    echo 'Usage:   scp-pydevd-to [first part of hostname]'
+		echo 'Example: scp-pydevd-to chief-cmc6'
+	else
+		scp /Applications/PyCharm.app/Contents/debug-eggs/pycharm-debug.egg root@$1.lab.nbttech.com:/var/home/root
+	fi
+}
+
+scp-messages() {
+	local d=`date +%Y-%m-%d_%H-%M-%S`
+	echo "messages_$1_$d"
+	scp root@$1.lab.nbttech.com:/var/log/messages "$HOME/Documents/Logs/messages_$1_$d.log"
+}
+
+scp-lnav-to() {
+	if [[ $# -eq 0 ]]; then
+		echo 'SCP-LNAV-TO: scp Linux lnav executable to /usr/local/bin on specified lab box'
+		echo
+	    echo 'Usage:   scp-lnav-to [first part of hostname]'
+		echo 'Example: scp-lnav-to chief-cmc6'
+	else
+		scp /Users/ddavis/Tools/lnav-0.8.0-linux-64bit/lnav root@$1.lab.nbttech.com:/usr/local/bin
+	fi
+}
+
+# Create a git repo at specified location. Ex: mkgit foo gmail <= use personal github email
+function mkgit {
+	local $folder=$1
+	mkdir $folder
+	cd $folder
+	git init
+	if [ $2 == "gmail" ]; then
+		githubmail
+	fi
+}

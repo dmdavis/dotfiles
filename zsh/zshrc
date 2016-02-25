@@ -324,11 +324,9 @@ if (( $+commands[ag] )); then
     eval $(thefuck --alias)
 fi
 
-# TODO: Convert to plugins
-# Anonymous function to load machine-specific aliases and functions without
-# polluting the global namespace.
+# Anonymous function to load machine-specific aliases and functions.
 function {
-    local host_specific_script="$SCRIPTS/zsh/$HOSTNAME"
+    local host_specific_script="$DOTFILES/zsh/host-specific/$HOSTNAME"
     if [[ -e "$host_specific_script" ]]; then
         . $host_specific_script
     fi
