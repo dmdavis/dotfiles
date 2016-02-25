@@ -1,11 +1,10 @@
 #!/bin/sh
 # requires rake and curl
-if [ -d $HOME/.vim/janus ]; then
+if [ -f $HOME/.vim/Rakefile ]; then
     # Already installed. Update.
-    pushd .
     cd ~/.vim
     rake
-    popd
+    cd
 else
     curl -L https://bit.ly/janus-bootstrap | $SHELL
 fi
