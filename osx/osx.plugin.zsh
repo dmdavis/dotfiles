@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-alias updatedb='sudo /usr/libexec/locate.updatedb'
+alias updatedb='sudo time /usr/libexec/locate.updatedb'
 alias ep="mate $DOTFILES"
 alias mft='find . -name Makefile | xargs trash'
 alias dash="$DOTFILES/python/dash.py"
