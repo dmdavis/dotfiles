@@ -21,6 +21,7 @@ To install, execute the following commands in a shell:
 
 ```bash
 git clone git@github.com:dmdavis/dotfiles.git ~/.files
+cd ~/.files
 git submodule update --init --recursive
 ~/.files/install
 ```
