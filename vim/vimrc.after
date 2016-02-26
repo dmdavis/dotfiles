@@ -1,4 +1,7 @@
 color jellybeans
 set shiftwidth=4
 set softtabstop=4
+
+set rtp+=/usr/local/opt/fzf
+
 :command Jrnl set wrap spell spelllang=en_us syntax=markdown

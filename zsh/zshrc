@@ -74,6 +74,7 @@ if ! zgen saved; then
     if [[ "$OS" == Darwin* ]]; then
         zgen prezto 'osx'
         zgen prezto 'homebrew'
+        zgen load plugsin/osx
     elif [[ "$OS" == Fedora* ]]; then
         zgen prezto 'yum'
     else  # Debian, Ubuntu, Linux Mint, and other apt-based distros
@@ -149,51 +150,10 @@ alias pwdc="pwd | pbcopy"
 # colorize/cat
 alias ct='colorize'
 
-# bullet train theme
-bt-ruby-on() {
-    BULLETTRAIN_RUBY_SHOW=true
-}
-bt-ruby-off() {
-    BULLETTRAIN_RUBY_SHOW=false
-}
-bt-python-on() {
-    BULLETTRAIN_VIRTUALENV_SHOW=true
-}
-bt-python-off() {
-    BULLETTRAIN_VIRTUALENV_SHOW=false
-}
-bt-perl-on() {
-    BULLETTRAIN_PERL_SHOW=true
-}
-bt-perl-off() {
-    BULLETTRAIN_PERL_SHOW=false
-}
-
 # tmux
 alias tls='tmux ls'
 
-if [[ "$OSTYPE" == darwin* ]]; then
-    alias ep="mate $DOTFILES"
-    alias mft='find . -name Makefile | xargs trash'
-    alias dash="$DOTFILES/python/dash.py"
-    if [[ -f /Applications/Postgres.app/Contents/Versions/9.4/bin/psql ]]; then
-        alias psql=/Applications/Postgres.app/Contents/Versions/9.4/bin/psql
-    fi
-    alias htop='sudo htop'
-
-    # iTerm 2
-    alias imgcat="$SCRIPTS/iterm2/imgcat"
-
-    # Qt 5.5.1
-    export PATH=$HOME/Tools/Qt5.5.1/5.5/clang_64/bin:$PATH
-    # Iterm2 scripts
-    export PATH=$HOME:$PATH
-
-    # Growl
-    function growl {
-        echo -e $'\e]9;'$1'\007'
-    }
-elif [[ -f /etc/lsb-release ]]; then
+if [[ -f /etc/lsb-release ]]; then
     alias sysinfo='inxi -Fxz'
 fi
 
@@ -279,23 +239,15 @@ function upall {
     # TODO Add Python, Ruby, Perl, apt, brew, node, app store
 }
 
-# Check for Sparkle vulnerability
-# http://www.macrumors.com/2016/02/09/sparkle-hijacking-vulnerability/
-check-for-sparkle() {
-    echo "Anything below $fg[red]1.13.1$fg[default] is potentially vulnerable"
-    find /Applications/ -path '*Sparkle.framework*/Info.plist' -exec echo {} \; -exec grep -A1 CFBundleShortVersionString '{}' \; | grep -v CFBundleShortVersionString
-}
-
 # Show all 255 terminal colors and their codes
 show-colors() {
     for code in {000..255}; do print -P -- "$code: %F{$code}Test%f"; done
 }
 
-test -e ${HOME}/.iterm2_shell_integration.bash && source ${HOME}/.iterm2_shell_integration.bash
-
 if (( $+commands[ag] )); then
     eval $(thefuck --alias)
 fi
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Anonymous function to load machine-specific aliases and functions.
 function {
@@ -304,3 +256,5 @@ function {
         . $host_specific_script
     fi
 }
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
