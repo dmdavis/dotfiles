@@ -12,7 +12,7 @@ alias htop='sudo htop'
 alias imgcat="$SCRIPTS/iterm2/imgcat"
 
 # Qt 5.5.1
-if [[ -d "$HOME/Tools/Qt5.5.1" ]]: then
+if [[ -d "$HOME/Tools/Qt5.5.1" ]]; then
     export PATH=$HOME/Tools/Qt5.5.1/5.5/clang_64/bin:$PATH
 fi
 

@@ -1,0 +1,22 @@
+#!/usr/local/bin/zsh
+
+# GUAPDF - Uncomment the CUDA lib path in zshenv to use the GPU-optimized version
+# alias guapdf="/Users/dale/Tools/guapdf/guapdf-cuda"
+alias guapdf="/Users/dale/Tools/guapdf/guapdf"
+alias love="/Applications/love.app/Contents/MacOS/love"
+alias mcs='/Users/dale/Minecraft/run_minecraft_server.sh'
+alias insom='ssh dale_insomnihack@ssh.phx.nearlyfreespeech.net'
+alias barb='ssh dale_barbdahlgren@ssh.phx.nearlyfreespeech.net'
+alias shelly='ssh dale_sophiasmommy@ssh.phx.nearlyfreespeech.net'
+alias ts='"/Applications/TeamSpeak 3 Client.app/Contents/MacOS/ts3client_mac" -nosingleinstance'
+alias htpc='bat "htpc"; ssh dale@htpc.local; bat ""'
+
+findbook() {
+    mdfind -name "$1" -onlyin '/Volumes/Retina External/Books'
+}
+
+# Home Macbook Pro
+if [[ $HOSTNAME:l == "retina-pro" ]]; then
+    # Fix enter on numeric keypad in iTerm 2 with zsh
+    bindkey -s "^[OM" "^M"
+fi
