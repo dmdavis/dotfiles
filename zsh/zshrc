@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-# I got this from https://github.com/mattjj/my-oh-my-zsh/blob/master/history.zsh
+
 HISTSIZE=10000
 SAVEHIST=10000
 
@@ -14,6 +14,7 @@ setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history 
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
+# Environment
 ARCH=$(uname -m)
 KERNEL=$(uname -r)
 if [ -f /etc/lsb-release ]; then
@@ -25,25 +26,11 @@ elif [ -f /etc/redhat-release ]; then
 else
     OS="$(uname -s) $(uname -r)"
 fi
-
 export DOTFILES="$HOME/.files"
 export DEFAULT_USER=`whoami`
 export HOSTNAME=`hostname -s`
 export PROJECT_HOME="$HOME/Source"
-export HOMEBREW_EDITOR=/usr/local/bin/vim
 export TERM='xterm-256color'
-
-# Bullet Train theme tweaks
-export BULLETTRAIN_VIRTUALENV_FG='black'
-export BULLETTRAIN_DIR_FG='black'
-export BULLETTRAIN_RUBY_FG='black'
-export BULLETTRAIN_GIT_UNTRACKED="%F{208}✭%F{black}"
-export BULLETTRAIN_PERL_BG="99"
-export BULLETTRAIN_PERL_FG="yellow"
-export BULLETTRAIN_TIME_12HR='true'
-export BULLETTRAIN_PERL_SHOW='true'
-export DISABLE_AUTO_TITLE='true'
-
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Teh fukc, d00d? Next time, try: "
 
 # Load plugins

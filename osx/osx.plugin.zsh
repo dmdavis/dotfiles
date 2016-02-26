@@ -1,4 +1,6 @@
 #!/usr/bin/env zsh
+export HOMEBREW_EDITOR=/usr/local/bin/vim
+
 alias updatedb='sudo time /usr/libexec/locate.updatedb'
 alias ep="mate $DOTFILES"
 alias mft='find . -name Makefile | xargs trash'
