@@ -20,3 +20,5 @@ if [[ $HOSTNAME:l == "retina-pro" ]]; then
     # Fix enter on numeric keypad in iTerm 2 with zsh
     bindkey -s "^[OM" "^M"
 fi
+
+rbenv shell 2.3.0
