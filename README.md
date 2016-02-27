@@ -20,10 +20,7 @@ The goal is the ability to completely configuration my regular shell environment
 To install, execute the following commands in a shell:
 
 ```bash
-git clone git@github.com:dmdavis/dotfiles.git ~/.files
-cd ~/.files
-git submodule update --init --recursive
-~/.files/install
+git clone git@github.com:dmdavis/dotfiles.git ~/.files && ~/.files/install
 ```
 
 The [installation script](install) will update repository [submodules](./.gitmodules), create symlinks to dotfiles within the repo, and install [Janus VIM][janus] if needed.

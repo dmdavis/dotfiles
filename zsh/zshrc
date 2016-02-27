@@ -71,7 +71,6 @@ if ! zgen saved; then
     zgen oh-my-zsh plugins/cp
     zgen oh-my-zsh plugins/colorize
     zgen oh-my-zsh plugins/emoji-clock
-    zgen oh-my-zsh plugins/colored-man-pages
     zgen oh-my-zsh plugins/rand-quote
     zgen oh-my-zsh plugins/fabric
     zgen oh-my-zsh plugins/vagrant
@@ -231,10 +230,9 @@ show-colors() {
     for code in {000..255}; do print -P -- "$code: %F{$code}Test%f"; done
 }
 
-if (( $+commands[ag] )); then
+if (( $+commands[fuck] )); then
     eval $(thefuck --alias)
 fi
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Anonymous function to load machine-specific aliases and functions.
 function {

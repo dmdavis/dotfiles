@@ -1,0 +1,27 @@
+brew ag
+brew automake
+brew bzr
+brew git
+brew ipcalc
+brew libtool
+brew macvim
+brew mercurial
+brew plenv
+brew pyenv
+brew rbenv
+brew shellcheck
+brew trash
+brew vim
+brew zsh
+
+tap caskroom/cask
+brew cask
+cask flash
+cask flux
+cask google-chrome
+cask firefox
+cask xquartz
+cask vlc
+
+brew tap caskroom/versions
+cask iterm2-beta

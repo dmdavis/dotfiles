@@ -24,10 +24,13 @@ function ssh-to {
 }
 
 function dale-devcc {
-    ssh-to dale-devcc root@10.5.108.203
+    ssh-to devcc root@10.5.108.203
+}
+function dale-cheetah {
+    ssh-to cheetah root@10.5.108.72
 }
 function dale-tiger {
-    ssh-to dale-tiger root@10.5.108.72
+    ssh-to tiger root@10.5.108.149
 }
 
 alias install-olympus-config-dev="$HOME/Dropbox/Scripts/riverbed/install-olympus-config-dev.sh"

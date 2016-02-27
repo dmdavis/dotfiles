@@ -1,8 +1,8 @@
 - clean: ['~']
 
 - shell:
-    - [git submodule update --init --recursive, Configuring dotfile submodules]
-    - [vim/install-janus.sh, Configuring Janus VIM distribution (new installs can be slow)]
+    - [bin/provision.sh, Configuring software packages]
+    - [vim/install-janus.sh, Configuring Janus VIM distribution]
 
 - link:
     ~/.gitconfig: git/gitconfig
