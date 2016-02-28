@@ -22,6 +22,8 @@ cask "firefox"
 cask "flash"
 cask "flux"
 cask "google-chrome"
+cask "keepassx"
+cask "sonos"
 cask "vlc"
 cask "xquartz"
 
