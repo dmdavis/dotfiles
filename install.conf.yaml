@@ -3,6 +3,7 @@
 - shell:
     - [bin/provision.sh, Configuring software packages]
     - [vim/install-janus.sh, Configuring Janus VIM distribution]
+    - [fonts/awesome-terminal-fonts/install.sh, Configuring awesome terminal fonts]
 
 - link:
     ~/.gitconfig: git/gitconfig

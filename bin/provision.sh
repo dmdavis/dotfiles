@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 if [ -f /etc/lsb-release ]; then
     OS=$(lsb_release -s -d)
 elif [ -f /etc/debian_version ]; then
@@ -8,12 +8,12 @@ elif [ -f /etc/redhat-release ]; then
 else
     OS="$(uname -s) $(uname -r)"
 fi
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 if [[ "$OS" == Darwin* ]]; then
     echo "Installing/upgrading Homebrew and Cask packages"
     command -v brew >/dev/null 2>&1 || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew tap homebrew/bundle 2>/dev/null;
-    brew install bundle 2>/dev/null;
-    brew bundle ../homebrew/brewfile
+    brew bundle --file="$DIR/../homebrew/brewfile"
 elif [[ "$OS" == Fedora* ]]; then
     echo "TODO: Installing/upgrading yum packages"
 else # Debian, Ubuntu, Linux Mint, and other apt-based distros

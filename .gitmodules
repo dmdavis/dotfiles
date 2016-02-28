@@ -7,3 +7,6 @@
 [submodule "zgen"]
 	path = zgen
 	url = https://github.com/tarjoilija/zgen.git
+[submodule "fonts/awesome-terminal-fonts"]
+	path = fonts/awesome-terminal-fonts
+	url = https://github.com/gabrielelana/awesome-terminal-fonts.git
