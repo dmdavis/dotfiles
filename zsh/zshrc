@@ -61,6 +61,7 @@ if ! zgen saved; then
     if [[ "$OS" == Darwin* ]]; then
         zgen prezto 'osx'
         zgen prezto 'homebrew'
+        zgen load "$DOTFILES/homebrew"
         zgen load "$DOTFILES/osx"
     elif [[ "$OS" == Fedora* ]]; then
         zgen prezto 'yum'
