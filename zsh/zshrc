@@ -79,8 +79,6 @@ if ! zgen saved; then
     zgen oh-my-zsh plugins/cpanm
     zgen oh-my-zsh plugins/rbenv
     zgen oh-my-zsh plugins/osx
-    zgen oh-my-zsh plugins/bre
-    zgen oh-my-zsh plugins/forklift
     zgen oh-my-zsh plugins/textmate
     zgen load jocelynmallon/zshmarks
     zgen load Tarrasch/zsh-autoenv
