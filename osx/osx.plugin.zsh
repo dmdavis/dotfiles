@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 export HOMEBREW_EDITOR=/usr/local/bin/vim
+export FONTCONFIG_PATH=/opt/X11/lib/X11/fontconfig
 
 alias updatedb='sudo time /usr/libexec/locate.updatedb'
 alias ep="mate $DOTFILES"
