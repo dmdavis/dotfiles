@@ -40,7 +40,12 @@ function sane {
 function sanity {
     sane pyenv
     sane rbenv
-    sane plenv    
+    sane plenv
+    echo
+    echo "$FG[green]         [nvm]$FG[none]"
+    nvm ls
 }
+
+alias bento="$HOME/Source/github/chef/bento/bin/bento"
 
 rbenv shell 2.3.0
