@@ -15,10 +15,7 @@ findbook() {
     mdfind -name "$1" -onlyin '/Volumes/Retina External/Books'
 }
 
-# Home Macbook Pro
-if [[ $HOSTNAME:l == "retina-pro" ]]; then
-    # Fix enter on numeric keypad in iTerm 2 with zsh
-    bindkey -s "^[OM" "^M"
-fi
+# Fix enter on numeric keypad in iTerm 2 with zsh
+bindkey -s "^[OM" "^M"
 
 rbenv shell 2.3.0
