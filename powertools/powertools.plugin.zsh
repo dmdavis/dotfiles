@@ -7,14 +7,19 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
 # Power Level 9000 customization
 function plc {
     case "$1" in
-        ruby)
+        ruby|rails)
             echo "$FG[yellow]\uE802$FG[none]  Configuring $FG[blue]\uE0B2$BG[blue]$FG[black]Power Level $FG[bold]9000$BG[none]$FG[blue]\uE0B0$FG[none] for $FG[red]\uE847 Ruby$FG[none] development"
             POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv vcs)
             POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history time)
             ;;
-        node)
+        node|nvm)
             echo "$FG[yellow]\uE802$FG[none]  Configuring $FG[blue]\uE0B2$BG[blue]$FG[black]Power Level $FG[bold]9000$BG[none]$FG[blue]\uE0B0$FG[none] for $FG[green]\u2B22 Node$FG[none] development"
             POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir nvm vcs)
+            POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history time)
+            ;;
+        python|pyenv)
+            echo "$FG[yellow]\uE802$FG[none]  Configuring $FG[blue]\uE0B2$BG[blue]$FG[black]Power Level $FG[bold]9000$BG[none]$FG[blue]\uE0B0$FG[none] for $FG[green]🐍 Python$FG[none] development"
+            POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir virtualenv vcs)
             POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history time)
             ;;
         *)
