@@ -33,6 +33,11 @@ export PROJECT_HOME="$HOME/Source"
 export TERM='xterm-256color'
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias: "
 
+if [[ ! -d "$HOME/.nvm" ]]; then
+    mkdir "$HOME/.nvm"
+fi
+export NVM_DIR="$HOME/.nvm"
+
 # Load plugins
 source "$DOTFILES/zgen/zgen.zsh"
 if ! zgen saved; then
@@ -54,6 +59,7 @@ if ! zgen saved; then
     zgen prezto 'git'
     zgen prezto 'ssh'
     zgen prezto 'ruby'
+    zgen prezto 'node'
 #    zgen prezto 'python'
     zgen prezto 'spectrum'
     # zgen prezto 'tmux' ## When current changes have stabilized
