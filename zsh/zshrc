@@ -128,7 +128,7 @@ alias lld='ls -ld */'
 
 # grep
 alias fsize='du -ch | grep total'
-alias hig='history | grep'
+alias hig='history 1 | grep'
 if (( $+commands[ag] )); then
     alias ack=`which ag`  # Silver Searcher > ack, but you can't teach old fingers new tricks
 fi
