@@ -93,7 +93,7 @@ if ! zgen saved; then
     zgen load "$DOTFILES/python"
     zgen load "$DOTFILES/vim"
     zgen load "$DOTFILES/perl"
-    zgen load "$DOTFILES/zsh/host-specific"
+    zgen load "$DOTFILES/host-specific"
     if [[ -s "/usr/local/bin/pyenv" ]]; then
         # pyenv's virtualenvwrapper
         zgen load "$DOTFILES/pyenv"
