@@ -93,6 +93,7 @@ if ! zgen saved; then
     zgen load "$DOTFILES/python"
     zgen load "$DOTFILES/vim"
     zgen load "$DOTFILES/perl"
+    zgen load "$DOTFILES/zsh/host-specific"
     if [[ -s "/usr/local/bin/pyenv" ]]; then
         # pyenv's virtualenvwrapper
         zgen load "$DOTFILES/pyenv"
@@ -239,13 +240,5 @@ show-colors() {
 if (( $+commands[fuck] )); then
     eval $(thefuck --alias)
 fi
-
-# Anonymous function to load machine-specific aliases and functions.
-function {
-    local host_specific_script="$DOTFILES/zsh/host-specific/$HOSTNAME"
-    if [[ -e "$host_specific_script" ]]; then
-        . $host_specific_script
-    fi
-}
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
