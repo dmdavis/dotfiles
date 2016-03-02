@@ -1,10 +1,10 @@
 - clean: ['~']
 
 - shell:
-    - [git submodule update --init --recursive, Configuring dotfile submodules]
-    - [bin/provision.sh, Configuring software packages]
-    - [vim/install-janus.sh, Configuring Janus VIM distribution]
-    - [fonts/awesome-terminal-fonts/install.sh, Configuring awesome terminal fonts]
+    - [git submodule update --init --recursive, Updating dotfile submodules]
+    - [bin/provision.sh, Provisioning software packages]
+    - [vim/install-janus.sh, Updating Janus VIM distribution]
+    - [fonts/install.sh, Configuring Powerline and Awesome Terminal Fonts]
 
 - link:
     ~/.gitconfig: git/gitconfig

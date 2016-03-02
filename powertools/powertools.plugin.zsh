@@ -1,6 +1,8 @@
 #!/usr/bin/env zsh
 
-POWERLEVEL9K_MODE='awesome-patched'
+if is-font-installed 'SourceCodePro+Powerline+Awesome Regular'; then
+    POWERLEVEL9K_MODE='awesome-patched'
+fi
 POWERLEVEL9K_NVM_FOREGROUND='black'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
 

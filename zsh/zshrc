@@ -89,6 +89,7 @@ if ! zgen saved; then
     zgen load jocelynmallon/zshmarks
     zgen load Tarrasch/zsh-autoenv
     zgen load djui/alias-tips
+    zgen load "$DOTFILES/fonts"
     zgen load "$DOTFILES/git"
     zgen load "$DOTFILES/python"
     zgen load "$DOTFILES/vim"
@@ -102,7 +103,7 @@ if ! zgen saved; then
         zplug oh-my-zsh virtualenvwrapper
     fi
     zgen load "$DOTFILES/role"
-    zgen load "$DOTFILES/powertools"
+    zgen load "$DOTFILES/powertools"  # Must come after $DOTFILES/fonts
     zgen load bhilburn/powerlevel9k powerlevel9k
     zgen prezto 'syntax-highlighting'
     zgen prezto 'history-substring-search'
