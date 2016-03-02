@@ -127,13 +127,12 @@ alias l='ls -CF'
 alias lla="ll -a"
 alias lld='ls -ld */'
 
-# grep
+# find/grep
 alias fsize='du -ch | grep total'
 alias hig='history 1 | grep'
-if (( $+commands[ag] )); then
-    alias ack=`which ag`  # Silver Searcher > ack, but you can't teach old fingers new tricks
-fi
-alias ag='alias | grep'
+alias ack=ag
+alias alf='alias | fzf'
+alias alg='alias | grep'
 
 # ruby
 alias lsr="rbenv versions"
