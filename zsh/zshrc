@@ -100,7 +100,7 @@ if ! zgen saved; then
     else
         # pyenv shims don't support sourcing (it'll blow up zsh)
         # Only load this guy if you're not running pyenv
-        zplug oh-my-zsh virtualenvwrapper
+        zgen oh-my-zsh virtualenvwrapper
     fi
     zgen load "$DOTFILES/role"
     zgen load "$DOTFILES/powertools"  # Must come after $DOTFILES/fonts
