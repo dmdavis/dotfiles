@@ -10,12 +10,18 @@ function ssh-to {
 	echo -e "\033]6;1;bg;*;default\a"
 }
 
-function dale-devcc {
-    ssh-to devcc root@10.5.108.203
+function devcc-root {
+    ssh-to 'devcc!' root@10.5.108.203
 }
+
+function devcc {
+    ssh-to devcc dev@10.5.108.203
+}
+
 function dale-cheetah {
     ssh-to cheetah root@10.5.108.72
 }
+
 function dale-tiger {
     ssh-to tiger root@10.5.108.149
 }
