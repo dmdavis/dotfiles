@@ -8,6 +8,7 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
 
 # Power Level 9000 customization
 function plc {
+    # TODO: Add plc zsh completion
     case "$1" in
         ruby|rails)
             echo "$FG[yellow]\uE802$FG[none]  Configuring $FG[blue]\uE0B2$BG[blue]$FG[black]Power Level $FG[bold]9000$BG[none]$FG[blue]\uE0B0$FG[none] for $FG[red]\uE847 Ruby$FG[none] development"
