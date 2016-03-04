@@ -26,6 +26,7 @@ elif [ -f /etc/redhat-release ]; then
 else
     OS="$(uname -s) $(uname -r)"
 fi
+
 export DOTFILES="$HOME/.files"
 export DEFAULT_USER=`whoami`
 export HOSTNAME=`hostname -s`
@@ -40,6 +41,14 @@ export NVM_DIR="$HOME/.nvm"
 
 # Load plugins
 source "$DOTFILES/zgen/zgen.zsh"
+
+if [[ -d "$HOME/.linuxbrew" ]]; then
+    echo "Linux Brew found"
+    export PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
+    export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+    export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+fi
+
 if ! zgen saved; then
     print "Creating a zgen save"
     zgen prezto '*:*' case-sensitive 'yes'
@@ -73,6 +82,7 @@ if ! zgen saved; then
         zgen prezto 'yum'
     else  # Debian, Ubuntu, Linux Mint, and other apt-based distros
         zgen prezto 'dpkg'
+        zgen prezto 'homebrew'
         zgen prezto 'command-not-found'
     fi
     zgen oh-my-zsh plugins/cp
