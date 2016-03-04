@@ -43,7 +43,6 @@ export NVM_DIR="$HOME/.nvm"
 source "$DOTFILES/zgen/zgen.zsh"
 
 if [[ -d "$HOME/.linuxbrew" ]]; then
-    echo "Linux Brew found"
     export PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
     export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
     export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"

@@ -1,8 +1,10 @@
 #!/usr/bin/env zsh
 alias cdcc='cd /opt/ocedo'
 
-cp-certs() {
+cpcc() {
+    cp /opt/ocedo/etc/CC*.pem ~/Source/cc/etc
     cp /opt/ocedo/etc/gui-cert.pem ~/Source/cc/etc
     cp /opt/ocedo/etc/gui-chain.pem ~/Source/cc/etc
     cp /opt/ocedo/etc/gui-key.pem ~/Source/cc/etc
+    cp /opt/ocedo/etc/cc.config ~/Source/cc/etc
 }
