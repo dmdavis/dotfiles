@@ -1,4 +1,7 @@
 #!/usr/bin/env zsh
+
+export CCHOME='/home/dev/Source/cc'
+
 alias cdcc='cd /opt/ocedo'
 
 cpcc() {
@@ -7,4 +10,8 @@ cpcc() {
     cp /opt/ocedo/etc/gui-chain.pem ~/Source/cc/etc
     cp /opt/ocedo/etc/gui-key.pem ~/Source/cc/etc
     cp /opt/ocedo/etc/cc.config ~/Source/cc/etc
+}
+
+run-dev() {
+    cd $CCHOME  && bin/ccctl run-dev
 }
