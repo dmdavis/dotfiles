@@ -11,6 +11,7 @@ The goal is the ability to completely configuration my regular shell environment
 * [Vim][] Configuration
   * [Janus: VIM Distribution][janus] for base Vim setup
   * [a.vim - Alternate Files Quickly][a.vim] for switching between corresponding files (e.g. *.c ⇔ @.h)
+  * [VIM Table Mode][] for nice Markdown tables
 * [Z shell][zsh] Configuration
   * [Prezto][prezto] Framework
   * [powerlevel9k][] Prompt Theme
@@ -49,17 +50,18 @@ I tried the fork and customize model with [prezto][] for a while, but I've since
 
 Still, I've gotten this far through the generous sharing of other clever dotfile enthusiasts, so all this is [open source](LICENSE). If you see anything useful, please copy it with my compliments.
 
-[a.vim]:        http://www.vim.org/scripts/script.php?script_id=31
-[dotbot]:       https://github.com/anishathalye/dotbot
-[Dropbox]:      https://www.dropbox.com
-[git]:          https://git-scm.com
-[janus]:        https://github.com/carlhuda/janus
-[personal]:     http://www.anishathalye.com/2014/08/03/managing-your-dotfiles/
-[powerlevel9k]: https://github.com/bhilburn/powerlevel9k
-[prezto]:       https://github.com/sorin-ionescu/prezto
-[Vim]:          http://www.vim.org
-[w-giants]:     https://en.wikipedia.org/wiki/Standing_on_the_shoulders_of_giants
-[w-isaac]:      https://en.wikipedia.org/wiki/Isaac_Newton
-[w-oss]:        https://en.wikipedia.org/wiki/Open-source_software
-[zgen]:         https://github.com/tarjoilija/zgen
-[zsh]:          http://zsh.sourceforge.net
+[a.vim]:          http://www.vim.org/scripts/script.php?script_id=31
+[dotbot]:         https://github.com/anishathalye/dotbot
+[Dropbox]:        https://www.dropbox.com
+[git]:            https://git-scm.com
+[janus]:          https://github.com/carlhuda/janus
+[personal]:       http://www.anishathalye.com/2014/08/03/managing-your-dotfiles/
+[powerlevel9k]:   https://github.com/bhilburn/powerlevel9k
+[prezto]:         https://github.com/sorin-ionescu/prezto
+[Vim]:            http://www.vim.org
+[VIM Table Mode]: https://github.com/dhruvasagar/vim-table-mode
+[w-giants]:       https://en.wikipedia.org/wiki/Standing_on_the_shoulders_of_giants
+[w-isaac]:        https://en.wikipedia.org/wiki/Isaac_Newton
+[w-oss]:          https://en.wikipedia.org/wiki/Open-source_software
+[zgen]:           https://github.com/tarjoilija/zgen
+[zsh]:            http://zsh.sourceforge.net
