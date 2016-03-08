@@ -5,3 +5,4 @@ alias yolo='git push --force'
 alias gsm="grep path .gitmodules | sed 's/.*= //'"
 alias gfu='git fetch upstream'
 alias gum='git config user.email'
+alias gRv='git remote -v'
