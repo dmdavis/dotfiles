@@ -16,3 +16,9 @@
 [submodule "vim/janus-plugins/table-mode"]
 	path = vim/janus-plugins/table-mode
 	url = git@github.com:dhruvasagar/vim-table-mode.git
+[submodule "vim/janus-plugins/vim-notes"]
+	path = vim/janus-plugins/vim-notes
+	url = https://github.com/xolox/vim-notes.git
+[submodule "vim/janus-plugins/vim-misc"]
+	path = vim/janus-plugins/vim-misc
+	url = https://github.com/xolox/vim-misc.git
