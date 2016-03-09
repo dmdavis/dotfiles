@@ -7,6 +7,7 @@
     - [fonts/install.sh, Configuring Powerline and Awesome Terminal Fonts]
 
 - link:
+    ~/.config/thefuck/rules/git_aliases.py: python/git_aliases.py
     ~/.gitconfig: git/gitconfig
     ~/.gitignore: git/gitignore-global
     ~/.gvimrc.after: vim/gvimrc.after
