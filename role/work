@@ -37,21 +37,6 @@ function mkgit {
 	fi
 }
 
-function sane {
-    echo "$FG[green]  [$1]$FG[none]"
-    "$1" versions | sed "s/\*/$fg[green]&$fg[default]/g"
-    "$1" rehash
-}
-
-function sanity {
-    sane pyenv
-    sane rbenv
-    sane plenv
-    echo
-    echo "$FG[green]         [nvm]$FG[none]"
-    nvm ls
-}
-
 alias bento="$HOME/Source/github/chef/bento/bin/bento"
 
 rbenv shell 2.3.0

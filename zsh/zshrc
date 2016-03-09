@@ -199,6 +199,21 @@ bat() {
     title $msg && badge $msg
 }
 
+function sane {
+    echo "$FG[green]  [$1]$FG[none]"
+    "$1" versions | sed "s/\*/$fg[green]&$fg[default]/g"
+    "$1" rehash
+}
+
+function sanity {
+    sane pyenv
+    sane rbenv
+    sane plenv
+    echo
+    echo "$FG[green]         [nvm]$FG[none]"
+    nvm ls
+}
+
 _wt() {
     printf "$1$(date +"%I:%M %p")  $(emoji-clock)\n"
 }
