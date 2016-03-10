@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Aliases
 alias yolk="python $DOTFILES/python/yolk2.py"
 alias pf='pip freeze'
@@ -5,6 +6,7 @@ alias pi='pip install'
 alias pind='pip install --no-deps'
 alias piu='pip install -U'
 alias pid='pip install -e .'
+alias pir='pip install -r'
 alias pidnd='pip install --no-deps -e .'
 alias pm='python manage.py'
 alias fsp='python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"'
