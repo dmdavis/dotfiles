@@ -2,6 +2,7 @@
 
 export HOMEBREW_CELLAR="`brew --prefix`/Cellar"
 alias cellar="cd $HOMEBREW_CELLAR"
+alias caskI='brew cask install --force'
 
 function brewfile {
     brew bundle --file="$DOTFILES/homebrew/brewfile"
