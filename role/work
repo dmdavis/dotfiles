@@ -26,6 +26,10 @@ function dale-tiger {
     ssh-to tiger root@10.5.108.149
 }
 
+function picrite {
+    ssh-to picrite ddavis@picrite.lab.nbttech.com
+}
+
 # Create a git repo at specified location. Ex: mkgit foo gmail <= use personal github email
 function mkgit {
 	local $folder=$1
