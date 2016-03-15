@@ -44,6 +44,7 @@ cask "virtualbox"
 cask "virtualbox-extension-pack"
 cask "vlc"
 cask "webstorm"
+cask "witch"
 cask "xquartz"
 
 tap "caskroom/versions"
