@@ -81,6 +81,7 @@ if ! zgen saved; then
         zgen prezto 'yum'
     else  # Debian, Ubuntu, Linux Mint, and other apt-based distros
         zgen prezto 'dpkg'
+        zgen load "$DOTFILES/dpkg"
         zgen prezto 'homebrew'
         zgen prezto 'command-not-found'
     fi
