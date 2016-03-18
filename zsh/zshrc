@@ -73,6 +73,7 @@ if ! zgen saved; then
     # zgen prezto 'tmux' ## When current changes have stabilized
     # python, node, and perl are on you
     if [[ "$OS" == Darwin* ]]; then
+        export BREWFILE_PATH="$HOME/.files/homebrew/brewfile-osx"
         zgen prezto 'osx'
         zgen prezto 'homebrew'
         zgen load "$DOTFILES/homebrew"
@@ -80,6 +81,7 @@ if ! zgen saved; then
     elif [[ "$OS" == Fedora* ]]; then
         zgen prezto 'yum'
     else  # Debian, Ubuntu, Linux Mint, and other apt-based distros
+        export BREWFILE_PATH="$HOME/.files/homebrew/brewfile-linux"
         zgen prezto 'dpkg'
         zgen load "$DOTFILES/dpkg"
         zgen prezto 'homebrew'

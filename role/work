@@ -10,24 +10,16 @@ function ssh-to {
 	echo -e "\033]6;1;bg;*;default\a"
 }
 
-function devcc-root {
-    ssh-to 'devcc!' root@10.5.108.203
-}
-
-function devcc {
-    ssh-to devcc dev@10.5.108.203
-}
-
-function dale-cheetah {
-    ssh-to cheetah root@10.5.108.72
-}
-
-function dale-tiger {
-    ssh-to tiger root@10.5.108.149
+function vboxes {
+    ssh-to vboxes ubuntu@10.5.108.203
 }
 
 function picrite {
     ssh-to picrite ddavis@picrite.lab.nbttech.com
+}
+
+function latite {
+    ssh-to latite ddavis@latite.lab.nbttech.com
 }
 
 # Create a git repo at specified location. Ex: mkgit foo gmail <= use personal github email
