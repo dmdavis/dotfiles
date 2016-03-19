@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 alias start-sickrage='sudo service sickrage start'
 alias stop-sickrage='sudo service sickrage stop'
 alias mount-media='sudo mount /dev/sdb1 /media/dale/Media'
@@ -5,16 +7,16 @@ alias mount-external4tb='sudo mount /dev/sdc1 /media/dale/External4Tb'
 
 # Check drive health via S.M.A.R.T. monitoring
 function smart-health {
-    sudo smartctl -H /dev/sda | sed -e "s/PASSED/$fg[green]PASSED$fg[default]/g"
-    sudo smartctl -H /dev/sdb | sed -e "s/PASSED/$fg[green]PASSED$fg[default]/g"
-    sudo smartctl -d sat -H /dev/sdc | sed -e "s/PASSED/$fg[green]PASSED$fg[default]/g"
+    sudo smartctl -H /dev/sda | sed -e "s/PASSED/$FG[green]PASSED$FG[none]/g"
+    sudo smartctl -H /dev/sdb | sed -e "s/PASSED/$fg[green]PASSED$FG[none]/g"
+    sudo smartctl -d sat -H /dev/sdc | sed -e "s/PASSED/$FG[green]PASSED$Fg[]/g"
 }
 
-alias fix-compinit-perms {
+function fix-compinit-perms {
     compaudit | xargs chmod g-w
 }
 
-alias fix-media-perms {
+function fix-media-perms {
   pushd
   cd /media/dale/External4Tb
   find Movies -type d -exec chmod 755 {} \;; find Movies -type f -exec chmod 644 {} \;
