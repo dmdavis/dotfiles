@@ -10,6 +10,20 @@ function smart-health {
     sudo smartctl -d sat -H /dev/sdc | sed -e "s/PASSED/$fg[green]PASSED$fg[default]/g"
 }
 
+alias fix-compinit-perms {
+    compaudit | xargs chmod g-w
+}
+
+alias fix-media-perms {
+  pushd
+  cd /media/dale/External4Tb
+  find Movies -type d -exec chmod 755 {} \;; find Movies -type f -exec chmod 644 {} \;
+  cd /media/dale/Media
+  find New\ Shows -type d -exec chmod 755 {} \;; find New\ Shows -type f -exec chmod 644 {} \;
+  find Movies -type d -exec chmod 755 {} \;; find Movies -type f -exec chmod 644 {} \;
+  popd
+}
+
 function smart-info {
     sudo smartctl -i /dev/sda
     sudo smartctl -i /dev/sdb
