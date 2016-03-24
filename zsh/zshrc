@@ -162,6 +162,10 @@ alias ct='colorize'
 # tmux
 alias tls='tmux ls'
 
+# docker
+alias dm='docker-machine'
+alias dmc='docker-machine create --driver virtualbox'
+
 if [[ -f /etc/lsb-release ]]; then
     alias sysinfo='inxi -Fxz'
 fi
@@ -228,7 +232,7 @@ _wt() {
 # Current time at various locations
 function wt {
     echo
-    echo "$fg[blue]===== Current Times =====$fg[default]"
+    echo "$fg[blue]====== Current Times ======$fg[default]"
     echo
     export TZ=US/Pacific
     _wt "San Jose:      "
@@ -250,7 +254,7 @@ function wt {
     # Don't forget to reset to local
     export TZ=US/Pacific
     echo
-    echo "$fg[blue]=========================$fg[default]"
+    echo "$fg[blue]===========================$fg[default]"
 }
 
 function upall {
