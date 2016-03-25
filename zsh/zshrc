@@ -111,7 +111,7 @@ if ! zgen saved; then
     zgen load "$DOTFILES/python"
     zgen load "$DOTFILES/vim"
     zgen load "$DOTFILES/perl"
-    if [[ -s "/usr/local/bin/pyenv" ]]; then
+    if (( $+commands[pyenv] )); then
         # pyenv's virtualenvwrapper
         zgen load "$DOTFILES/pyenv"
     else
