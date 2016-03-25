@@ -89,6 +89,7 @@ if ! zgen saved; then
         zgen prezto 'dpkg'
         zgen load "$DOTFILES/dpkg"
         zgen prezto 'homebrew'
+        zgen load "$DOTFILES/homebrew"
         zgen prezto 'command-not-found'
     fi
     zgen oh-my-zsh plugins/cp
