@@ -1,3 +1,5 @@
 #!/usr/bin/env zsh
 
 export TZ=US/Pacific
+
+alias ta_docker='docker pull quay.io/ocedo/ta:develop;docker run -ti --rm -v $TACHECKOUT:/root/ta  quay.io/ocedo/ta:develop /sbin/my_init -- /bin/bash'

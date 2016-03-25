@@ -118,14 +118,10 @@ else  # Debian, Ubuntu, Linux Mint, and other apt-based distros
     source "$DOTFILES/homebrew/homebrew.plugin.zsh"
 fi
 
-if (( $+commands[pyenv] )); then
-    # pyenv's virtualenvwrapper
-    source "$DOTFILES/pyenv/pyenv.plugin.zsh"
-fi
-
 source "$DOTFILES/fonts/fonts.plugin.zsh"
 source "$DOTFILES/git/git.plugin.zsh"
 source "$DOTFILES/python/python.plugin.zsh"
+source "$DOTFILES/pyenv/pyenv.plugin.zsh"
 source "$DOTFILES/vim/vim.plugin.zsh"
 source "$DOTFILES/perl/perl.plugin.zsh"
 source "$DOTFILES/role/role.plugin.zsh"
