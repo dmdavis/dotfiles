@@ -1,3 +1,5 @@
+brew "ruby"
+brew "python"
 brew "nvm"
 brew "plenv"
 brew "pyenv"

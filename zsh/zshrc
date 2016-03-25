@@ -81,15 +81,11 @@ if ! zgen saved; then
     if [[ "$OS" == Darwin* ]]; then
         zgen prezto 'osx'
         zgen prezto 'homebrew'
-        zgen load "$DOTFILES/homebrew"
-        zgen load "$DOTFILES/osx"
     elif [[ "$OS" == Fedora* ]]; then
         zgen prezto 'yum'
     else  # Debian, Ubuntu, Linux Mint, and other apt-based distros
         zgen prezto 'dpkg'
-        zgen load "$DOTFILES/dpkg"
         zgen prezto 'homebrew'
-        zgen load "$DOTFILES/homebrew"
         zgen prezto 'command-not-found'
     fi
     zgen oh-my-zsh plugins/cp
@@ -106,28 +102,34 @@ if ! zgen saved; then
     zgen load jocelynmallon/zshmarks
     zgen load Tarrasch/zsh-autoenv
     zgen load djui/alias-tips
-    zgen load "$DOTFILES/fonts"
-    zgen load "$DOTFILES/git"
-    zgen load "$DOTFILES/python"
-    zgen load "$DOTFILES/vim"
-    zgen load "$DOTFILES/perl"
-    if (( $+commands[pyenv] )); then
-        # pyenv's virtualenvwrapper
-        zgen load "$DOTFILES/pyenv"
-    else
-        # pyenv shims don't support sourcing (it'll blow up zsh)
-        # Only load this guy if you're not running pyenv
-        zgen oh-my-zsh virtualenvwrapper
-    fi
-    zgen load "$DOTFILES/role"
-    zgen load "$DOTFILES/powertools"  # Must come after $DOTFILES/fonts
-    zgen load bhilburn/powerlevel9k powerlevel9k
+   zgen load bhilburn/powerlevel9k powerlevel9k
     zgen prezto 'syntax-highlighting'
     zgen prezto 'history-substring-search'
     zgen prezto 'prompt'
     zgen save
 fi
 # Probably prefer oh-my-zsh plenv or personal to prezto/perl
+
+if [[ "$OS" == Darwin* || "$OS" == 'OSX' ]]; then
+    source "$DOTFILES/homebrew/homebrew.plugin.zsh"
+    source "$DOTFILES/osx/osx.plugin.zsh"
+else  # Debian, Ubuntu, Linux Mint, and other apt-based distros
+    source "$DOTFILES/dpkg/dpkg.plugin.zsh"
+    source "$DOTFILES/homebrew/homebrew.plugin.zsh"
+fi
+
+if (( $+commands[pyenv] )); then
+    # pyenv's virtualenvwrapper
+    source "$DOTFILES/pyenv/pyenv.plugin.zsh"
+fi
+
+source "$DOTFILES/fonts/fonts.plugin.zsh"
+source "$DOTFILES/git/git.plugin.zsh"
+source "$DOTFILES/python/python.plugin.zsh"
+source "$DOTFILES/vim/vim.plugin.zsh"
+source "$DOTFILES/perl/perl.plugin.zsh"
+source "$DOTFILES/role/role.plugin.zsh"
+source "$DOTFILES/powertools/powertools.plugin.zsh"  # Must come after $DOTFILES/fonts
 
 # date
 alias gmt="date -u"
