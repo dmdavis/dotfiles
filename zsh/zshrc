@@ -275,4 +275,6 @@ if (( $+commands[fuck] )); then
     eval $(thefuck --alias)
 fi
 
+alias htpc='bat "htpc"; ssh dale@htpc.local; bat ""'
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
