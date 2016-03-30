@@ -223,6 +223,11 @@ function sanity {
     nvm ls
 }
 
+# git fetch (and rebase) .files
+function gff {
+    git -C "$DOTFILES" up
+}
+
 _wt() {
     printf "$1$(date +"%I:%M %p")  $(emoji-clock)\n"
 }
