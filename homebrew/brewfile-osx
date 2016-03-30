@@ -1,6 +1,7 @@
 brew "automake"
 brew "bzr"
 brew "fontconfig"
+brew "fzf"
 brew "git"
 brew "ipcalc"
 brew "libtool"
