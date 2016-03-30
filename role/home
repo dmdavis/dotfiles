@@ -10,6 +10,10 @@ alias barb='ssh dale_barbdahlgren@ssh.phx.nearlyfreespeech.net'
 alias shelly='ssh dale_sophiasmommy@ssh.phx.nearlyfreespeech.net'
 alias ts='"/Applications/TeamSpeak 3 Client.app/Contents/MacOS/ts3client_mac" -nosingleinstance'
 
+function raspberrypi-2b {
+    ssh-to pi pi@raspberrypi-2b.local
+}
+
 findbook() {
     mdfind -name "$1" -onlyin '/Volumes/Retina External/Books'
 }
