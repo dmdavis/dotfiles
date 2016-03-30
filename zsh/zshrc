@@ -45,19 +45,17 @@ if [[ ! -d "$HOME/.nvm" ]]; then
 fi
 export NVM_DIR="$HOME/.nvm"
 
-# Load plugins
-source "$DOTFILES/zgen/zgen.zsh"
-
 if [[ -d "$HOME/.linuxbrew" ]]; then
     export PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
     export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
     export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 fi
 
+source "$DOTFILES/zgen/zgen.zsh"
 if ! zgen saved; then
     print "Creating a zgen save"
     zgen prezto '*:*' case-sensitive 'yes'
-	zgen prezto '*:*' color 'yes'
+	  zgen prezto '*:*' color 'yes'
     zgen prezto
     zgen prezto 'environment'
     zgen prezto 'terminal'
@@ -74,19 +72,23 @@ if ! zgen saved; then
     zgen prezto 'ssh'
     zgen prezto 'ruby'
     zgen prezto 'node'
-#    zgen prezto 'python'
-    zgen prezto 'spectrum'
+    # zgen prezto 'python'
     # zgen prezto 'tmux' ## When current changes have stabilized
     # python, node, and perl are on you
     if [[ "$OS" == Darwin* ]]; then
         zgen prezto 'osx'
         zgen prezto 'homebrew'
+        zgen oh-my-zsh plugins/osx
+        zgen load "$DOTFILES/homebrew"
+        zgen load "$DOTFILES/osx"
     elif [[ "$OS" == Fedora* ]]; then
         zgen prezto 'yum'
     else  # Debian, Ubuntu, Linux Mint, and other apt-based distros
         zgen prezto 'dpkg'
         zgen prezto 'homebrew'
         zgen prezto 'command-not-found'
+        zgen load "$DOTFILES/dpkg"
+        zgen load "$DOTFILES/homebrew"
     fi
     zgen oh-my-zsh plugins/cp
     zgen oh-my-zsh plugins/colorize
@@ -97,12 +99,13 @@ if ! zgen saved; then
     zgen oh-my-zsh plugins/perl
     zgen oh-my-zsh plugins/cpanm
     zgen oh-my-zsh plugins/rbenv
-    zgen oh-my-zsh plugins/osx
     zgen oh-my-zsh plugins/textmate
     zgen load jocelynmallon/zshmarks
     zgen load Tarrasch/zsh-autoenv
     zgen load djui/alias-tips
-   zgen load bhilburn/powerlevel9k powerlevel9k
+    zgen load "$DOTFILES/fonts"
+    zgen load "$DOTFILES/powertools"  # Must come after $DOTFILES/fonts
+    zgen load bhilburn/powerlevel9k powerlevel9k
     zgen prezto 'syntax-highlighting'
     zgen prezto 'history-substring-search'
     zgen prezto 'prompt'
@@ -110,22 +113,12 @@ if ! zgen saved; then
 fi
 # Probably prefer oh-my-zsh plenv or personal to prezto/perl
 
-if [[ "$OS" == Darwin* || "$OS" == 'OSX' ]]; then
-    source "$DOTFILES/homebrew/homebrew.plugin.zsh"
-    source "$DOTFILES/osx/osx.plugin.zsh"
-else  # Debian, Ubuntu, Linux Mint, and other apt-based distros
-    source "$DOTFILES/dpkg/dpkg.plugin.zsh"
-    source "$DOTFILES/homebrew/homebrew.plugin.zsh"
-fi
-
-source "$DOTFILES/fonts/fonts.plugin.zsh"
 source "$DOTFILES/git/git.plugin.zsh"
 source "$DOTFILES/python/python.plugin.zsh"
 source "$DOTFILES/pyenv/pyenv.plugin.zsh"
 source "$DOTFILES/vim/vim.plugin.zsh"
 source "$DOTFILES/perl/perl.plugin.zsh"
 source "$DOTFILES/role/role.plugin.zsh"
-source "$DOTFILES/powertools/powertools.plugin.zsh"  # Must come after $DOTFILES/fonts
 
 # date
 alias gmt="date -u"

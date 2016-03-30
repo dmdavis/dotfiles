@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-
 if is-font-installed 'SourceCodePro+Powerline+Awesome Regular'; then
     POWERLEVEL9K_MODE='awesome-patched'
 fi
