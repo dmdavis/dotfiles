@@ -31,14 +31,16 @@ if [[ "$OS" == Darwin* ]]; then
     export BREWFILE_PATH="$HOME/.files/homebrew/brewfile-osx"
 else
     export BREWFILE_PATH="$HOME/.files/homebrew/brewfile-linux"
+    alias pbcopy='xclip -selection clipboard'
+    alias pbpaste='xclip -selection clipboard -o'
 fi
 
 export DOTFILES="$HOME/.files"
 export DEFAULT_USER=`whoami`
 export HOSTNAME=`hostname -s`
-export PROJECT_HOME="$HOME/Source"
 export TERM='xterm-256color'
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias: "
+export PROJECT_HOME="$HOME/Source"
 
 if [[ ! -d "$HOME/.nvm" ]]; then
     mkdir "$HOME/.nvm"
@@ -161,6 +163,10 @@ alias dmc='docker-machine create --driver virtualbox'
 if [[ -f /etc/lsb-release ]]; then
     alias sysinfo='inxi -Fxz'
 fi
+
+function fix-insecure-compinit() {
+    compaudit | xargs chmod g-w
+}
 
 # Conversion
 function b2d() {
