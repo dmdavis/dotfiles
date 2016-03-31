@@ -15,4 +15,8 @@ function backtomymac {
 }
 
 alias htpc='ssh-to htpc dale@htpc.local'
+alias insom='ssh-to insom dale_insomnihack@ssh.phx.nearlyfreespeech.net'
+alias barb='ssh-to barblog dale_barbdahlgren@ssh.phx.nearlyfreespeech.net'
+alias shelly='ssh-to smommy dale_sophiasmommy@ssh.phx.nearlyfreespeech.net'
+alias raspberrypi-2b='ssh-to pi pi@raspberrypi-2b.local'
 
