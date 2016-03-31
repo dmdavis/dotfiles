@@ -58,6 +58,9 @@ if ! zgen saved; then
     print "Creating a zgen save"
     zgen prezto '*:*' case-sensitive 'yes'
 	  zgen prezto '*:*' color 'yes'
+    zgen prezto tmux auto-start local 'yes'
+    zgen prezto tmux auto-start remote 'yes'
+    zgen prezto tmux iterm integrate 'yes'
     zgen prezto
     zgen prezto 'environment'
     zgen prezto 'terminal'
@@ -108,6 +111,7 @@ if ! zgen saved; then
     zgen load "$DOTFILES/fonts"
     zgen load "$DOTFILES/powertools"  # Must come after $DOTFILES/fonts
     zgen load bhilburn/powerlevel9k powerlevel9k
+    zgen prezto 'tmux'
     zgen prezto 'syntax-highlighting'
     zgen prezto 'history-substring-search'
     zgen prezto 'prompt'
