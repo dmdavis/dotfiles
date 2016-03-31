@@ -53,6 +53,39 @@ if [[ -d "$HOME/.linuxbrew" ]]; then
     export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 fi
 
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+    SESSION_TYPE=remote/ssh
+else
+    case $(ps -o comm= -p $PPID) in
+        sshd|*/sshd) SESSION_TYPE=remote/ssh;;
+    esac
+fi
+
+# Set window/tab title
+function title {
+    echo -ne "\e]1;$1\a"
+}
+
+# Set iTerm3 badge
+if [[ "$OS" == Darwin* ]]; then
+    badge() {
+        printf "\e]1337;SetBadgeFormat=%s\a" \
+            $(echo -n "$1" | base64)
+    }
+else
+    alias badge=''
+fi
+
+# Set (ba)dge and (t)itle
+if [[ "$SESSION_TYPE" == remote/ssh ]]; then
+    alias bat=''
+else
+    function bat() {
+        local msg=$1
+        title $msg && badge $msg
+    }
+fi
+
 source "$DOTFILES/zgen/zgen.zsh"
 if ! zgen saved; then
     print "Creating a zgen save"
@@ -119,6 +152,7 @@ if ! zgen saved; then
 fi
 # Probably prefer oh-my-zsh plenv or personal to prezto/perl
 
+source "$DOTFILES/ssh/ssh.plugin.zsh"
 source "$DOTFILES/git/git.plugin.zsh"
 source "$DOTFILES/python/python.plugin.zsh"
 source "$DOTFILES/pyenv/pyenv.plugin.zsh"
@@ -195,23 +229,6 @@ function rmr {
     find . -name "$1" -exec rm '{}' ';'
 }
 
-# Set window/tab title
-function title {
-    echo -ne "\e]1;$1\a"
-}
-
-# Set iTerm3 badge
-badge() {
-    printf "\e]1337;SetBadgeFormat=%s\a" \
-        $(echo -n "$1" | base64)
-}
-
-# Set (ba)dge and (t)itle
-bat() {
-    local msg=$1
-    title $msg && badge $msg
-}
-
 function sane {
     echo "$FG[green]  [$1]$FG[none]"
     "$1" versions | sed "s/\*/$fg[green]&$fg[default]/g"
@@ -279,20 +296,8 @@ show-colors() {
     for code in {000..255}; do print -P -- "$code: %F{$code}Test%f"; done
 }
 
-function ssh-to {
-	bat $1;
-	echo -e "\033]6;1;bg;red;brightness;209\a"
-	echo -e "\033]6;1;bg;green;brightness;209\a"
-	echo -e "\033]6;1;bg;blue;brightness;254\a"
-	ssh $2;
-	bat ""
-	echo -e "\033]6;1;bg;*;default\a"
-}
-
 if (( $+commands[fuck] )); then
     eval $(thefuck --alias)
 fi
-
-alias htpc='bat "htpc"; ssh dale@htpc.local; bat ""'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
