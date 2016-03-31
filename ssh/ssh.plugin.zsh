@@ -11,7 +11,7 @@ function ssh-to {
 }
 
 function backtomymac {
-    ssh-to home dale@retina-pro.`echo show Setup:/Network/BackToMyMac | scutil | sed -n 's/.* : *\(.*\).$/\1/p'`
+    ssh-to my.mac dale@retina-pro.`echo show Setup:/Network/BackToMyMac | scutil | sed -n 's/.* : *\(.*\).$/\1/p'`
 }
 
 alias htpc='ssh-to htpc dale@htpc.local'
