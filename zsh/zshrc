@@ -87,6 +87,8 @@ else
     }
 fi
 
+export PATH="$DOTFILES/bin:$PATH"
+
 source "$DOTFILES/zgen/zgen.zsh"
 if ! zgen saved; then
     print "Creating a zgen save"

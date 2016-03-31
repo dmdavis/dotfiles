@@ -11,7 +11,6 @@ if [[ -f /Applications/Postgres.app/Contents/Versions/9.4/bin/psql ]]; then
 fi
 alias htop='sudo htop'
 alias iftop='sudo iftop'
-alias imgcat="$SCRIPTS/iterm2/imgcat"
 
 # Qt 5.5.1
 if [[ -d "$HOME/Tools/Qt5.5.1" ]]; then

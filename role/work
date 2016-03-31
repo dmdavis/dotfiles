@@ -24,5 +24,6 @@ function mkgit {
 }
 
 alias bento="$HOME/Source/github/chef/bento/bin/bento"
+alias hippie="imgcat $HOME/Pictures/Hippie.png"
 
 rbenv shell 2.3.0
