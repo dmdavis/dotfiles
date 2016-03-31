@@ -10,6 +10,7 @@ if [[ -f /Applications/Postgres.app/Contents/Versions/9.4/bin/psql ]]; then
     alias psql=/Applications/Postgres.app/Contents/Versions/9.4/bin/psql
 fi
 alias htop='sudo htop'
+alias iftop='sudo iftop'
 alias imgcat="$SCRIPTS/iterm2/imgcat"
 
 # Qt 5.5.1
