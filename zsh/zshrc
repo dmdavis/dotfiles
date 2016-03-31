@@ -195,7 +195,9 @@ alias pwdc="pwd | pbcopy"
 alias ct='colorize'
 
 # tmux
-alias tls='tmux ls'
+alias tn='tmux new -s'
+alias ta='tmux attach -t'
+alias tl='tmux ls'
 
 # docker
 alias dm='docker-machine'
