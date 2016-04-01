@@ -306,4 +306,14 @@ if (( $+commands[fuck] )); then
     eval $(thefuck --alias)
 fi
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# vim mode
+bindkey -v
+export KEYTIMEOUT=1
+
+# fzf: command-line fuzzy finder
+if [[ -f ~/.fzf.zsh ]]; then
+    source ~/.fzf.zsh
+    bindkey -M vicmd '/' fzf-history-widget
+else
+    bindkey -M vicmd '/' history-incremental-search-backward
+fi
