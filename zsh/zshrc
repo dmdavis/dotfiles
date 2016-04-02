@@ -92,9 +92,11 @@ else
     }
 fi
 
+source "$DOTFILES/fonts/fonts.plugin.zsh"
+source "$DOTFILES/powertools/powertools.plugin.zsh"  # Must come after $DOTFILES/fonts
 export PATH="$DOTFILES/bin:$PATH"
-
 source "$DOTFILES/zgen/zgen.zsh"
+
 if ! zgen saved; then
     print "Creating a zgen save"
     zgen prezto '*:*' case-sensitive 'yes'
@@ -150,9 +152,6 @@ if ! zgen saved; then
     zgen load Tarrasch/zsh-autoenv
     zgen load djui/alias-tips
     zgen load "$DOTFILES/virtualbox"
-    zgen load "$DOTFILES/fonts"
-    zgen load "$DOTFILES/powertools"  # Must come after $DOTFILES/fonts
-    zgen load bhilburn/powerlevel9k powerlevel9k
     zgen prezto 'tmux'
     zgen prezto 'syntax-highlighting'
     zgen prezto 'history-substring-search'
@@ -161,6 +160,7 @@ if ! zgen saved; then
 fi
 # Probably prefer oh-my-zsh plenv or personal to prezto/perl
 
+zgen load bhilburn/powerlevel9k powerlevel9k
 source "$DOTFILES/ssh/ssh.plugin.zsh"
 source "$DOTFILES/git/git.plugin.zsh"
 source "$DOTFILES/python/python.plugin.zsh"
@@ -322,3 +322,4 @@ if [[ -f ~/.fzf.zsh ]]; then
 else
     bindkey -M vicmd '/' history-incremental-search-backward
 fi
+
