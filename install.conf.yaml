@@ -8,6 +8,8 @@
 
 - link:
     ~/.config/thefuck/rules/git_aliases.py: python/git_aliases.py
+    ~/.fzf.bash: fzf/fzf.bash
+    ~/.fzf.zsh: fzf/fzf.zsh
     ~/.gitconfig: git/gitconfig
     ~/.gitignore: git/gitignore-global
     ~/.gvimrc.after: vim/gvimrc.after
