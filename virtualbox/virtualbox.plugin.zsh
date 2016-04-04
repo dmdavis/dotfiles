@@ -6,7 +6,7 @@ if (( $+commands[VBoxManage] )); then
     alias vbns='VBoxManage natnetwork start'
     alias vbnx='VBoxManage natnetwork stop'
     alias vbnr='VBoxManage natnetwork remove'
-    alias vbnm='VBoxManage natnetwork manage'
+    alias vbnm='VBoxManage natnetwork modify'
     alias vbnl='VBoxManage list natnetworks'
 fi
 
