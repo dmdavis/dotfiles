@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+alias devcc='ssh-to devcc ubuntu@devcc'
+
 function vboxes {
     ssh-to vboxes ubuntu@10.5.108.203
 }
