@@ -21,6 +21,9 @@ brew "trash"
 brew "vim"
 brew "zsh"
 
+tap "beeftornado/rmtree"
+brew "brew-rmtree"
+
 cask_args appdir: "/Applications"
 tap "caskroom/cask"
 cask "aerial"
@@ -59,6 +62,7 @@ cask "virtualbox-extension-pack"
 cask "vlc"
 cask "webstorm"
 cask "witch"
+cask "xscope"
 cask "xquartz"
 
 tap "caskroom/versions"
