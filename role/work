@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
 alias devcc='ssh-to devcc ubuntu@devcc'
+alias devcore'ssh-to devcore admin@devcore'
 
 function vboxes {
     ssh-to vboxes ubuntu@10.5.108.203
@@ -28,4 +29,4 @@ function mkgit {
 alias bento="$HOME/Source/github/chef/bento/bin/bento"
 alias hippie="imgcat $HOME/Pictures/Hippie.png"
 
-rbenv shell 2.3.0
+rbenv shell 2.3.1
