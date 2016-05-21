@@ -1,6 +1,7 @@
 color jellybeans
 set shiftwidth=4
 set softtabstop=4
+set relativenumber
 
 :let g:notes_directories = ['~/Dropbox/vim-notes']
 
