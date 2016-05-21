@@ -209,6 +209,9 @@ alias tl='tmux ls'
 alias dm='docker-machine'
 alias dmc='docker-machine create --driver virtualbox'
 
+# node
+alias nll='npm ls -g --depth=0'
+
 if [[ -f /etc/lsb-release ]]; then
     alias sysinfo='inxi -Fxz'
 fi
