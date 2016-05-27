@@ -1,6 +1,6 @@
 brew "automake"
 brew "bzr"
-brew "fontconfig" --universal
+brew "fontconfig"
 brew "fzf"
 brew "git"
 brew "iftop"

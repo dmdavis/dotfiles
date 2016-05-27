@@ -16,4 +16,5 @@
     ~/.janus: vim/janus-plugins
     ~/.vimrc.after: vim/vimrc.after
     ~/.vimrc.before: vim/vimrc.before
+    ~/.ideavimrc: vim/ideavimrc
     ~/.zshrc: zsh/zshrc
