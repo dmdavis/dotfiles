@@ -47,14 +47,18 @@
     ups = !sh -c 'git fetch && git rebase -p && git la && git submodule update' -
 [rerere]
     enabled = true
-[difftool "sourcetree"]
-    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-    path = 
-[mergetool "sourcetree"]
-    cmd = /Applications/SourceTree.localized/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-    trustExitCode = true
 [filter "media"]
     clean = git-media-clean %f
     smudge = git-media-smudge %f
 [credential]
     helper = osxkeychain
+[merge]
+	  ff = only
+	  tool = diffmerge
+[diff]
+	  tool = diffmerge
+[difftool "diffmerge"]
+	  cmd = /usr/local/bin/diffmerge \"$LOCAL\" \"$REMOTE\"
+[mergetool "diffmerge"]
+	  trustExitCode = true
+	  cmd = /usr/local/bin/diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
