@@ -34,7 +34,7 @@ JETBRAINS_IDE_FOLDERS = (
     'PyCharm2016.2',
     'PhpStorm2016.1',
     'RubyMine2016.1',
-    'WebStorm2016.1',
+    'WebStorm2016.2',
 )
 
 
