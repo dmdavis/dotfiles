@@ -168,6 +168,7 @@ source "$DOTFILES/pyenv/pyenv.plugin.zsh"
 source "$DOTFILES/vim/vim.plugin.zsh"
 source "$DOTFILES/perl/perl.plugin.zsh"
 source "$DOTFILES/role/role.plugin.zsh"
+source "$DOTFILES/todo/todo.plugin.zsh"
 
 # date
 alias gmt="date -u"
