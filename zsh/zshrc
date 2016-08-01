@@ -126,7 +126,6 @@ if ! zgen saved; then
     if [[ "$OS" == Darwin* ]]; then
         zgen prezto 'osx'
         zgen prezto 'homebrew'
-        zgen oh-my-zsh plugins/osx
         zgen load "$DOTFILES/homebrew"
         zgen load "$DOTFILES/osx"
     elif [[ "$OS" == Fedora* ]]; then
@@ -158,7 +157,10 @@ if ! zgen saved; then
     zgen prezto 'prompt'
     zgen save
 fi
-# Probably prefer oh-my-zsh plenv or personal to prezto/perl
+
+if [[ "$OS" == Darwin* ]]; then
+    zgen oh-my-zsh plugins/osx
+fi
 
 zgen load bhilburn/powerlevel9k powerlevel9k
 source "$DOTFILES/ssh/ssh.plugin.zsh"
