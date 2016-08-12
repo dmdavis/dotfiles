@@ -147,6 +147,7 @@ if ! zgen saved; then
     zgen oh-my-zsh plugins/cpanm
     zgen oh-my-zsh plugins/rbenv
     zgen oh-my-zsh plugins/textmate
+    zgen oh-my-zsh plugins/docker
     zgen load jocelynmallon/zshmarks
     zgen load Tarrasch/zsh-autoenv
     zgen load djui/alias-tips
