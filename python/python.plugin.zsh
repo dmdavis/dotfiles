@@ -12,6 +12,7 @@ alias pm='python manage.py'
 alias fsp='python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"'
 alias rmpyc='rmr *.pyc'
 alias which-sitepackages='python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"'
+alias jn='jupyter notebook'
 
 # Functions
 mkve() {
@@ -41,3 +42,4 @@ function venvreqs {
         pip freeze | sed s/==/\>=/ | sed "s/^-e/# -e/" > $filename
     fi
 }
+
