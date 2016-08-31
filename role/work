@@ -15,6 +15,10 @@ function latite {
     ssh-to latite ddavis@latite.lab.nbttech.com
 }
 
+function vlab {
+    ssh-to $1 root@$1.lab.nbttech.com
+}
+
 # Create a git repo at specified location. Ex: mkgit foo gmail <= use personal github email
 function mkgit {
 	local $folder=$1
@@ -28,5 +32,11 @@ function mkgit {
 
 alias bento="$HOME/Source/github/chef/bento/bin/bento"
 alias hippie="imgcat $HOME/Pictures/Hippie.png"
+
+alias sw='/Users/ddavis/Source/gitlab/web3-sfcore/grunt.sh'
+alias swsh='sw shell'
+function swpush {
+    sw install:remote --host=$1.lab.nbttech.com
+}
 
 rbenv shell 2.3.1
