@@ -3,6 +3,7 @@
 export HOMEBREW_CELLAR="`brew --prefix`/Cellar"
 alias cellar="cd $HOMEBREW_CELLAR"
 alias caskI='brew cask install --force'
+alias caskU="brew cask install --force $(brew cask list)"
 
 # Custom brew aliases
 alias bubo='brew update && brew outdated'
