@@ -215,6 +215,9 @@ alias dmc='docker-machine create --driver virtualbox'
 
 # node
 alias nll='npm ls -g --depth=0'
+function nap { # NPM Add a package to package.json and install it
+    npm install $1 --save
+}
 
 # JetBrains
 alias intellij-symlinks='python ~/.files/bin/intellij-symlinks.py'
