@@ -27,13 +27,13 @@ def link(source, target):
 
 
 JETBRAINS_IDE_FOLDERS = (
-    'AppCode2016.1',
-    'CLion2016.1',
-    'DataGrip2016.1',
-    'IntelliJIdea2016.1',
+    'AppCode2016.2',
+    'CLion2016.2',
+    'DataGrip2016.2',
+    'IntelliJIdea2016.2',
     'PyCharm2016.2',
-    'PhpStorm2016.1',
-    'RubyMine2016.1',
+    'PhpStorm2016.2',
+    'RubyMine2016.2',
     'WebStorm2016.2',
 )
 
