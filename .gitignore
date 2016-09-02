@@ -73,3 +73,6 @@ target/
 
 # PyCharm, IDEA, etc.
 .idea
+
+.autoenv.zsh
+.autoenv_leave.zsh
