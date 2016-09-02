@@ -87,7 +87,8 @@ def main():  # pragma: no cover
     Main method for intellij-symlinks.py
 
     """
-    arguments = docopt(__doc__, version='Naval Fate 2.0')
+    arguments = docopt(__doc__, version='intellij-symlinks {0}'
+                       .format(__version__))
     dry_run = arguments['--dry-run']
     home = local.env.home
     dbjb = home / 'Dropbox/Jetbrains'
