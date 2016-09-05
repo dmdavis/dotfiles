@@ -1,5 +1,11 @@
+colorama
+cookiecutter
+docopt
 ipython
+httpie
 jrnl
 pip-tools
+plumbum
 pygments
 six
+thefuck
