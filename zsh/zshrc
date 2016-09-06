@@ -215,6 +215,7 @@ alias dmc='docker-machine create --driver virtualbox'
 
 # node
 alias nll='npm ls -g --depth=0'
+alias nig='npm install -g'
 function nap { # NPM Add a package to package.json and install it
     npm install $1 --save
 }
