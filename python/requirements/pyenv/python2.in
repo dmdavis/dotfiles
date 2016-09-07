@@ -2,8 +2,9 @@ colorama
 cookiecutter
 docopt
 fabric
-ipython
+git-remote-dropbox
 httpie
+ipython
 jrnl
 pip-tools
 plumbum

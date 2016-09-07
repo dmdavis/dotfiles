@@ -1,8 +1,9 @@
 colorama
 cookiecutter
 docopt
-ipython
+git-remote-dropbox
 httpie
+ipython
 jrnl
 pip-tools
 plumbum
