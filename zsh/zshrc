@@ -220,6 +220,10 @@ function nap { # NPM Add a package to package.json and install it
     npm install $1 --save
 }
 
+# GUAPDF - Uncomment the CUDA lib path in zshenv to use the GPU-optimized version
+# alias guapdf="~/Tools/guapdf/guapdf-cuda"
+alias guapdf="~/Tools/guapdf/guapdf"
+
 # JetBrains
 alias intellij-symlinks='python ~/.files/bin/intellij-symlinks.py'
 

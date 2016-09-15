@@ -1,8 +1,5 @@
 #!/usr/local/bin/zsh
 
-# GUAPDF - Uncomment the CUDA lib path in zshenv to use the GPU-optimized version
-# alias guapdf="/Users/dale/Tools/guapdf/guapdf-cuda"
-alias guapdf="/Users/dale/Tools/guapdf/guapdf"
 alias love="/Applications/love.app/Contents/MacOS/love"
 alias mcs='/Users/dale/Minecraft/run_minecraft_server.sh'
 alias ts='"/Applications/TeamSpeak 3 Client.app/Contents/MacOS/ts3client_mac" -nosingleinstance'

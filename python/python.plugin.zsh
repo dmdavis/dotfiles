@@ -13,6 +13,7 @@ alias fsp='python -c "from distutils.sysconfig import get_python_lib; print(get_
 alias rmpyc='rmr *.pyc'
 alias which-sitepackages='python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"'
 alias jn='jupyter notebook'
+alias install-pycharm-cython-debugger="python /Applications/PyCharm.app/Contents/helpers/pydev/setup_cython.py build_ext --inplace"
 
 # Functions
 mkve() {
