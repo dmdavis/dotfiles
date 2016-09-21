@@ -221,8 +221,18 @@ function nap { # NPM Add a package to package.json and install it
 }
 
 # GUAPDF - Uncomment the CUDA lib path in zshenv to use the GPU-optimized version
-# alias guapdf="~/Tools/guapdf/guapdf-cuda"
-alias guapdf="~/Tools/guapdf/guapdf"
+# alias guapdf="$HOME/Tools/guapdf/guapdf-cuda"
+alias guapdf="$HOME/Tools/guapdf/guapdf"
+alias cleanpdf="$HOME/Dropbox/Scripts/shell/cleanpdf.sh"
+function clean {
+    filename=$(basename "$1")
+    newfilename="$filename.clean.pdf"
+    newfilepath="$HOME/Dropbox/Public/savage/pdfs/$filename.pdf"
+    cleanpdf "$1"
+    mv "$newfilename" "$newfilepath"
+    open "$newfilepath"
+    rm "$1"
+}
 
 # JetBrains
 alias intellij-symlinks='python ~/.files/bin/intellij-symlinks.py'
