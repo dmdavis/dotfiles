@@ -6,3 +6,4 @@ alias gsm="grep path .gitmodules | sed 's/.*= //'"
 alias gfu='git fetch upstream'
 alias gum='git config user.email'
 alias gRv='git remote -v'
+alias gro='git rebase --onto'
