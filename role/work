@@ -38,5 +38,6 @@ alias swsh='sw shell'
 function swpush {
     sw install:remote --host=$1.lab.nbttech.com
 }
+alias swtest='sw karma'
 
 rbenv shell 2.3.1
