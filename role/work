@@ -7,6 +7,11 @@ function vboxes {
     ssh-to vboxes ubuntu@10.5.108.203
 }
 
+# Use shattuck for unix password changes
+function shattuck {
+    ssh-to shattuck ddavis@shattuck.nbttech.com
+}
+
 function picrite {
     ssh-to picrite ddavis@picrite.lab.nbttech.com
 }
@@ -40,4 +45,9 @@ function swpush {
 }
 alias swtest='sw karma'
 
-rbenv shell 2.3.1
+function add_node_autoenv {
+    echo "nvm use 7.0.0\nplc nvm" > .autoenv.zsh
+    echo "nvm use default\nplc" > .autoenv_leave.zsh
+}
+
+rbenv shell 2.3.3

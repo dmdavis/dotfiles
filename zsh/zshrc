@@ -288,6 +288,11 @@ function gff {
     git -C "$DOTFILES" up
 }
 
+function add_autoenv {
+    touch .autoenv.zsh
+    touch .autoenv_leave.zsh
+}
+
 function add_dotfiles_autoenv {
     ln -s ~/.files/autoenv.zsh ~/.files/.autoenv.zsh
     ln -s ~/.files/autoenv_leave.zsh ~/.files/.autoenv_leave.zsh
