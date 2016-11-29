@@ -61,13 +61,13 @@ def link(source, target, dry_run):
 
 JETBRAINS_IDE_FOLDERS = (
     'AppCode2016.2',
-    'CLion2016.2',
-    'DataGrip2016.2',
-    'IntelliJIdea2016.2',
-    'PyCharm2016.2',
-    'PhpStorm2016.2',
+    'CLion2016.3',
+    'DataGrip2016.3',
+    'IntelliJIdea2016.3',
+    'PyCharm2016.3',
+    'PhpStorm2016.3',
     'RubyMine2016.2',
-    'WebStorm2016.2',
+    'WebStorm2016.3',
 )
 
 TEMPLATE_FOLDERS = dict(zip(JETBRAINS_IDE_FOLDERS, (
