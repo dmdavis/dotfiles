@@ -11,4 +11,4 @@ findbook() {
 # Fix enter on numeric keypad in iTerm 2 with zsh
 bindkey -s "^[OM" "^M"
 
-rbenv shell 2.3.0
+rbenv shell 2.3.3
