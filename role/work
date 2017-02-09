@@ -39,15 +39,38 @@ alias bento="$HOME/Source/github/chef/bento/bin/bento"
 alias hippie="imgcat $HOME/Pictures/Hippie.png"
 
 alias sw='/Users/ddavis/Source/gitlab/web3-sfcore/grunt.sh'
+alias fw='/Users/ddavis/Source/gitlab/web3_framework/grunt.sh'
 alias swsh='sw shell'
 function swpush {
     sw install:remote --host=$1.lab.nbttech.com
 }
+function fwpush {
+    fw install:remote --host=$1.lab.nbttech.com --refresh=1 --no_yui=1
+}
 alias swtest='sw karma'
+alias main-vva19='vlab main-vva19'
+alias oak-sh835-rios1='vlab oak-sh835-rios1'
+alias bigly='vlab oak-sh835-rios1'
+alias virtualdva3='vlab VirtualDVA3'
 
+function awscore {
+    ssh-to awscore -i ~/.ssh/corekeypair.pem ubuntu@35.160.146.72
+}
+function get-awscore {
+     scp -i ~/.ssh/corekeypair.pem ubuntu@35.160.146.72:$1 $2
+}
+function get-awscore-webui-cert {
+    get-awscore /home/ubuntu/work/core/pki/certs/A_Admin.p12 $1
+}
+function get-awscore-cacert {
+    get-awscore /home/ubuntu/work/core/pki/ca/cacert.pem ~/Source/vagrant/devcc/cc/etc/core-ca.pem
+}
 function add_node_autoenv {
     echo "nvm use 7.0.0\nplc nvm" > .autoenv.zsh
     echo "nvm use default\nplc" > .autoenv_leave.zsh
 }
+
+alias swsynctest="rsync --dry-run --update -rltDzh --progress"
+alias swsync="rsync --update -rltDzh --progress"
 
 rbenv shell 2.3.3
