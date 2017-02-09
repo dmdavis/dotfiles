@@ -1,11 +1,11 @@
 #!/usr/bin/env zsh
 
 function ssh-to {
-	bat $1;
+  bat $1;
 	echo -e "\033]6;1;bg;red;brightness;209\a"
 	echo -e "\033]6;1;bg;green;brightness;209\a"
 	echo -e "\033]6;1;bg;blue;brightness;254\a"
-	ssh $2;
+	ssh ${@:2};
 	bat ""
 	echo -e "\033]6;1;bg;*;default\a"
 }
