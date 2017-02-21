@@ -41,6 +41,7 @@ alias hippie="imgcat $HOME/Pictures/Hippie.png"
 alias sw='/Users/ddavis/Source/gitlab/web3-sfcore/grunt.sh'
 alias fw='/Users/ddavis/Source/gitlab/web3_framework/grunt.sh'
 alias swsh='sw shell'
+alias fwsh='fw shell'
 function swpush {
     sw install:remote --host=$1.lab.nbttech.com
 }
