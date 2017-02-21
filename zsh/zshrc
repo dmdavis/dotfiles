@@ -188,6 +188,17 @@ alias l='ls -CF'
 alias lla="ll -a"
 alias lld='ls -ld */'
 
+# tree
+function tt {
+    if  [[ "$1" = "all" ]]; then
+        tree -F
+    elif [[ "$1" != "" ]]; then
+        tree -F -L $1
+    else
+        tree -F -L 1
+    fi
+}
+
 # find/grep
 alias fsize='du -ch | grep total'
 alias hig='history 1 | grep'
@@ -214,7 +225,8 @@ alias dm='docker-machine'
 alias dmc='docker-machine create --driver virtualbox'
 
 # node
-alias nll='npm ls -g --depth=0'
+alias nll='npm ls --depth=0 2>/dev/null'
+alias nlg='npm ls -g --depth=0 2>/dev/null'
 alias nig='npm install -g'
 function nap { # NPM Add a package to package.json and install it
     npm install $1 --save
