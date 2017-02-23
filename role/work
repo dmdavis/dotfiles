@@ -84,7 +84,7 @@ function devcc {
     elif [ $1 == 'down' ]; then
         dco -p dev down
     elif [ $1 == 'sh' ]; then
-        dock exec -it dev_cc_1 bash
+        docker exec -it dev_cc_1 bash
     fi
 }
 
