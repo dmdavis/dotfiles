@@ -10,3 +10,9 @@ Currently, the list of role-specific env scripts include the following.
 * **home** - Home-related aliases and stuff
 * **tv** - Env settings for the HTPC
 * **work** - Work-related aliases and stuff
+
+## TODO
+
+1. Split each role out into its own plugin folder so that so that
+   completion files cann be written.
+

@@ -1,7 +1,8 @@
 #!/usr/bin/env zsh
 
-alias devcc='ssh-to devcc ubuntu@devcc'
-alias devcore'ssh-to devcore admin@devcore'
+# Old devcc aliases from Vagrant days
+# alias devcc='ssh-to devcc ubuntu@devcc'
+# alias devcore'ssh-to devcore admin@devcore'
 
 function vboxes {
     ssh-to vboxes ubuntu@10.5.108.203
@@ -73,5 +74,18 @@ function add_node_autoenv {
 
 alias swsynctest="rsync --dry-run --update -rltDzh --progress"
 alias swsync="rsync --update -rltDzh --progress"
+
+function devcc {
+    cd /Users/ddavis/Source/docker/devcc
+    if [ $1 == "up" ]; then
+        dco -p dev up
+    elif [ $1 == "upb" ]; then
+        dco -p dev up --build
+    elif [ $1 == 'down' ]; then
+        dco -p dev down
+    elif [ $1 == 'sh' ]; then
+        dock exec -it dev_cc_1 bash
+    fi
+}
 
 rbenv shell 2.3.3
