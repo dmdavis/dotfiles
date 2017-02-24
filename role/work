@@ -85,6 +85,8 @@ function devcc {
         dco -p dev down
     elif [ $1 == 'sh' ]; then
         docker exec -it dev_cc_1 bash
+    elif [ $1 == 'stats' ]; then
+        docker stats
     fi
 }
 
