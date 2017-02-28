@@ -49,8 +49,15 @@ function swpush {
 function fwpush {
     fw install:remote --host=$1.lab.nbttech.com --refresh=1 --no_yui=1
 }
+function vapush_dva {
+    echo "Syncing web2/appserver/Mgmt/Templates"
+    rsync --update -rltDzh --progress ~/Source/gitlab/va-product/mgmt/appliances/rbt_dva/src/bin/web2/appserver/Mgmt/Templates/ root@$1.lab.nbttech.com:/opt/tms/web2/appserver/Mgmt/Templates
+    echo "Syncing web2/pythonlib"
+    rsync --update -rltDzh --progress ~/Source/gitlab/va-product/mgmt/appliances/rbt_dva/src/bin/web2/python/ root@$1.lab.nbttech.com:/opt/tms/web2/pythonlib
+}
 alias swtest='sw karma'
 alias main-vva19='vlab main-vva19'
+alias kabar-vva80='vlab kabar-vva80'
 alias oak-sh835-rios1='vlab oak-sh835-rios1'
 alias bigly='vlab oak-sh835-rios1'
 alias virtualdva3='vlab VirtualDVA3'
