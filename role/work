@@ -1,9 +1,5 @@
 #!/usr/bin/env zsh
 
-# Old devcc aliases from Vagrant days
-# alias devcc='ssh-to devcc ubuntu@devcc'
-# alias devcore'ssh-to devcore admin@devcore'
-
 function vboxes {
     ssh-to vboxes ubuntu@10.5.108.203
 }
@@ -27,9 +23,9 @@ function vlab {
 
 # Create a git repo at specified location. Ex: mkgit foo gmail <= use personal github email
 function mkgit {
-	local $folder=$1
-	mkdir $folder
-	cd $folder
+	local folder=$1
+	mkdir ${folder}
+	cd ${folder}
 	git init
 	if [ $2 == "gmail" ]; then
 		githubmail
@@ -43,6 +39,24 @@ alias sw='/Users/ddavis/Source/gitlab/web3-sfcore/grunt.sh'
 alias fw='/Users/ddavis/Source/gitlab/web3_framework/grunt.sh'
 alias swsh='sw shell'
 alias fwsh='fw shell'
+function rpush {
+    # -r, --recursive             recurse into directories
+    # -l, --links                 copy symlinks as symlinks
+    # -t, --times                 preserve times
+    # -D                          same as --devices --specials
+    #     --devices               preserve device files (super-user only)
+    #     --specials              preserve special files
+    # -h, --human-readable        output numbers in a human-readable format
+    #     --progress              show progress during transfer
+    rsync -rltDh --progress "$@"
+}
+function restart_cli_service {
+    echo "$FG[green]Restarting $1 on $FG[yellow]$2.lab.nbttech.com$FG[none]"
+    printf "en\npm proc $1 restart\n" | ssh root@$2.lab.nbttech.com cli
+}
+function clear_psp_cache {
+    ssh root@$1.lab.nbttech.com rm -f /var/opt/tms/web/Cache/PSP/*
+}
 function swpush {
     sw install:remote --host=$1.lab.nbttech.com
 }
@@ -51,9 +65,37 @@ function fwpush {
 }
 function vapush_dva {
     echo "Syncing web2/appserver/Mgmt/Templates"
-    rsync --update -rltDzh --progress ~/Source/gitlab/va-product/mgmt/appliances/rbt_dva/src/bin/web2/appserver/Mgmt/Templates/ root@$1.lab.nbttech.com:/opt/tms/web2/appserver/Mgmt/Templates
+    rpush ~/Source/gitlab/va-product/mgmt/appliances/rbt_dva/src/bin/web2/appserver/Mgmt/Templates/ root@$1.lab.nbttech.com:/opt/tms/web2/appserver/Mgmt/Templates
     echo "Syncing web2/pythonlib"
-    rsync --update -rltDzh --progress ~/Source/gitlab/va-product/mgmt/appliances/rbt_dva/src/bin/web2/python/ root@$1.lab.nbttech.com:/opt/tms/web2/pythonlib
+    rpush ~/Source/gitlab/va-product/mgmt/appliances/rbt_dva/src/bin/web2/python/ root@$1.lab.nbttech.com:/opt/tms/web2/pythonlib
+}
+function vapush_eva {
+    local source="${HOME}/Source/gitlab/va-product/mgmt/appliances/rbt_eva/src/bin/web2"
+    local target="root@$1.lab.nbttech.com:/opt/tms/web2"
+    echo "$FG[green]Syncing $FG[yellow]web2/appserver/Mgmt/Templates/ve_shared$FG[none]"
+    rpush "${source}/appserver/Mgmt/Templates/ve_shared/" "${target}/appserver/Mgmt/Templates"
+    echo "$FG[green]Syncing $FG[yellow]web2/appserver/Mgmt/Templates$FG[none]"
+    rpush --exclude "/ve_shared" "${source}/appserver/Mgmt/Templates/" "${target}/appserver/Mgmt/Templates"
+    echo "$FG[green]Flushing PSP Cache$FG[none]"
+}
+function mfpush {
+    local source="${HOME}/Source/gitlab/mgmt-fwk/framework/src/bin/web2"
+    local target="root@$1.lab.nbttech.com:/opt/tms/web2"
+    echo "$FG[green]Minifying mgmt-fmk JS via $FG[yellow]rollup.sh$FG[none]"
+    ${source}/html/rollup.sh
+    echo "$FG[green]Syncing $FG[yellow]rollup.js and rollup.css$FG[none]"
+    scp "${source}/html/rollup.js" "${target}/html"
+    scp "${source}/html/rollup.css" "${target}/html"
+    rm -f "${source}/html/rollup.js"
+    rm -f "${source}/html/rollup.css"
+    echo "$FG[green]Syncing $FG[yellow]web2/pythonlib$FG[none]"
+    rpush "${source}/python/" "${target}/pythonlib"
+}
+function vamfpush_eva {
+    vapush_eva $1
+    mfpush $1
+    clear_psp_cache $1
+    restart_cli_service webasd $1
 }
 alias swtest='sw karma'
 alias main-vva19='vlab main-vva19'
