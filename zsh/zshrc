@@ -248,6 +248,17 @@ function clean {
 
 # JetBrains
 alias intellij-symlinks='python ~/.files/bin/intellij-symlinks.py'
+function lsj {
+    ls -ld \
+        ~/Library/Application\ Support/AppCode* \
+        ~/Library/Application\ Support/CLion* \
+        ~/Library/Application\ Support/DataGrip* \
+        ~/Library/Application\ Support/IntelliJIdea* \
+        ~/Library/Application\ Support/PhpStorm* \
+        ~/Library/Application\ Support/PyCharm* \
+        ~/Library/Application\ Support/RubyMine* \
+        ~/Library/Application\ Support/WebStorm*
+}
 
 if [[ -f /etc/lsb-release ]]; then
     alias sysinfo='inxi -Fxz'
