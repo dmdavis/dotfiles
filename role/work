@@ -144,4 +144,4 @@ alias ctop='docker run -ti --name ctop --rm -v /var/run/docker.sock:/var/run/doc
 alias ocurl='/usr/local/opt/curl/bin/curl'
 
 alias syncpf='rsync -avzh --dry-run /Volumes/WD\ MyBook\ 8TB/Roleplaying/Pathfinder\ RPG/ ~/Documents/Pathfinder'
-rbenv shell 2.3.3
+rbenv shell 2.4.1
