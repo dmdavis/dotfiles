@@ -142,4 +142,6 @@ function devcc {
 alias ctop='docker run -ti --name ctop --rm -v /var/run/docker.sock:/var/run/docker.sock quay.io/vektorlab/ctop:latest'
 # Need an alias as putting this ahead of OS X curl in PATH causes bad things
 alias ocurl='/usr/local/opt/curl/bin/curl'
+
+alias syncpf='rsync -avzh --dry-run /Volumes/WD\ MyBook\ 8TB/Roleplaying/Pathfinder\ RPG/ ~/Documents/Pathfinder'
 rbenv shell 2.3.3
