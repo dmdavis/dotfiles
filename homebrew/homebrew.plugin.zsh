@@ -19,7 +19,7 @@ function caskJ {
 
 # Custom brew aliases
 alias bubo='brew update && brew outdated'
-alias bubc='brew upgrade --all && brew cleanup'
+alias bubc='brew upgrade && brew cleanup'
 
 function brewfile {
     brew bundle --file="$BREWFILE_PATH"
