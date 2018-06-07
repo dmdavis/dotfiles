@@ -2,7 +2,7 @@
 
 - shell:
     - [git submodule update --init --recursive, Updating dotfile submodules]
-    - [bin/provision.sh, Provisioning software packages]
+#    - [bin/provision.sh, Provisioning software packages]
     - [vim/install-janus.sh, Updating Janus VIM distribution]
     - [fonts/install.sh, Configuring Powerline and Awesome Terminal Fonts]
 
