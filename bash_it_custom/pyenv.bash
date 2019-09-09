@@ -1,4 +1,4 @@
-if [[ $(command -v pyenv) == "" ]]
+if [[ $(command -v pyenv) != "" ]]
 then
     # Virtual environment creation
     function venv {
