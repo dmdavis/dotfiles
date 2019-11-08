@@ -4,10 +4,10 @@ then
     function venv {
       LAST_VENV="${PWD##*/}-$PYTHON_VERSION"
       msg "Creating local virtual environment $LAST_VENV..."
-      pyenv virtualenv "${PYTHON_VERSION}" "${LAST_VENV}" || exit 1
-      pyenv local "${LAST_VENV}" || exit 2
-      pip install --upgrade pip || exit 3
-      pip install --upgrade setuptools || exit 4
+      pyenv virtualenv "${PYTHON_VERSION}" "${LAST_VENV}" || return
+      pyenv local "${LAST_VENV}" || return
+      pip install --upgrade pip || return
+      pip install --upgrade setuptools || return
       msg "Successfully created $LAST_VENV"
     }
     # Conda/pyenv virtualenv
@@ -22,7 +22,7 @@ then
       local vname="${PWD##*/}-$PYTHON_VERSION"
       msg "Switching local pyenv back to system"
       pyenv local system
-      pyenv uninstall -f "${vname}" || exit 5
+      pyenv uninstall -f "${vname}" || return
       msg "Removed $vname"
     }
     alias vls="pyenv versions --skip-aliases"
