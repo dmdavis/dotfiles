@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Set window/tab title
 function title {
   echo -ne "\e]1;$1\a"
