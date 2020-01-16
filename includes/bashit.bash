@@ -68,3 +68,11 @@ export LC_ALL=en_US.UTF-8
 source "$BASH_IT/bash_it.sh"
 
 alias alg='alias | grep'
+
+# Disable pipenv warnings about defaulting to the active venv
+export PIPENV_VERBOSITY=-1
+
+# Change current $PYTHON_VERSION
+function pyver {
+    export PYTHON_VERSION="$1"
+}
