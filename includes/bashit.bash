@@ -54,12 +54,6 @@ export HISTCONTROL=ignoreboth:erasedups
 # XDG config home (used by stuff like nvim
 export XDG_CONFIG_HOME="$HOME/.config"
 
-# Some stuff like fzf still likes putting config in .bashrc
-if [[ -f ~/.bashrc ]]; then
-    # shellcheck source=$HOME/.bashrc
-  . ~/.bashrc
-fi
-
 # bash-it themes use UTF-8
 export LC_ALL=en_US.UTF-8
 
