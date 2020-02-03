@@ -2,16 +2,17 @@
 
 if [[ $(command -v docker-machine) != "" ]]; then
     function dmenv() {
-        env | grep DOCKER
+        env | grep '^DOCKER\S*'
     }
     # TODO: Add argument to allow specify machines other than "default"
     function dendm() {
-        eval "$(docker-machine env default)"
+        eval "$(docker-machine env "$VIRTUALBOX_DOCKER_MACHINE_VM_NAME")"
         msg "Environment configured for Docker Machine"
         dmenv
     }
     function dendfm() {
-        unset "${!DOCKER_*}"
+        # shellcheck disable=SC2086
+        unset ${!DOCKER_*}
         msg "Environment configured for Docker for Mac"
     }
 fi
