@@ -15,6 +15,8 @@ export GIT_HOSTING='git@github.com'
 source "$BASEDIR"/includes/bashit.bash
 # shellcheck source=$HOME/.files/includes/mac.bash
 source "$BASEDIR"/includes/mac.bash
+# shellcheck source=$HOME/.files/includes/docker-machine.bash
+source "$BASEDIR"/includes/docker-machine.bash
 
 alias llc='ll | lolcat'
 
@@ -23,8 +25,8 @@ export GEM_PATH="$HOME/.gems"
 export PATH="$GEM_PATH/bin:$PATH"
 
 # SSH shortcut
-function ss {
-  ssh root@"$1"
+function ss() {
+    ssh root@"$1"
 }
 
 # Google CLI tools
@@ -32,5 +34,3 @@ source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.i
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc'
 
 export PATH="$HOME/.cargo/bin:$PATH"
-
-
