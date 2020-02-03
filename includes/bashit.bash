@@ -67,16 +67,16 @@ alias alg='alias | grep'
 export PIPENV_VERBOSITY=-1
 
 # Change current $PYTHON_VERSION
-function pyver {
+function pyver() {
     export PYTHON_VERSION="$1"
 }
 
 # List enabled Bash It aliases, completions, and plugins
-function bashen {
-	msg "Bash It - Enabled Aliases"
-	bashit show aliases | grep '\[x\]'
-	msg "Bash It - Enabled Completions"
-	bashit show completions | grep '\[x\]'
-	msg "Bash It - Enabled Plugins"
-	bashit show plugins | grep '\[x\]'
+function bashen() {
+    msg "Bash It - Enabled Aliases"
+    bashit show aliases | grep '\[x\]'
+    msg "Bash It - Enabled Completions"
+    bashit show completions | grep '\[x\]'
+    msg "Bash It - Enabled Plugins"
+    bashit show plugins | grep '\[x\]'
 }

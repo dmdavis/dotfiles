@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 
 # pip aliases
 alias pi='pip install'

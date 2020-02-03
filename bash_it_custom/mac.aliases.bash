@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # Prevent `brew doctor` from freaking out over python-configs in ~/.pyenv
     alias brew='env PATH=${PATH//$(pyenv root)\/shims:/} brew'

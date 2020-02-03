@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # ZPrezto git aliases
 # https://github.com/sorin-ionescu/prezto/blob/master/modules/git/alias.zsh
 # 1b441e7 on Apr 4, 2018
