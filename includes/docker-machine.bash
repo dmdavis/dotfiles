@@ -7,12 +7,12 @@ if [[ $(command -v docker-machine) != "" ]]; then
     # TODO: Add argument to allow specify machines other than "default"
     function dendm() {
         eval "$(docker-machine env "$VIRTUALBOX_DOCKER_MACHINE_VM_NAME")"
-        msg "Environment configured for Docker Machine"
+        msg "Docker environment configured for Docker Machine"
         dmenv
     }
     function dendfm() {
         # shellcheck disable=SC2086
         unset ${!DOCKER_*}
-        msg "Environment configured for Docker for Mac"
+        msg "Docker environment configured for Docker for Mac"
     }
 fi

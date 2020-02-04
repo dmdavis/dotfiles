@@ -8,5 +8,7 @@ if [[ $(command -v docker-machine) != "" ]]; then
 
     alias dmls="docker-machine ls"
     alias dmcr="docker-machine create"
+    alias dmstop="docker-machine stop"
+    alias dmrm="docker-machine rm"
     alias dmcrvb='docker-machine create -d virtualbox --virtualbox-cpu-count $VIRTUALBOX_CPU_COUNT --virtualbox-memory $VIRTUALBOX_MEMORY --virtualbox-disk-size $VIRTUALBOX_DISK_SIZE $VIRTUALBOX_DOCKER_MACHINE_VM_NAME'
 fi
