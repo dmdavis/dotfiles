@@ -15,14 +15,15 @@ export GIT_HOSTING='git@github.com'
 source "$BASEDIR"/includes/bashit.bash
 # shellcheck source=$HOME/.files/includes/mac.bash
 source "$BASEDIR"/includes/mac.bash
-# shellcheck source=$HOME/.files/includes/docker-machine.bash
-source "$BASEDIR"/includes/docker-machine.bash
 
 alias llc='ll | lolcat'
 
 export GEM_HOME="$HOME/.gems"
 export GEM_PATH="$HOME/.gems"
 export PATH="$GEM_PATH/bin:$PATH"
+
+export WATCH_NAMESPACE=default
+export ETCD_ENDPOINTS=127.0.0.1:32379
 
 # SSH shortcut
 function ss() {
