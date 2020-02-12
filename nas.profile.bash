@@ -14,3 +14,5 @@ export GIT_HOSTING='git@github.com'
 
 # shellcheck source=$HOME/.files/includes/bashit.bash
 source "$BASEDIR"/includes/bashit.bash
+
+export PATH="/usr/local/mariadb10/bin/:$PATH"
