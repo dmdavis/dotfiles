@@ -15,6 +15,8 @@ export GIT_HOSTING='git@github.com'
 source "$BASEDIR"/includes/bashit.bash
 # shellcheck source=$HOME/.files/includes/mac.bash
 source "$BASEDIR"/includes/mac.bash
+# shellcheck source=$HOME/.files/includes/minikube.bash
+source "$BASEDIR"/includes/minikube.bash
 
 alias llc='ll | lolcat'
 
