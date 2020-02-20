@@ -17,6 +17,8 @@ source "$BASEDIR"/includes/bashit.bash
 source "$BASEDIR"/includes/mac.bash
 # shellcheck source=$HOME/.files/includes/minikube.bash
 source "$BASEDIR"/includes/minikube.bash
+# shellcheck source=$HOME/.files/includes/kubectl.contrail.aliases.bash
+source "$BASEDIR"/includes/kubectl.contrail.aliases.bash
 
 alias llc='ll | lolcat'
 
