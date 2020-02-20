@@ -9,9 +9,11 @@ if [[ $(command -v minikube) != "" ]]; then
     export MINIKUBE_VM_RAM="8192mb"     # 8Gb
     export MINIKUBE_VM_DISK_SIZE="60g"  # 60Gb
 
+    alias mk="minikube"
     alias mkstop="minikube stop"
     alias mkstart="minikube start"
     alias mkx="minikube delete"
+    alias mkdash="minikube dashboard"
 
     function mkcc() {
         echo "Creating minikube cluster with local Docker registry pod"
