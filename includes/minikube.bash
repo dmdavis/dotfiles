@@ -5,33 +5,43 @@
 if [[ $(command -v minikube) != "" ]]; then
 
     export MINIKUBE_VM_DRIVER="virtualbox"
-    export MINIKUBE_VM_CPUS=4
-    export MINIKUBE_VM_RAM="8192mb"     # 8Gb
-    export MINIKUBE_VM_DISK_SIZE="60g"  # 60Gb
+    export MINIKUBE_CPUS=4
+    export MINIKUBE_MEMORY="7168mb"  # 7Gb
+    export MINIKUBE_DISK_SIZE="60g"  # 60Gb
+    export MINIKUBE_INSECURE_REGISTRY="10.0.0.0/24"
+
+    function delete_minikube_ip_from_known_hosts() {
+        mk_ip="$(minikube ip)"
+        msg "Deleting minikube IP $mk_ip from ~/.ssh/known_hosts"
+        ssh-keygen -R "$mk_ip"
+    }
 
     alias mk="minikube"
-    alias mkstop="minikube stop"
-    alias mkstart="minikube start"
-    alias mkx="minikube delete"
+    alias mkip="minikube ip"
     alias mkdash="minikube dashboard"
 
-    function mkcc() {
-        echo "Creating minikube cluster with local Docker registry pod"
-        minikube start \
-            --cpus=$MINIKUBE_VM_CPUS \
-            --memory=$MINIKUBE_VM_RAM \
-            --disk-size=$MINIKUBE_VM_DISK_SIZE \
-            --vm-driver=$MINIKUBE_VM_DRIVER \
-            --addons registry \
-            --insecure-registry "10.0.0.0/24"
+    function mkstart() {
+        msg "Creating minikube cluster"
+        minikube start
+        msg "Enabling minikube Docker registry on $(minikube ip):5000"
+        minikube addons enable registry
+        msg "Run redirect_5000 to enable Docker to push images to minikube Docker registry"
+    }
+
+    function mkstop() {
+        delete_minikube_ip_from_known_hosts
+        msg "Stopping minikube cluster"
+        minikube stop
     }
 
     function mkx() {
+        delete_minikube_ip_from_known_hosts
+        msg "Deleting minikube cluster"
         minikube delete
     }
 
-    function dkmkreg() {
-        echo "Redirecting Docker for Mac port 5000 to minikube port 5000. Hit CTRL-C to quit."
+    function redirect_5000() {
+        msg "Redirecting Docker for Mac port 5000 to minikube port 5000. Hit CTRL-C to quit."
         docker run --rm -it --network=host alpine ash -c "apk add socat && socat TCP-LISTEN:5000,reuseaddr,fork TCP:$(minikube ip):5000"
     }
 
