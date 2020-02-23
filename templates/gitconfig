@@ -1,0 +1,75 @@
+[user]
+  name = Dale Davis
+  email = daled@juniper.net
+[core]
+  excludesfile = ~/.gitignore
+  autocrlf = input
+  editor = nvim
+  pager = less -+$LESS -FRX
+[branch]
+  autosetupmerge = true
+[color]
+  ui = auto
+[push]
+  default = current
+[alias]
+  b  = branch
+  ba = branch -a
+  bd = !sh -c 'git branch -D $1 && git push origin :$1 && git remote prune origin' -
+  br = !sh -c 'git branch -vv | sed "s/].*/]/"' -
+  bwho = !"bash -c \"git for-each-ref --format='%(committerdate) %09 %(authorname) %09 %(refname)' | grep remotes | sort\""
+  co = checkout
+  cp = cherry-pick
+  d = diff -w
+  dc = diff -w --cached
+  df = !sh -c 'git d $1^! -- $2' -
+  dr = !sh -c 'git d `cat .git/rebase-merge/stopped-sha`^! -- $1' -
+  ds = diff -w --stat=,80
+  dsc = diff -w --stat=,80 --cached
+  dsf = !sh -c 'git ds $1^!' -
+  fix = commit --amend -m
+  l = log --pretty=format:'%C(red)%h%Creset - %C(yellow)%s %Creset%C(green)(%an) %Creset%C(cyan)%ar%Creset' --no-merges
+  la = log -6 --pretty=format:'%C(red)%h%Creset - %C(yellow)%s %Creset%C(green)(%an) %Creset%C(cyan)%ar%Creset'
+  laa = log -12 --pretty=format:'%C(red)%h%Creset - %C(yellow)%s %Creset%C(green)(%an) %Creset%C(cyan)%ar%Creset'
+  lc = log -1 --pretty=format:'%C(red)%h%Creset - %C(yellow)%s %Creset%C(green)(%an) %Creset%C(cyan)%ar%Creset'
+  lg = log --graph --pretty=format:'%C(red)%h%Creset - %C(yellow)%s %Creset%C(green)(%an) %Creset%C(cyan)%ar%Creset'
+  lga = log --graph -10 --pretty=format:'%C(red)%h%Creset - %C(yellow)%s %Creset%C(green)(%an) %Creset%C(cyan)%ar%Creset'
+  lgfp = log --graph --first-parent --pretty=format:'%C(red)%h%Creset - %C(yellow)%s %Creset%C(green)(%an) %Creset%C(cyan)%ar%Creset'
+  lr = log --pretty=format:'%C(red)%h%Creset - %C(yellow)%s %Creset%C(green)(%an) %Creset%C(cyan)%ar%Creset' --reverse
+  ls = log --stat=,80 --pretty=format:'%C(red)%h%Creset - %C(yellow)%s %Creset%C(green)(%an) %Creset%C(cyan)%ar%Creset' --no-merges
+  nd = !sh -c 'git ds $1@{1}..$1@{0} \"$@\"' -
+  new = !sh -c 'git ls $1@{1}..$1@{0} \"$@\"' -
+  out = push
+  pr = remote prune origin
+  rc = !sh -c 'git add . && git rebase --continue' -
+  root = rev-parse --show-toplevel
+  so = remote show origin
+  st = status -sb
+  up = !sh -c 'git fetch && git rebase -r && git la' -
+  ups = !sh -c 'git fetch && git rebase -r && git la && git submodule update' -
+[rerere]
+  enabled = true
+[filter "media"]
+  clean = git-media-clean %f
+  smudge = git-media-smudge %f
+[credential]
+  helper = osxkeychain
+[merge]
+  ff = only
+  tool = Kaleidoscope
+[diff]
+  tool = Kaleidoscope
+[difftool "diffmerge"]
+  cmd = /usr/local/bin/diffmerge \"$LOCAL\" \"$REMOTE\"
+[mergetool "diffmerge"]
+  trustExitCode = true
+  cmd = /usr/local/bin/diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+[difftool "Kaleidoscope"]
+  cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[mergetool "Kaleidoscope"]
+  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+  trustexitcode = true
+[difftool]
+  prompt = false
+[mergetool]
+  prompt = false
