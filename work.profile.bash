@@ -34,6 +34,9 @@ function ss() {
     ssh root@"$1"
 }
 
+# Can I get a little work down, please?
+alias fucknetscope='sudo launchctl unload /Library/LaunchDaemons/com.netskope.stagentsvc.plist'
+
 # Google CLI tools
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc'
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc'
