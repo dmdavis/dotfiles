@@ -27,7 +27,7 @@ export GEM_PATH="$HOME/.gems"
 export PATH="$GEM_PATH/bin:$PATH"
 
 export WATCH_NAMESPACE=default
-export ETCD_ENDPOINTS=127.0.0.1:32379
+export ETCD_ENDPOINTS=127.0.0.1:32379  # When running in kind
 
 # SSH shortcut
 function ss() {
@@ -36,6 +36,14 @@ function ss() {
 
 # Can I get a little work down, please?
 alias fucknetscope='sudo launchctl unload /Library/LaunchDaemons/com.netskope.stagentsvc.plist'
+
+# Contrail
+function generateDS() {
+    /Users/daled/.pyenv/versions/generateDS-2.7.17/bin/python /Users/daled/Projects/contrail/contrail-api-client/generateds/generateDS.py "$@"
+}
+function genDSgo() {
+    generateDS -f -o "$1" -g golang-api /Users/daled/Projects/contrail/contrail-api-client/schema/all_cfg.xsd
+}
 
 # Google CLI tools
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc'
