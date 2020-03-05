@@ -34,15 +34,25 @@ function ss() {
     ssh root@"$1"
 }
 
-# Can I get a little work down, please?
+# Can I get a little work done, please?
 alias fucknetscope='sudo launchctl unload /Library/LaunchDaemons/com.netskope.stagentsvc.plist'
 
-# Contrail
+# Contrail schema
+export CONTRAIL_XML_SCHEMA_DIR='/Users/daled/Projects/contrail/contrail-api-client/schema'
+export CONTRAIL_ALL_CFG_XSD="$CONTRAIL_XML_SCHEMA_DIR/all_cfg.xsd"
+export CONTRAIL_YAML_SCHEMA_DIR='/Users/daled/go/src/contrail-config-ng/vnc-proxy'
+
+# Contrail generateDS
+export GENERATEDS_PYTHON_BIN='/Users/daled/.pyenv/versions/generateDS-2.7.17/bin/python'
+export GENERATEDS_SCRIPT='/Users/daled/Projects/contrail/contrail-api-client/generateds/generateDS.py'
 function generateDS() {
-    /Users/daled/.pyenv/versions/generateDS-2.7.17/bin/python /Users/daled/Projects/contrail/contrail-api-client/generateds/generateDS.py "$@"
+    ${GENERATEDS_PYTHON_BIN} ${GENERATEDS_SCRIPT} "$@"
 }
 function genDSgo() {
-    generateDS -f -o "$1" -g golang-api /Users/daled/Projects/contrail/contrail-api-client/schema/all_cfg.xsd
+    generateDS -f -o "$1" -g golang-api ${CONTRAIL_ALL_CFG_XSD}
+}
+function genDSyml() {
+     generateDS -f -o "${1:-${CONTRAIL_YAML_SCHEMA_DIR}}" -g contrail-json-schema ${CONTRAIL_ALL_CFG_XSD}
 }
 
 # Google CLI tools
