@@ -18,7 +18,6 @@ git                   [x]
 go                    [x]     
 kubectl               [x]     
 makefile              [x]     
-pip                   [x]     
 ssh                   [x]     
 system                [x]     
 [36mBash It - Enabled Plugins
