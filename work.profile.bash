@@ -36,6 +36,7 @@ function ss() {
 
 # Can I get a little work done, please?
 alias fucknetscope='sudo launchctl unload /Library/LaunchDaemons/com.netskope.stagentsvc.plist'
+alias fuckvmware='sudo rm -rf /etc/paths.d/com.vmware.fusion.public'
 
 # Contrail schema
 export CONTRAIL_XML_SCHEMA_DIR='/Users/daled/Projects/contrail/contrail-api-client/schema'
