@@ -9,5 +9,6 @@ echo "Installing dotfiles"
 git clone git@github.com:dmdavis/dotfiles.git ~/.files && ~/.files/install
 echo "Edit your .bashrc to load appropriate profile."
 
-# Dev tools
-
+# VMWare Tools for Linux
+yum install -y open-vm-tools
+yum install -y open-vm-tools-desktop
