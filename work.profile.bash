@@ -61,3 +61,6 @@ source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.i
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc'
 
 export PATH="$HOME/.cargo/bin:$PATH"
+
+# Manually installed /usr/local/kubebuilder/bin
+export PATH=$PATH:/usr/local/kubebuilder/bin

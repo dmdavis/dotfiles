@@ -4,6 +4,7 @@ ansible               [x]     ansible abbreviations
 docker-compose        [x]     docker-compose abbreviations
 docker                [x]     docker abbreviations
 general               [x]     general aliases
+hg                    [x]     mercurial abbreviations
 homebrew-cask         [x]     homebrew-cask abbreviations
 homebrew              [x]     homebrew abbreviations
 kubectl               [x]     kubectl aliases
@@ -31,6 +32,7 @@ docker                [x]     Helpers to more easily work with Docker
 fzf                   [x]     load fzf, if you are using it
 git                   [x]     git helper functions
 go                    [x]     go environment variables & path configuration
+hg                    [x]     hg helper functions
 man                   [x]     colorize man pages for better readability
 pyenv                 [x]     load pyenv, if you are using it
 ssh                   [x]     ssh helper functions
