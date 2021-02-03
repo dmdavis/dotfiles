@@ -4,12 +4,14 @@ set -e
 
 # Location of .files directory
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export BASEDIR
 
 # If Bash-it isn't installed, offer to install it.
 if [ ! -d ~/.bash_it ]
 then
     while true; do
-        read -p "~/.bash_it not found. Install Bash-it?" yn
+        # shellcheck disable=SC2088
+        read -rp "~/.bash_it not found. Install Bash-it?" yn
         case $yn in
             [Yy]* ) git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it; ~/.bash_it/install.sh; break;;
             [Nn]* ) exit;;
@@ -24,7 +26,7 @@ then
     if [[ $(command -v brew) == "" ]]
     then
         while true; do
-            read -p "Homebrew not installed. Install it?" yn
+            read -rp "Homebrew not installed. Install it?" yn
             case $yn in
                 [Yy]* ) /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"; break;;
                 [Nn]* ) exit;;
