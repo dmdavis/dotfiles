@@ -11,9 +11,9 @@ export PYTHON_VERSION='3.8.1'
 # Your place for hosting Git repos. I use this for private repos.
 export GIT_HOSTING='git@github.com'
 
-# shellcheck source=$HOME/.files/includes/bashit.bash
+# shellcheck source=./includes/bashit.bash
 source "$BASEDIR"/includes/bashit.bash
-# shellcheck source=$HOME/.files/includes/mac.bash
+# shellcheck source=./includes/mac.bash
 source "$BASEDIR"/includes/mac.bash
 
 alias llc='ll | lolcat'

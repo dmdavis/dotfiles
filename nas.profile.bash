@@ -12,7 +12,7 @@ export PYTHON_VERSION='3.5.1'
 # TODO: Set this to NAS git
 export GIT_HOSTING='git@github.com'
 
-# shellcheck source=$HOME/.files/includes/bashit.bash
+# shellcheck source=./includes/bashit.bash
 source "$BASEDIR"/includes/bashit.bash
 
 export PATH="/usr/local/mariadb10/bin/:$PATH"

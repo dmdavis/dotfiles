@@ -7,6 +7,7 @@ alias vim=nvim
 alias v=nvim
 
 shopt -u extdebug
+# shellcheck source=../../.iterm2_shell_integration.bash
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 # Switch iTerm 2 profile from cli
 

@@ -58,7 +58,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export LC_ALL=en_US.UTF-8
 
 # Load Bash It
-# shellcheck source=$HOME/.bash_it/bash_it.sh
+# shellcheck source=../../.bash_it/bash_it.sh
 source "$BASH_IT/bash_it.sh"
 
 alias alg='alias | grep'
