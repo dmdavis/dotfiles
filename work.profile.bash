@@ -67,3 +67,14 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 # Manually installed /usr/local/kubebuilder/bin
 export PATH=$PATH:/usr/local/kubebuilder/bin
+
+# Create minikube secret for CN2
+function create_minikube_cn2_secret() {
+  local USERNAME=${USER}
+  local PASSWORD
+  PASSWORD=$(security find-generic-password -a "${USER}" -s daled-juniper-ldap -w)
+  local REGISTRY=svl-artifactory.juniper.net/atom-docker/cn2
+  local SECRET_NAME=svl-artifactory
+  kubectl create namespace contrail
+  kubectl -n contrail create secret docker-registry "${SECRET_NAME}" --docker-server="${REGISTRY}" --docker-username="${USERNAME}" --docker-password="${PASSWORD}"
+}

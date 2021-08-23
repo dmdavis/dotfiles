@@ -4,12 +4,16 @@
 # https://github.com/kubernetes/minikube
 if [[ $(command -v minikube) != "" ]]; then
 
-    export MINIKUBE_VM_DRIVER="virtualbox"
-    export MINIKUBE_CPUS=4
-    export MINIKUBE_MEMORY="8192mb"  # 8Gb
-    export MINIKUBE_DISK_SIZE="60g"  # 60Gb
+    export MINIKUBE_DRIVER="hyperkit"
+    export MINIKUBE_CPUS=2
+    export MINIKUBE_MEMORY=7168  # 7Gb
+    export MINIKUBE_CONTAINER_RUNTIME="cri-o"
+
+    # Default disk size is 20g
+    # export MINIKUBE_DISK_SIZE="60g"
 
     function delete_minikube_ip_from_known_hosts() {
+        local mk_ip
         mk_ip="$(minikube ip)"
         msg "Deleting minikube IP $mk_ip from ~/.ssh/known_hosts"
         ssh-keygen -R "$mk_ip"
@@ -23,16 +27,18 @@ if [[ $(command -v minikube) != "" ]]; then
     alias mkdke="minikube -p minikube docker-env"
 
     function mkdke_activate() {
+        # This won't work with cri-o runtime
         eval "$(minikube -p minikube docker-env)"
         msg "Docker now configured to use minikube"
     }
 
     function mkstart() {
         msg "Creating minikube cluster"
-        minikube start --insecure-registry "10.0.0.0/24"
-        msg "Enabling minikube Docker registry on $(minikube ip):5000"
-        minikube addons enable registry
-        mkdke_activate
+        minikube start
+#        minikube start --insecure-registry "10.0.0.0/24"
+#        msg "Enabling minikube Docker registry on $(minikube ip):5000"
+#        minikube addons enable registry
+#        mkdke_activate
     }
 
     function mkstop() {
