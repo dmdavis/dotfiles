@@ -56,6 +56,23 @@ function genDSyml() {
     generateDS -f -o "${1:-${CONTRAIL_YAML_SCHEMA_DIR}}" -g contrail-json-schema ${CONTRAIL_ALL_CFG_XSD}
 }
 
+# Development host shortcuts
+alias dev='ssh $DEV_USER@$DEV_HOST'
+# Copy local file to dev VM
+scpdev() {
+  scp "$1" "$DEV_USER@$DEV_HOST:$2"
+}
+# Copy file from dev VM to local host
+devscp() {
+    if  [[ $1 == /* ]] ;
+    then
+        local COPY_PATH=$1
+    else
+        local COPY_PATH="$DEV_HOME_DIR/$1"
+    fi
+    scp "$DEV_USER@$DEV_HOST:$COPY_PATH" "${2:-.}"
+}
+
 # contrail-api-cli
 alias contrail-api-cli='/Users/daled/.pyenv/versions/contrail-api-cli-2.7.17/bin/contrail-api-cli'
 

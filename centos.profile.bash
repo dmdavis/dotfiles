@@ -13,3 +13,19 @@ export GIT_HOSTING='git@github.com'
 
 # shellcheck source=./includes/bashit.bash
 source "$BASEDIR"/includes/bashit.bash
+
+# Copy dev VM file to Macbook
+scpmac() {
+  scp "$1" "$MAC_USER@$MAC_HOST:$2"
+}
+
+# Copy file from Macbook to dev VM
+macscp() {
+    if  [[ $1 == /* ]] ;
+    then
+        local COPY_PATH=$1
+    else
+        local COPY_PATH="$MAC_HOME_DIR/$1"
+    fi
+    scp "$MAC_USER@$MAC_HOST:$COPY_PATH" "${2:-.}"
+}
