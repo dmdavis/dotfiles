@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
-# ZPrezto git aliases
+# These aliases are based on ZPrezto git aliases
 # https://github.com/sorin-ionescu/prezto/blob/master/modules/git/alias.zsh
 # 1b441e7 on Apr 4, 2018
+
+git-branch-current() {
+  git rev-parse --abbrev-ref HEAD
+}
 
 # Git
 alias g='git'
@@ -21,6 +25,7 @@ alias gbr='git branch --move'
 alias gbR='git branch --move --force'
 alias gbs='git show-branch'
 alias gbS='git show-branch --all'
+alias gbu='git branch --set-upstream-to=origin/"$(git rev-parse --abbrev-ref HEAD)"'
 alias gbv='git branch --verbose'
 alias gbV='git branch --verbose --verbose'
 alias gbx='git branch --delete'
