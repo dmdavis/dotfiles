@@ -19,6 +19,17 @@ scpmac() {
   scp "$1" "$MAC_USER@$MAC_HOST:$2"
 }
 
+# Oh, for fuck's sake, Dev VM Docker. Out of space AGAIN?
+offs() {
+    if [ -n "$(docker ps -q -a -f name=registry)" ];
+    then
+        docker stop registry
+        docker rm -v registry
+    fi
+    sudo docker system prune -a -f --volumes
+    docker run -d -p 5000:5000 --restart=always --name registry svl-artifactory.juniper.net/atom-docker/cn2/registry:2
+}
+
 # Copy file from Macbook to dev VM
 macscp() {
     if  [[ $1 == /* ]] ;
