@@ -73,6 +73,12 @@ devscp() {
     scp "$DEV_USER@$DEV_HOST:$COPY_PATH" "${2:-.}"
 }
 
+# iTerm tmux to dev box
+tmd() {
+    it2prof tmux
+    ssh -t "$DEV_USER@$DEV_HOST" 'tmux attach || tmux -CC new -A -s dev-vm'
+}
+
 # contrail-api-cli
 alias contrail-api-cli='/Users/daled/.pyenv/versions/contrail-api-cli-2.7.17/bin/contrail-api-cli'
 
