@@ -40,3 +40,6 @@ macscp() {
     fi
     scp "$MAC_USER@$MAC_HOST:$COPY_PATH" "${2:-.}"
 }
+
+# Add --color to common lso alias
+alias llo='lso --color'

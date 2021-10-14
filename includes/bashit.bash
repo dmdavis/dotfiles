@@ -80,3 +80,14 @@ function bashen() {
     msg "Bash It - Enabled Plugins"
     bashit show plugins | grep '\[x\]'
 }
+
+# ls with octal file permissions
+# Source: https://askubuntu.com/questions/152001/how-can-i-get-octal-file-permissions-from-command-line
+lso() {
+    # Suppress "use find instead of ls" shellcheck warning
+    # shellcheck disable=SC2012
+    ls -alG "$@" | awk '{k=0;for(i=0;i<=8;i++)k+=((substr($1,i+2,1)~/[rwx]/)*2^(8-i));if(k)printf(" %0o ",k);print}';
+}
+
+# Common lso alias (overridden in downstream BASH files)
+alias llo='lso'
