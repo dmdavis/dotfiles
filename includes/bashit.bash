@@ -91,3 +91,9 @@ lso() {
 
 # Common lso alias (overridden in downstream BASH files)
 alias llo='lso'
+
+# tar aliases
+alias compress='tar -czvf'
+# Remember to add `-C <destination>` if you want to uncompress to a different
+# folder.
+alias uncompress='tar -xzvf'
