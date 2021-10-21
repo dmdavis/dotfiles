@@ -16,6 +16,17 @@ source "$BASEDIR"/includes/bashit.bash
 # shellcheck source=./includes/kubectl.contrail.aliases.bash
 source "$BASEDIR"/includes/kubectl.contrail.aliases.bash
 
+# kubectl aliases for feature-tests clusters
+if [[ $(command -v kubectl) != "" ]]; then
+    alias kcaf2='kubectl --kubeconfig ~/.kube/kubeconfig apply -f'
+    alias kccf2='kubectl --kubeconfig ~/.kube/kubeconfig create -f'
+    alias kcd2='kubectl --kubeconfig ~/.kube/kubeconfig describe'
+    alias kced2='kubectl --kubeconfig ~/.kube/kubeconfig edit'
+    alias kcex2='kubectl --kubeconfig ~/.kube/kubeconfig explain'
+    alias kcl2='kubectl --kubeconfig ~/.kube/kubeconfig logs'
+    alias k9s2='k9s --kubeconfig ~/.kube/kubeconfig'
+fi
+
 # Copy dev VM file to Macbook
 scpmac() {
   scp "$1" "$MAC_USER@$MAC_HOST:$2"
