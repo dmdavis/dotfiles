@@ -17,9 +17,6 @@ source "$BASEDIR"/includes/bashit.bash
 source "$BASEDIR"/includes/mac.bash
 # shellcheck source=./includes/minikube.bash
 source "$BASEDIR"/includes/minikube.bash
-# shellcheck source=./includes/kubectl.contrail.aliases.bash
-source "$BASEDIR"/includes/kubectl.contrail.aliases.bash
-
 alias llc='ll | lolcat'
 
 export GEM_HOME="$HOME/.gems"
