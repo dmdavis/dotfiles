@@ -10,54 +10,93 @@ git-branch-current() {
 
 # Git
 alias g='git'
+__git_complete g __git_main
 
 # Branch (b)
 alias gb='git branch'
+__git_complete gb _git_branch
 alias gba='git branch --all --verbose'
+__git_complete gba _git_branch
 alias gbc='git checkout -b'
+__git_complete gbc _git_checkout
 alias gbd='git branch --delete'
+__git_complete gbd _git_branch
 alias gbD='git branch --delete --force'
+__git_complete gbD _git_branch
 alias gbl='git branch --verbose'
+__git_complete gbl _git_branch
 alias gbL='git branch --all --verbose'
+__git_complete gbL _git_branch
 alias gbm='git branch --move'
+__git_complete gbm _git_branch
 alias gbM='git branch --move --force'
+__git_complete gbM _git_branch
 alias gbr='git branch --move'
+__git_complete gbr _git_branch
 alias gbR='git branch --move --force'
+__git_complete gbR _git_branch
 alias gbs='git show-branch'
+__git_complete gbs _git_show_branch
 alias gbS='git show-branch --all'
+__git_complete gbS _git_show_branch
 alias gbu='git branch --set-upstream-to=origin/"$(git rev-parse --abbrev-ref HEAD)"'
 alias gbv='git branch --verbose'
+__git_complete gbv _git_branch
 alias gbV='git branch --verbose --verbose'
+__git_complete gbV _git_branch
 alias gbx='git branch --delete'
+__git_complete gbx _git_branch
 alias gbX='git branch --delete --force'
+__git_complete gbX _git_branch
 
 # Commit (c)
 alias gc='git commit --verbose'
+__git_complete gc _git_commit
 alias gca='git commit --verbose --all'
+__git_complete gca _git_commit
 alias gcm='git commit --message'
+__git_complete gcm _git_commit
 alias gcS='git commit -S --verbose'
+__git_complete gcS _git_commit
 alias gcSa='git commit -S --verbose --all'
+__git_complete gcSa _git_commit
 alias gcSm='git commit -S --message'
+__git_complete gcSm _git_commit
 alias gcam='git commit --all --message'
+__git_complete gcam _git_commit
 alias gco='git checkout'
+__git_complete gco _git_checkout
 alias gcO='git checkout --patch'
+__git_complete gcO _git_checkout
 alias gcf='git commit --amend --reuse-message HEAD'
+__git_complete gcF _git_commit
 alias gcSf='git commit -S --amend --reuse-message HEAD'
+__git_complete gcSf _git_commit
 alias gcF='git commit --verbose --amend'
+__git_complete gcF _git_commit
 alias gcSF='git commit -S --verbose --amend'
+__git_complete gcSF _git_commit
 alias gcp='git cherry-pick --ff'
+__git_complete gcp _git_cherry_pick
 alias gcP='git cherry-pick --no-commit'
+__git_complete gcP _git_cherry_pick
 alias gcr='git revert'
+__git_complete gcr _git_revert
 alias gcR='git reset "HEAD^"'
+__git_complete gcR _git_reset
 alias gcs='git show'
+__git_complete gcs _git_show
 alias gcl='git-commit-lost'
 alias gcy='git cherry -v --abbrev'
 alias gcY='git cherry -v'
 
 # Conflict (C)
 alias gCl='git --no-pager diff --name-only --diff-filter=U'
+__git_complete gCl _git_diff
 alias gCa='git add $(gCl)'
+__git_complete gCa _git_add
 alias gCe='git mergetool $(gCl)'
+__git_complete gCe _git_mergetool
 alias gCo='git checkout --ours --'
 alias gCO='gCo $(gCl)'
 alias gCt='git checkout --theirs --'
@@ -74,11 +113,16 @@ alias gdi='git status --porcelain --short --ignored | sed -n "s/^!! //p"'
 
 # Fetch (f)
 alias gf='git fetch'
+__git_complete gf _git_fetch
 alias gfa='git fetch --all'
 alias gfc='git clone'
+__git_complete gfc _git_clone
 alias gfcr='git clone --recurse-submodules'
+__git_complete gfcr _git_clone
 alias gfm='git pull'
+__git_complete gfm _git_pull
 alias gfr='git pull --rebase'
+__git_complete gfr _git_pull
 
 # Flow (F)
 alias gFi='git flow init'
@@ -145,24 +189,37 @@ alias gFsx='git flow support delete'
 
 # Grep (g)
 alias gg='git grep'
+__git_complete gg _git_grep
 alias ggi='git grep --ignore-case'
+__git_complete ggi _git_grep
 alias ggl='git grep --files-with-matches'
+__git_complete ggl _git_grep
 alias ggL='git grep --files-without-matches'
+__git_complete ggl _git_grep
 alias ggv='git grep --invert-match'
+__git_complete ggv _git_grep
 alias ggw='git grep --word-regexp'
+__git_complete ggw _git_grep
 
 # Index (i)
 alias gia='git add'
+__git_complete gia _git_add
 alias giA='git add --patch'
+__git_complete giA _git_add
 alias giu='git add --update'
+__git_complete giu _git_add
 alias gid='git diff --no-ext-diff --cached'
 alias giD='git diff --no-ext-diff --cached --word-diff'
 alias gii='git update-index --assume-unchanged'
 alias giI='git update-index --no-assume-unchanged'
 alias gir='git reset'
+__git_complete gir _git_reset
 alias giR='git reset --patch'
+__git_complete giR _git_reset
 alias gix='git rm -r --cached'
+__git_complete gix _git_rm
 alias giX='git rm -rf --cached'
+__git_complete giX _git_rm
 
 # Log (l)
 alias gl='git log --topo-order --pretty=format:"${_git_log_medium_format}"'
@@ -175,6 +232,7 @@ alias glc='git shortlog --summary --numbered'
 
 # Merge (m)
 alias gm='git merge'
+__git_complete gm _git_merge
 alias gmC='git merge --no-commit'
 alias gmF='git merge --no-ff'
 alias gma='git merge --abort'
@@ -182,6 +240,7 @@ alias gmt='git mergetool'
 
 # Push (p)
 alias gp='git push'
+__git_complete gp _git_push
 alias gpf='git push --force-with-lease'
 alias gpF='git push --force'
 alias gpa='git push --all'
@@ -192,6 +251,7 @@ alias gpp='git pull origin "$(git-branch-current 2> /dev/null)" && git push orig
 
 # Rebase (r)
 alias gr='git rebase'
+__git_complete gr _git_rebase
 alias gra='git rebase --abort'
 alias grc='git rebase --continue'
 alias gri='git rebase --interactive'
@@ -199,9 +259,13 @@ alias grs='git rebase --skip'
 
 # Remote (R)
 alias gR='git remote'
+__git_complete gR _git_remote
+alias gra='git rebase --abort'
 alias gRl='git remote --verbose'
 alias gRa='git remote add'
+__git_complete gRa _git_remote
 alias gRx='git remote rm'
+__git_complete gRx _git_remote
 alias gRm='git remote rename'
 alias gRu='git remote update'
 alias gRp='git remote prune'
@@ -210,6 +274,7 @@ alias gRb='git-hub-browse'
 
 # Stash (s)
 alias gs='git stash'
+__git_complete gs _git_stash
 alias gsa='git stash apply'
 alias gsx='git stash drop'
 alias gsX='git-stash-clear-interactive'
