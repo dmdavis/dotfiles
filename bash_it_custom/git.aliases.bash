@@ -4,8 +4,18 @@
 # https://github.com/sorin-ionescu/prezto/blob/master/modules/git/alias.zsh
 # 1b441e7 on Apr 4, 2018
 
+# bash_it git completion only loads on macOS because there's no reliable path
+# to it on on the various distributions. Try a few known locations here.
+if [[ "$(uname -s)" != 'Linux' ]] ; then
+    # On Centos 7, git completion is lazy-loaded. __git_complete doesn't exist
+    # until "git TAB" is called, so source the completion file if its there.
+    if [[ -r /usr/share/bash-completion/completions/git ]]; then
+        source /usr/share/bash-completion/completions/git
+    fi
+fi
+
 git-branch-current() {
-  git rev-parse --abbrev-ref HEAD
+    git rev-parse --abbrev-ref HEAD
 }
 
 # Git
