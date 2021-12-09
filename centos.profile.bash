@@ -13,6 +13,8 @@ export GIT_HOSTING='git@github.com'
 
 # shellcheck source=./includes/bashit.bash
 source "$BASEDIR"/includes/bashit.bash
+# shellcheck source=./includes/build.bash
+source "$BASEDIR"/includes/build.bash
 
 # kubectl aliases for feature-tests clusters
 if [[ $(command -v kubectl) != "" ]]; then
