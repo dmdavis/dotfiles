@@ -1,3 +1,4 @@
+" https://www.jetbrains.com/help/idea/using-product-as-the-vim-editor.html#vimrc
 imap jj <Esc>
 set scrolloff=5
 
