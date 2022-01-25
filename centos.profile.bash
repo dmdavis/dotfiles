@@ -25,6 +25,13 @@ if [[ $(command -v kubectl) != "" ]]; then
     alias kcex2='kubectl --kubeconfig ~/.kube/kubeconfig explain'
     alias kcl2='kubectl --kubeconfig ~/.kube/kubeconfig logs'
     alias k9s2='k9s --kubeconfig ~/.kube/kubeconfig'
+    alias kcafocp='kubectl --kubeconfig /tmp/ocpcluster apply -f'
+    alias kccfocp='kubectl --kubeconfig /tmp/ocpcluster create -f'
+    alias kcdocp='kubectl --kubeconfig /tmp/ocpcluster describe'
+    alias kcedocp='kubectl --kubeconfig /tmp/ocpcluster edit'
+    alias kcexocp='kubectl --kubeconfig /tmp/ocpcluster explain'
+    alias kclocp='kubectl --kubeconfig /tmp/ocpcluster logs'
+    alias k9socp='k9s --kubeconfig /tmp/ocpcluster'
 fi
 
 # Copy dev VM file to Macbook
@@ -56,3 +63,16 @@ macscp() {
 
 # Add --color to common lso alias
 alias llo='lso --color'
+
+# Short for SSH'ing into ocp-dev cluster nodes
+ocpsh() {
+    ssh -i ~/id_ocp_dev "core@10.87.88.$1"
+}
+ocpscpk9s() {
+    echo "Copying k9s to core@10.87.88.$1:/var/home/core/"
+    scp -i ~/id_ocp_dev ~/local/bin/k9s "core@10.87.88.$1:/var/home/core/"
+}
+ocpscptestyaml() {
+    echo "Copying snat-ext-ping-test-pod.yaml to core@10.87.88.$1:/var/home/core/"
+    scp -i ~/id_ocp_dev ~/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests/tests/test-yaml/snat-ext-ping-test-pod.yaml "core@10.87.88.$1:/var/home/core/"
+}
