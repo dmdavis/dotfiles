@@ -8,9 +8,17 @@
 # to it on on the various distributions. Try a few known locations here.
 if [[ "$(uname -s)" == 'Linux' ]] ; then
     # On Centos 7, git completion is lazy-loaded. __git_complete doesn't exist
-    # until "git TAB" is called, so source the completion file if its there.
+    # until "git TAB" is called, so source the completion file if it is there.
     if [[ -r /usr/share/bash-completion/completions/git ]]; then
         source /usr/share/bash-completion/completions/git
+
+    # On Synology DSM 6, bash completions aren't present in either
+    # /usr/share/bash-completion/completions/git or /etc/bash_completion.d/git.
+    # Use the following to download a local copy:
+    #   curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
+    elif [ -f ~/.git-completion.bash ]; then
+        # shellcheck source=$/.git-completion.bash
+        source "$HOME/.git-completion.bash"
     fi
 fi
 
