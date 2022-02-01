@@ -23,5 +23,6 @@ export PATH="/usr/local/mariadb10/bin/:$PATH"
 
 # Set up LS_COLORS if present
 if [[ -r "$HOME/.ls-colors.sh" ]]; then
-    eval "$(dircolors "$HOME"/.ls-colors.sh)"
+    # shellcheck source=$/.ls-colors.sh
+    source "$HOME/.ls-colors.sh"
 fi
