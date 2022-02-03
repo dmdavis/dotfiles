@@ -13,8 +13,8 @@ export GIT_HOSTING='git@github.com'
 
 # shellcheck source=./includes/bashit.bash
 source "$BASEDIR"/includes/bashit.bash
-# shellcheck source=./includes/build.bash
-source "$BASEDIR"/includes/build.bash
+# shellcheck source=./includes/work.bash
+source "$BASEDIR"/includes/work.bash
 
 # kubectl aliases for feature-tests clusters
 if [[ $(command -v kubectl) != "" ]]; then
@@ -36,13 +36,12 @@ fi
 
 # Copy dev VM file to Macbook
 scpmac() {
-  scp "$1" "$MAC_USER@$MAC_HOST:$2"
+    scp "$1" "$MAC_USER@$MAC_HOST:$2"
 }
 
 # Oh, for fuck's sake, Dev VM Docker. Out of space AGAIN?
 offs() {
-    if [ -n "$(docker ps -q -a -f name=registry)" ];
-    then
+    if [ -n "$(docker ps -q -a -f name=registry)" ]; then
         docker stop registry
         docker rm -v registry
     fi
@@ -52,8 +51,7 @@ offs() {
 
 # Copy file from Macbook to dev VM
 macscp() {
-    if  [[ $1 == /* ]] ;
-    then
+    if [[ $1 == /* ]]; then
         local COPY_PATH=$1
     else
         local COPY_PATH="$MAC_HOME_DIR/$1"
@@ -64,21 +62,3 @@ macscp() {
 # Add --color to common lso alias
 alias llo='lso --color'
 
-# Short for SSH'ing into ocp-dev cluster nodes
-ocpsh() {
-    ssh -i ~/id_ocp_dev "core@10.87.88.$1"
-}
-
-# Copy k9s to test cluster
-ocpscpk9s() {
-    echo "Copying k9s to core@10.87.88.$1:/var/home/core/"
-    scp -i ~/id_ocp_dev ~/local/bin/k9s "core@10.87.88.$1:/var/home/core/"
-}
-
-# Copy test yaml to test cluster
-ocpscptestyaml() {
-    echo "Copying snat-ext-ping-test-pod.yaml to core@10.87.88.$1:/var/home/core/"
-    scp -i ~/id_ocp_dev ~/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests/tests/test-yaml/snat-ext-ping-test-pod.yaml "core@10.87.88.$1:/var/home/core/"
-    scp -i ~/id_ocp_dev ~/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests/tests/test-yaml/port-translation-test.yaml "core@10.87.88.$1:/var/home/core/"
-    scp -i ~/id_ocp_dev ~/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests/tests/test-yaml/port-translation-test-ha.yaml "core@10.87.88.$1:/var/home/core/"
-}

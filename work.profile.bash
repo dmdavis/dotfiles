@@ -13,6 +13,8 @@ export GIT_HOSTING='git@github.com'
 
 # shellcheck source=./includes/bashit.bash
 source "$BASEDIR"/includes/bashit.bash
+# shellcheck source=./includes/work.bash
+source "$BASEDIR"/includes/work.bash
 # shellcheck source=./includes/mac.bash
 source "$BASEDIR"/includes/mac.bash
 # shellcheck source=./includes/minikube.bash
@@ -73,8 +75,17 @@ devscp() {
 # iTerm tmux to dev box
 tmd() {
     it2prof tmux
-    ssh -t "$DEV_USER@$DEV_HOST" 'tmux attach || tmux -CC new -A -s dev-vm'
+    ssh -t "$DEV_USER@$DEV_HOST" 'tmux attach -t dev-vm|| tmux -CC new -A -s dev-vm'
 }
+
+# iTerm tmux to NAS
+#tmn() {
+#    it2prof tmux-nas
+#    # This won't work if /bin/bash isn't your default shell. Synology doesn't have
+#    # chsh or usermod, but you can set it by editing /etc/passwd. It will be the
+#    # last value on a user's row in that file.
+#    ssh -p "$NAS_SSH_PORT" -t "$NAS_USER@$NAS_IP" bash -l -c 'tmux attach -t NAS-DS918-PLUS || tmux -CC new -A -s NAS-DS918-PLUS'
+#}
 
 # contrail-api-cli
 alias contrail-api-cli='/Users/daled/.pyenv/versions/contrail-api-cli-2.7.17/bin/contrail-api-cli'
