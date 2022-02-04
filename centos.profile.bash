@@ -36,7 +36,7 @@ fi
 
 # Short for SSH'ing into k8s ha cluster nodes in ocp pool
 k8ssh() {
-    ssh -i ~/daled-cn2-os-dev.pem "core@$LAB_NETWORK.$1"
+    ssh -i ~/daled-cn2-os-dev.pem "centos@$LAB_NETWORK.$1"
 }
 
 # Copy dev VM file to Macbook
