@@ -34,11 +34,6 @@ if [[ $(command -v kubectl) != "" ]]; then
     alias k9socp='k9s --kubeconfig /tmp/ocpcluster'
 fi
 
-# Short for SSH'ing into k8s ha cluster nodes in ocp pool
-k8ssh() {
-    ssh -i ~/daled-cn2-os-dev.pem "centos@$LAB_NETWORK.$1"
-}
-
 # Copy dev VM file to Macbook
 scpmac() {
     scp "$1" "$MAC_USER@$MAC_HOST:$2"

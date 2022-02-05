@@ -19,23 +19,50 @@ alias mftocpcd='time make feature-tests-ocp-cd HOST_REGISTRY=$DOCKER_REPO_HOST:$
 alias mftsnci='time make feature-tests-singlenode-ci HOST_REGISTRY=$DOCKER_REPO_HOST:$DOCKER_REPO_PORT'
 alias mftdpdkci='time make feature-tests-dpdk-ci HOST_REGISTRY=$DOCKER_REPO_HOST:$DOCKER_REPO_PORT'
 
-export LAB_NETWORK='127.0.0'
+export FT_TEST_YAML="$HOME/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests/tests/test-yaml"
+export OCP_USER="${OCP_USER:-core}"
+export OCP_HOME="/var/home"
+export K8S_USER="${K8S_USER:-centos}"
+export K8S_HOME="/home"
 
-# Short for SSH'ing into ocp-dev cluster nodes
+# Override these in local .bashrc
+export LAB_NETWORK='127.0.0'
+export OCP_PRIVATE_KEY="$HOME/id"
+export K8S_PRIVATE_KEY="$HOME/id"
+
+# args: private key path, user, ip/host
+__ssh_lab() {
+    ssh -i "$1" "$2@$3"
+}
+
+# Shortcut for SSH'ing into ocp-dev cluster nodes
 ocpsh() {
-    ssh -i ~/id_ocp_dev "core@$LAB_NETWORK.$1"
+    __ssh_lab "$OCP_PRIVATE_KEY" "$OCP_USER" "$LAB_NETWORK.$1"
+}
+
+# Shortcut for SSH'ing into k8s ha cluster nodes in ocp pool
+k8ssh() {
+    __ssh_lab "$K8S_PRIVATE_KEY" "$K8S_USER" "$LAB_NETWORK.$1"
 }
 
 # Copy k9s to test cluster
 ocpscpk9s() {
-    echo "Copying k9s to core@$LAB_NETWORK.$1:/var/home/core/"
-    scp -i ~/id_ocp_dev ~/local/bin/k9s "core@$LAB_NETWORK.$1:/var/home/core/"
+    echo "Copying k9s to $OCP_USER@$LAB_NETWORK.$1:$OCP_HOME/$OCP_USER/"
+    scp -i "$OCP_PRIVATE_KEY" ~/local/bin/k9s "$OCP_USER@$LAB_NETWORK.$1:$OCP_HOME/$OCP_USER/"
+}
+
+# args: private key path, user, ip/host, home dir
+__scp_test_yaml() {
+    echo "Copying test yaml to $2@$3:$4/$2/"
+    scp -i "$1" "$FT_TEST_YAML"/snat-ext-ping-test-pod.yaml "$2@$3:$4/$2/"
+    scp -i "$1" "$FT_TEST_YAML"/port-translation-test.yaml "$2@$3:$4/$2/"
+    scp -i "$1" "$FT_TEST_YAML"/port-translation-test-ha.yaml "$2@$3:$4/$2/"
 }
 
 # Copy test yaml to test cluster
 ocpscptestyaml() {
-    echo "Copying snat-ext-ping-test-pod.yaml to core@$LAB_NETWORK.$1:/var/home/core/"
-    scp -i ~/id_ocp_dev ~/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests/tests/test-yaml/snat-ext-ping-test-pod.yaml "core@$LAB_NETWORK.$1:/var/home/core/"
-    scp -i ~/id_ocp_dev ~/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests/tests/test-yaml/port-translation-test.yaml "core@$LAB_NETWORK.$1:/var/home/core/"
-    scp -i ~/id_ocp_dev ~/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests/tests/test-yaml/port-translation-test-ha.yaml "core@$LAB_NETWORK.$1:/var/home/core/"
+    __scp_test_yaml "$OCP_PRIVATE_KEY" "$OCP_USER" "$LAB_NETWORK.$1" "$OCP_HOME"
+}
+k8sscptestyaml() {
+    __scp_test_yaml "$K8S_PRIVATE_KEY" "$K8S_USER" "$LAB_NETWORK.$1" "$K8S_HOME"
 }
