@@ -17,9 +17,6 @@ unset MAILCHECK
 # Change this to your console based IRC client of choice.
 export IRC_CLIENT='irssi'
 
-# Set this to the command you use for todo.txt-cli
-export TODO="t"
-
 # Set this to false to turn off version control status checking within the prompt for all themes
 export SCM_CHECK=true
 
@@ -67,12 +64,12 @@ alias alg='alias | grep'
 export PIPENV_VERBOSITY=-1
 
 # Change current $PYTHON_VERSION
-function pyver() {
+pyver() {
     export PYTHON_VERSION="$1"
 }
 
 # List enabled Bash It aliases, completions, and plugins
-function bashen() {
+bashen() {
     msg "Bash It - Enabled Aliases"
     bashit show aliases | grep '\[x\]'
     msg "Bash It - Enabled Completions"
@@ -97,3 +94,10 @@ alias compress='tar -czvf'
 # Remember to add `-C <destination>` if you want to uncompress to a different
 # folder.
 alias uncompress='tar -xzvf'
+
+# Unset t() function defined in ~/.bash_it/plugins/available/base.plugin.bash
+unset -f t
+# Replace it with a tmux helper
+t() {
+    tmux -u attach || tmux -u new
+}

@@ -55,8 +55,7 @@ ocpscpk9s() {
 __scp_test_yaml() {
     echo "Copying test yaml in $FT_TEST_YAML to $2@$3:$4/$2/"
     scp -i "$1" "$FT_TEST_YAML/snat-ext-ping-test-pod.yaml" "$2@$3:$4/$2/"
-    scp -i "$1" "$FT_TEST_YAML/port-translation-test.yaml" "$2@$3:$4/$2/"
-    scp -i "$1" "$FT_TEST_YAML/port-translation-test-ha.yaml" "$2@$3:$4/$2/"
+    scp -i "$1" "$FT_TEST_YAML/port-translation-test-pod.yaml" "$2@$3:$4/$2/"
 }
 
 # Copy test yaml to test cluster
