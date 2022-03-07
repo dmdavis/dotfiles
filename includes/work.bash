@@ -26,7 +26,8 @@ export K8S_USER="${K8S_USER:-centos}"
 export K8S_HOME="/home"
 
 # Override these in local .bashrc
-export LAB_NETWORK='127.0.0'
+export OCP_LAB_NETWORK='127.0.0'
+export K8S_LAB_NETWORK='127.0.0'
 export OCP_PRIVATE_KEY="$HOME/id"
 export K8S_PRIVATE_KEY="$HOME/id"
 
@@ -37,18 +38,18 @@ __ssh_lab() {
 
 # Shortcut for SSH'ing into ocp-dev cluster nodes
 ocpsh() {
-    __ssh_lab "$OCP_PRIVATE_KEY" "$OCP_USER" "$LAB_NETWORK.$1"
+    __ssh_lab "$OCP_PRIVATE_KEY" "$OCP_USER" "$OCP_LAB_NETWORK.$1"
 }
 
 # Shortcut for SSH'ing into k8s ha cluster nodes in ocp pool
 k8ssh() {
-    __ssh_lab "$K8S_PRIVATE_KEY" "$K8S_USER" "$LAB_NETWORK.$1"
+    __ssh_lab "$K8S_PRIVATE_KEY" "$K8S_USER" "$K8S_LAB_NETWORK.$1"
 }
 
 # Copy k9s to test cluster
 ocpscpk9s() {
-    echo "Copying k9s to $OCP_USER@$LAB_NETWORK.$1:$OCP_HOME/$OCP_USER/"
-    scp -i "$OCP_PRIVATE_KEY" ~/local/bin/k9s "$OCP_USER@$LAB_NETWORK.$1:$OCP_HOME/$OCP_USER/"
+    echo "Copying k9s to $OCP_USER@$OCP_LAB_NETWORK.$1:$OCP_HOME/$OCP_USER/"
+    scp -i "$OCP_PRIVATE_KEY" ~/local/bin/k9s "$OCP_USER@$OCP_LAB_NETWORK.$1:$OCP_HOME/$OCP_USER/"
 }
 
 # args: private key path, user, ip/host, home dir
@@ -60,8 +61,8 @@ __scp_test_yaml() {
 
 # Copy test yaml to test cluster
 ocpscptestyaml() {
-    __scp_test_yaml "$OCP_PRIVATE_KEY" "$OCP_USER" "$LAB_NETWORK.$1" "$OCP_HOME"
+    __scp_test_yaml "$OCP_PRIVATE_KEY" "$OCP_USER" "$OCP_LAB_NETWORK.$1" "$OCP_HOME"
 }
 k8sscptestyaml() {
-    __scp_test_yaml "$K8S_PRIVATE_KEY" "$K8S_USER" "$LAB_NETWORK.$1" "$K8S_HOME"
+    __scp_test_yaml "$K8S_PRIVATE_KEY" "$K8S_USER" "$K8S_LAB_NETWORK.$1" "$K8S_HOME"
 }
