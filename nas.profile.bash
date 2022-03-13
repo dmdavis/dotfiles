@@ -17,7 +17,9 @@ export BASH_IT_THEME=90210
 # shellcheck source=./includes/bashit.bash
 source "$BASEDIR"/includes/bashit.bash
 
-export PATH="/usr/local/mariadb10/bin/:$PATH"
+export PATH="/opt/bin:/usr/local/mariadb10/bin/:$PATH"
+export SHELL='/bin/bash'
+alias py='python3'
 
 # curl https://raw.githubusercontent.com/trapd00r/LS_COLORS/master/lscolors.sh -o ~/.ls-colors.sh
 
