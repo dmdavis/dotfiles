@@ -108,3 +108,6 @@ export HISTTIMEFORMAT=': %Y-%m-%d_%H:%M:%S; '
 
 # Synchronize history command
 alias hs='history -a ; history -n'
+
+# Set default CDPATH
+export CDPATH=".:$HOME"
