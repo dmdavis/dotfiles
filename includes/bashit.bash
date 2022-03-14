@@ -101,3 +101,10 @@ unset -f t
 t() {
     tmux -u attach || tmux -u new
 }
+
+# Add a timestamp to history
+# From https://learning.oreilly.com/library/view/bash-cookbook-2nd/9781491975329/ch16.html#synchronizing_shell_history_between_sessions
+export HISTTIMEFORMAT=': %Y-%m-%d_%H:%M:%S; '
+
+# Synchronize history command
+alias hs='history -a ; history -n'
