@@ -66,3 +66,14 @@ ocpscptestyaml() {
 k8sscptestyaml() {
     __scp_test_yaml "$K8S_PRIVATE_KEY" "$K8S_USER" "$K8S_LAB_NETWORK.$1" "$K8S_HOME"
 }
+
+# Clean up dirty, bloated build directory.
+offs_build() {
+    pushd "$HOME/go/src/ssd-git.juniper.net/contrail/cn2/build" || return 1
+    local git_ignore_entry
+    while IFS="" read -r git_ignore_entry || [ -n "$git_ignore_entry" ]
+    do
+        printf 'rm -rf %s\n' "$git_ignore_entry"
+    done < .gitignore
+    popd || return 2
+}
