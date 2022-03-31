@@ -70,7 +70,6 @@ k8sscptestyaml() {
 # Clean up dirty, bloated build directory.
 offs_build() {
     pushd "$HOME/go/src/ssd-git.juniper.net/contrail/cn2/build" || return 1
-    ls -l
     local git_ignore_entry
     while IFS="" read -r git_ignore_entry || [ -n "$git_ignore_entry" ]
     do
