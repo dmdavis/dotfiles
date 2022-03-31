@@ -75,7 +75,7 @@ devscp() {
 # iTerm tmux to dev box
 tmd() {
     it2prof tmux
-    ssh -t "$DEV_USER@$DEV_HOST" 'tmux attach -t dev-vm|| tmux -CC new -A -s dev-vm'
+    ssh -t "$DEV_USER@$DEV_HOST" 'tmux attach -t dev-vm || tmux -CC new -A -s dev-vm'
 }
 
 # iTerm tmux to NAS
@@ -86,6 +86,17 @@ tmd() {
 #    # last value on a user's row in that file.
 #    ssh -p "$NAS_SSH_PORT" -t "$NAS_USER@$NAS_IP" bash -l -c 'tmux attach -t NAS-DS918-PLUS || tmux -CC new -A -s NAS-DS918-PLUS'
 #}
+
+# Clean up dirty, bloated build directory.
+offs_build() {
+    pushd "$HOME/go/src/ssd-git.juniper.net/contrail/cn2/build" || return 1
+    local git_ignore_entry
+    while IFS="" read -r git_ignore_entry || [ -n "$git_ignore_entry" ]
+    do
+        printf 'rm -rf %s\n' "$git_ignore_entry"
+    done < .gitignore
+    popd || return 2
+}
 
 # contrail-api-cli
 alias contrail-api-cli='/Users/daled/.pyenv/versions/contrail-api-cli-2.7.17/bin/contrail-api-cli'
