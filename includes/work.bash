@@ -78,3 +78,9 @@ offs_build() {
     done < .gitignore
     popd || return 2
 }
+
+# Clean up sudo-installed gorp in Bazel's cache.
+offs_bazel() {
+    echo "Removing ~/.cache/bazel*"
+    sudo rm -rf ~/.cache/bazel*
+}
