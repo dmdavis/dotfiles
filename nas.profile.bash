@@ -21,6 +21,8 @@ export PATH="/opt/bin:/usr/local/mariadb10/bin/:$PATH"
 export SHELL='/bin/bash'
 alias py='python3'
 
+export GITLAB_HOME='/volume1/docker/volumes/gitlab-ce'
+
 # curl https://raw.githubusercontent.com/trapd00r/LS_COLORS/master/lscolors.sh -o ~/.ls-colors.sh
 
 # Set up LS_COLORS if present
