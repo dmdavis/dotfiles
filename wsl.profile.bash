@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Uncomment to debug .bash_profile
+# Uncomment to debug .bashrc
 #set -o xtrace
 
 # Location of .files directory
