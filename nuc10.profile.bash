@@ -11,3 +11,5 @@ alias python=python3
 
 # shellcheck source=./includes/bashit.bash
 source "$BASEDIR"/includes/bashit.bash
+# shellcheck source=./includes/microk8s.bash
+source "$BASEDIR"/includes/microk8s.bash
