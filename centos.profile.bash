@@ -62,3 +62,5 @@ macscp() {
 # Add --color to common lso alias
 alias llo='lso --color'
 
+# Add --theme base16 to tldr (npm version) for color output
+alias tldr='tldr -t base16'
