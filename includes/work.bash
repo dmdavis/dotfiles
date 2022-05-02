@@ -33,6 +33,7 @@ export K8S_PRIVATE_KEY="$HOME/id"
 
 # args: private key path, user, ip/host
 __ssh_lab() {
+    echo "ssh -i $1 $2@$3"
     ssh -i "$1" "$2@$3"
 }
 
