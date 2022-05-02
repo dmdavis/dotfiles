@@ -22,7 +22,7 @@ alias mftdpdkci='time make feature-tests-dpdk-ci HOST_REGISTRY=$DOCKER_REPO_HOST
 export FT_TEST_YAML="$HOME/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests/tests/test-yaml"
 export OCP_USER="${OCP_USER:-core}"
 export OCP_HOME="/var/home"
-export K8S_USER="${K8S_USER:-centos}"
+export K8S_USER="${K8S_USER:-ubuntu}"
 export K8S_HOME="/home"
 
 # Override these in local .bashrc
