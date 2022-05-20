@@ -58,6 +58,7 @@ __scp_test_yaml() {
 
 k8sgetconfig() {
     scp -i "$K8S_PRIVATE_KEY" "$K8S_USER@$K8S_LAB_NETWORK.$1:$K8S_HOME/$K8S_USER/.kube/config" "$HOME/$K8S_LAB_NETWORK.$1.kubeconfig"
+    echo "Copied $K8S_LAB_NETWORK.$1:$K8S_HOME/$K8S_USER/.kube/config to $HOME/$K8S_LAB_NETWORK.$1.kubeconfig"
 }
 
 # Copy test yaml to test cluster
