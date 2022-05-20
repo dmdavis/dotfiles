@@ -56,6 +56,10 @@ __scp_test_yaml() {
     scp -i "$1" "$FT_TEST_YAML/port-translation-test-pod.yaml" "$2@$3:$4/$2/"
 }
 
+k8sgetconfig() {
+    scp -i "$K8S_PRIVATE_KEY" "$K8S_USER@$K8S_LAB_NETWORK.$1:$K8S_HOME/$K8S_USER/.kube/config" "$HOME/$K8S_LAB_NETWORK.$1.kubeconfig"
+}
+
 # Copy test yaml to test cluster
 k8sscptestyaml() {
     __scp_test_yaml "$K8S_PRIVATE_KEY" "$K8S_USER" "$K8S_LAB_NETWORK.$1" "$K8S_HOME"
