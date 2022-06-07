@@ -91,10 +91,6 @@ tmd() {
 # contrail-api-cli
 alias contrail-api-cli='/Users/daled/.pyenv/versions/contrail-api-cli-2.7.17/bin/contrail-api-cli'
 
-# Google CLI tools
-source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc'
-source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc'
-
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # Manually installed /usr/local/kubebuilder/bin
