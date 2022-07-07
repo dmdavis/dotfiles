@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+if [[ "$DOTFILE_TRACE" -eq 1 ]]; then
+    echo "* Sourcing work.profile.bash"
+    echo "PATH = $PATH"
+fi
 
 # Uncomment to debug .bash_profile
 #set -o xtrace
@@ -6,10 +10,22 @@
 # Location of .files directory
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-export PYTHON_VERSION='3.7.6'
+export PYTHON_VERSION='3.9.10'
 
 # Your place for hosting Git repos. I use this for private repos.
 export GIT_HOSTING='git@github.com'
+
+# Source Homebrew on M1
+if [[ $(uname -m) == 'arm64' ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# Set GOROOT to `/opt/homebrew/opt/go/libexec` rather than the
+# `/opt/homebrew/Cellar/go/<version>/libexec path picked up by bash_it's
+# go plugin.
+GOROOT="$(brew --prefix golang)/libexec"
+export GOROOT
+export PATH="${GOROOT}/bin:$PATH"
 
 # shellcheck source=./includes/bashit.bash
 source "$BASEDIR"/includes/bashit.bash
@@ -19,6 +35,7 @@ source "$BASEDIR"/includes/work.bash
 source "$BASEDIR"/includes/mac.bash
 # shellcheck source=./includes/minikube.bash
 source "$BASEDIR"/includes/minikube.bash
+
 alias llc='ll | lolcat'
 
 export GEM_HOME="$HOME/.gems"
@@ -87,11 +104,20 @@ tmd() {
 #    ssh -p "$NAS_SSH_PORT" -t "$NAS_USER@$NAS_IP" bash -l -c 'tmux attach -t NAS-DS918-PLUS || tmux -CC new -A -s NAS-DS918-PLUS'
 #}
 
-
 # contrail-api-cli
-alias contrail-api-cli='/Users/daled/.pyenv/versions/contrail-api-cli-2.7.17/bin/contrail-api-cli'
+#alias contrail-api-cli='/Users/daled/.pyenv/versions/contrail-api-cli-2.7.17/bin/contrail-api-cli'
 
-export PATH="$HOME/.cargo/bin:$PATH"
+#export PATH="$HOME/.cargo/bin:$PATH"
 
 # Manually installed /usr/local/kubebuilder/bin
-export PATH=$PATH:/usr/local/kubebuilder/bin
+#export PATH=$PATH:/usr/local/kubebuilder/bin
+
+# This `prev` function is from `pet : CLI Snippet Manager`
+# https://github.com/knqyf263/pet#bash-prev-function
+# shellcheck disable=SC2006,SC2001,SC2005,SC2046
+function prev() {
+    PREV=$(echo $(history | tail -n2 | head -n1) | sed 's/[0-9]* //')
+    sh -c "pet new $(printf %q "$PREV")"
+}
+
+export PATH="${HOME}/bin:$PATH"

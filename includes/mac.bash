@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
+if [[ "$DOTFILE_TRACE" -eq 1 ]]; then
+    echo "* Sourcing mac.bash"
+    echo "PATH = $PATH"
+fi
 
-export PATH="/usr/local/sbin:$PATH"
 export EDITOR='nvim'
 
 alias vim=nvim
@@ -17,9 +20,9 @@ function it2prof() {
 }
 
 # Postgres.app CLI tools
-export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+#export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 
-export PATH="$HOME/.poetry/bin:$PATH"
+#export PATH="$HOME/.poetry/bin:$PATH"
 
 # Fix broken PROMPT_COMMAND
 export PROMPT_COMMAND='__bp_precmd_invoke_cmd; _pyenv_virtualenv_hook; _direnv_hook; autojump_add_to_database; __bp_interactive_mode'

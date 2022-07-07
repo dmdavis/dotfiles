@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+if [[ "$DOTFILE_TRACE" -eq 1 ]]; then
+    echo "* Sourcing work.bash"
+    echo "PATH = $PATH"
+fi
 
 # Default to a private repo running on localhost
 export DOCKER_REPO_PORT=5000

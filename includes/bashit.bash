@@ -1,3 +1,8 @@
+if [[ "$DOTFILE_TRACE" -eq 1 ]]; then
+    echo "* Sourcing bashit.bash"
+    echo "PATH = $PATH"
+fi
+
 # Path to the bash it configuration
 export BASH_IT="$HOME/.bash_it"
 export BASH_IT_CUSTOM="$HOME/.files/bash_it_custom/"

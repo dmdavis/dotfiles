@@ -13,3 +13,6 @@ function prev() {
 
 # Aliases
 alias ll='ls -la'
+
+# Set up command line fuzzy finder
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
