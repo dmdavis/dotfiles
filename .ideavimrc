@@ -1,5 +1,5 @@
 " https://www.jetbrains.com/help/idea/using-product-as-the-vim-editor.html#vimrc
-imap jj <Esc>
+source ~/.vimrc
 set scrolloff=5
 
 set surround
