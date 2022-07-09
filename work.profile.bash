@@ -35,24 +35,15 @@ source "$BASEDIR"/includes/work.bash
 source "$BASEDIR"/includes/mac.bash
 # shellcheck source=./includes/minikube.bash
 source "$BASEDIR"/includes/minikube.bash
-
-alias llc='ll | lolcat'
+# shellcheck source=./includes/motd-fabulous.bash
+source "$BASEDIR"/includes/motd-fabulous.bash
 
 export GEM_HOME="$HOME/.gems"
 export GEM_PATH="$HOME/.gems"
 export PATH="$GEM_PATH/bin:$PATH"
 
-export WATCH_NAMESPACE=default
-export ETCD_ENDPOINTS=127.0.0.1:32379  # When running in kind
-
-# SSH shortcut
-function ss() {
-    ssh root@"$1"
-}
-
 # Can I get a little work done, please?
 alias fucknetscope='sudo launchctl unload /Library/LaunchDaemons/com.netskope.stagentsvc.plist'
-alias fuckvmware='sudo rm -rf /etc/paths.d/com.vmware.fusion.public'
 
 # Contrail schema
 export CONTRAIL_XML_SCHEMA_DIR='/Users/daled/Projects/contrail/contrail-api-client/schema'
@@ -72,7 +63,7 @@ function genDSyml() {
     generateDS -f -o "${1:-${CONTRAIL_YAML_SCHEMA_DIR}}" -g contrail-json-schema ${CONTRAIL_ALL_CFG_XSD}
 }
 
-# Development host shortcuts
+# Development host shortcuts (prefer tmd to dev)
 alias dev='ssh $DEV_USER@$DEV_HOST'
 # Copy local file to dev VM
 scpdev() {
@@ -107,11 +98,6 @@ tmd() {
 # contrail-api-cli
 #alias contrail-api-cli='/Users/daled/.pyenv/versions/contrail-api-cli-2.7.17/bin/contrail-api-cli'
 
-#export PATH="$HOME/.cargo/bin:$PATH"
-
-# Manually installed /usr/local/kubebuilder/bin
-#export PATH=$PATH:/usr/local/kubebuilder/bin
-
 # This `prev` function is from `pet : CLI Snippet Manager`
 # https://github.com/knqyf263/pet#bash-prev-function
 # shellcheck disable=SC2006,SC2001,SC2005,SC2046
@@ -120,21 +106,26 @@ function prev() {
     sh -c "pet new $(printf %q "$PREV")"
 }
 
+# Some helpers for copying crap from old laptop to new.
 export OLD_MACBOOK=''
 export NEW_MACBOOK=''
-
 alias oldmb='ssh $DEV_USER@$OLD_MACBOOK'
 alias newmb='ssh $DEV_USER@$NEW_MACBOOK'
-
 function oldtonew() {
     # oldtonew ~/go/src/ssd-git.juniper.net/contrail
     mkdir -p "$1"
     rsync -azvhP "${DEV_USER}@${OLD_MACBOOK}:${1}/" "$1"
 }
-
 function newtoold() {
     ssh "${DEV_USER}@${NEW_MACBOOK}" mkdir -p "$1"
     rsync -azvhP "$1/" "${DEV_USER}@${OLD_MACBOOK}:${1}"
 }
 
+# I'm Batman
+# https://github.com/sharkdp/bat
+alias cat='bat --theme=TwoDark'
+
+alias lc='limactl'
+
+# Respect the top level ~/bin folder, or it's your ass.
 export PATH="${HOME}/bin:$PATH"
