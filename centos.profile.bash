@@ -66,3 +66,18 @@ alias llo='lso --color'
 
 # Add --theme base16 to tldr (npm version) for color output
 alias tldr='tldr -t base16'
+
+alias bz='bazelisk'
+export BASE_TAG=''
+function mk() {
+    local timestamp basetag
+    timestamp="$(date +'%Y-%m-%d_%H%M')"
+    if [[ -z "${BASE_TAG}" ]]; then
+        basetag='make'
+    else
+        basetag="$BASE_TAG-make"
+    fi
+    echo "Start time: $timestamp"
+    time make HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" baseTag="$BASE_TAG" "$1" 2>&1 | tee "$HOME/$basetag-$1-$timestamp.log.txt"
+    echo "Start time: $timestamp, end time: $(date +'%Y-%m-%d_%H%M')"
+}
