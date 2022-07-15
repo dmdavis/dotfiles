@@ -116,3 +116,6 @@ alias hs='history -a ; history -n'
 
 # Set default CDPATH
 export CDPATH=".:$HOME"
+
+# Dotfiles /bin with `imgls`
+export PATH="${HOME}/.files/bin:$PATH"
