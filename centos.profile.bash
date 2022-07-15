@@ -81,3 +81,16 @@ function mk() {
     time make HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" baseTag="$BASE_TAG" "$1" 2>&1 | tee "$HOME/$basetag-$1-$timestamp.log.txt"
     echo "Start time: $timestamp, end time: $(date +'%Y-%m-%d_%H%M')"
 }
+
+function deploy() {
+    pushd "$HOME/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests" || return
+    bazelisk run //tests:feature_tests_ci --stamp \
+    --test_timeout=9000 --test_filter="" \
+    --test_env=TAG="$BASE_TAG" \
+    --test_env=TEST_TIMEOUT=9000 \
+    --test_env=HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" \
+    --test_env=DEPLOYER_FLAVOR="$1" \
+    --test_env=DEPLOYER_CONFIG=infra/deployer/default-deployer.json \
+    --test_env=ENABLE_TEARDOWN=false
+    popd || return
+}

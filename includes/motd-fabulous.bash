@@ -8,6 +8,8 @@
 #      requires `neofetch`, `fortune`, `cowsay`, and ruby gem `lolcat` or its
 #      mruby version equivalent
 
+export NEOGREETING='neofetch'
+
 function motd-fabulous() {
     printf "\n"
     local cmd_lolcat cowdo cowdos msg mode modes motd random_cow speaker
@@ -28,7 +30,7 @@ function motd-fabulous() {
     # That's it ^^
     echo -e "$msg" | $cowdo -n -f "$speaker" "$mode" | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g" | $cmd_lolcat -f
     printf "\n"
-    neofetch
+    eval $NEOGREETING
 }
 
 alias llc='ll | lolcat'
