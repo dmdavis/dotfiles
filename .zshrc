@@ -16,3 +16,8 @@ alias ll='ls -la'
 
 # Set up command line fuzzy finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Lima BEGIN
+# Make sure iptables and mount.fuse3 are available
+PATH="$PATH:/usr/sbin:/sbin"
+export PATH
+# Lima END
