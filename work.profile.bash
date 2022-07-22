@@ -121,10 +121,6 @@ function newtoold() {
     rsync -azvhP "$1/" "${DEV_USER}@${OLD_MACBOOK}:${1}"
 }
 
-# I'm Batman
-# https://github.com/sharkdp/bat
-alias cat='bat --theme=TwoDark'
-
 alias lc='limactl'
 
 # Respect the top level ~/bin folder, or it's your ass.

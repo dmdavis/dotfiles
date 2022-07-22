@@ -104,3 +104,7 @@ offs_bazel() {
     echo "Removing ~/.cache/bazel*"
     sudo rm -rf ~/.cache/bazel*
 }
+
+# I'm Batman
+# https://github.com/sharkdp/bat
+alias cat='bat --theme=TwoDark'
