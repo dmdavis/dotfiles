@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+if [[ "$DOTFILE_TRACE" -eq 1 ]]; then
+    echo "* Sourcing lima.profile.bash"
+    echo "PATH = $PATH"
+fi
 
 # Uncomment to debug .bashrc
 #set -o xtrace
@@ -16,6 +20,8 @@ export GIT_HOSTING='git@github.com'
 source "$BASEDIR"/includes/bashit.bash
 # shellcheck source=./includes/work.bash
 source "$BASEDIR"/includes/work.bash
+# shellcheck source=./includes/ubuntu.bash
+source "$BASEDIR"/includes/ubuntu.bash
 
 # VSCode requires access to TMPDIR on host
 export TMPDIR="${HOME}/tmp"
