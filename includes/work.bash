@@ -105,6 +105,13 @@ offs_bazel() {
     sudo rm -rf ~/.cache/bazel*
 }
 
+offs_webui() {
+    local path
+    path="${HOME}/go/src/ssd-git.juniper.net/contrail/cn2/ui/web/node_modules/"
+    echo "Cleaning up ${path}"
+    rm -rf "$path"
+}
+
 # I'm Batman
 # https://github.com/sharkdp/bat
 alias cat='bat --theme=TwoDark'
