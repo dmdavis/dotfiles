@@ -84,8 +84,11 @@ function mk() {
 
 # ex. deploy single-cluster
 function deploy() {
+    local timestamp
     pushd "$HOME/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests" || return
-    bazelisk run //tests:feature_tests_ci --stamp \
+    timestamp="$(date +'%Y-%m-%d_%H%M')"
+    echo "Start time: $timestamp"
+    time bazelisk run //tests:feature_tests_ci --stamp \
     --test_timeout=9000 --test_filter="fake" \
     --test_env=TAG="$BASE_TAG" \
     --test_env=TEST_TIMEOUT=9000 \
@@ -93,5 +96,6 @@ function deploy() {
     --test_env=DEPLOYER_FLAVOR="$1" \
     --test_env=DEPLOYER_CONFIG=infra/deployer/default-deployer.json \
     --test_env=ENABLE_TEARDOWN=false
+    echo "Start time: $timestamp, end time: $(date +'%Y-%m-%d_%H%M')"
     popd || return
 }
