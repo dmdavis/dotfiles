@@ -119,3 +119,10 @@ export CDPATH=".:$HOME"
 
 # Dotfiles /bin with `imgls`
 export PATH="${HOME}/.files/bin:$PATH"
+
+# Update ~/.files repo
+updotfiles() {
+    pushd "$BASEDIR" || return
+    git up
+    popd || return
+}
