@@ -22,6 +22,3 @@ source "$BASEDIR"/includes/bashit.bash
 source "$BASEDIR"/includes/work.bash
 # shellcheck source=./includes/ubuntu.bash
 source "$BASEDIR"/includes/ubuntu.bash
-
-# VSCode requires access to TMPDIR on host
-export TMPDIR="${HOME}/tmp"
