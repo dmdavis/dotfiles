@@ -7,3 +7,6 @@ fi
 # I'm Batcat (under Ubuntu)
 # https://github.com/sharkdp/bat
 alias cat='batcat --theme=TwoDark'
+
+# Other Ubuntu clarification aliases
+alias delta='git-delta'

@@ -25,6 +25,3 @@ source "$BASEDIR"/includes/ubuntu.bash
 
 # VSCode requires access to TMPDIR on host
 export TMPDIR="${HOME}/tmp"
-
-# Ubuntu aliases
-alias delta='git-delta'
