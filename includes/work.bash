@@ -9,7 +9,8 @@ export DOCKER_REPO_PORT=5000
 export DOCKER_REPO_HOST='127.0.0.1'
 
 # Feature tests config
-export FT_PATH="$HOME/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests"
+export CN2_PATH="$HOME/go/src/ssd-git.juniper.net/contrail/cn2"
+export FT_PATH="$CN2_PATH/feature_tests"
 export FT_TEST_YAML="$FT_PATH/tests/test-yaml"
 export LAB_PRIVATE_KEY="$FT_PATH/infra/deployer/ci/keys/ftvm_rsa"
 
@@ -111,7 +112,3 @@ offs_webui() {
     echo "Cleaning up ${path}"
     rm -rf "$path"
 }
-
-# I'm Batman
-# https://github.com/sharkdp/bat
-alias cat='bat --theme=TwoDark'

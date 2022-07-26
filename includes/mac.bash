@@ -29,3 +29,7 @@ export PROMPT_COMMAND='__bp_precmd_invoke_cmd; _pyenv_virtualenv_hook; _direnv_h
 
 # Add NAS_SSH_PORT to .bashrc (Don't store in public repos)
 # export NAS_SSH_PORT=xxxx
+
+# I'm Batman
+# https://github.com/sharkdp/bat
+alias cat='bat --theme=TwoDark'

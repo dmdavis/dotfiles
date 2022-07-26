@@ -90,7 +90,6 @@ function deploy() {
     echo "Start time: $timestamp"
     time bazelisk run //tests:feature_tests_ci --stamp \
     --test_timeout=9000 --test_filter="fake" \
-    --test_env=TAG="$BASE_TAG" \
     --test_env=TEST_TIMEOUT=9000 \
     --test_env=HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" \
     --test_env=DEPLOYER_FLAVOR="$1" \
