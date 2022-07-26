@@ -94,7 +94,7 @@ function deploy() {
     --test_env=HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" \
     --test_env=DEPLOYER_FLAVOR="$1" \
     --test_env=DEPLOYER_CONFIG=infra/deployer/default-deployer.json \
-    --test_env=ENABLE_TEARDOWN=false
+    --test_env=ENABLE_TEARDOWN=false  2>&1 | tee "$HOME/$1-deployment-$timestamp.log.txt"
     echo "Start time: $timestamp, end time: $(date +'%Y-%m-%d_%H%M')"
     popd || return
 }
