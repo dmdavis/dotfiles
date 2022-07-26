@@ -1,3 +1,9 @@
+#!/usr/bin/env bash
+if [[ "$DOTFILE_TRACE" -eq 1 ]]; then
+    echo "* Sourcing microk8s.bash"
+    echo "PATH = $PATH"
+fi
+
 dashboard_token() {
     about 'display the current MicroK8s dashboard access token'
     group 'microk8s'
