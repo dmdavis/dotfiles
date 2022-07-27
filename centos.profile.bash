@@ -83,11 +83,12 @@ function mk() {
 }
 
 # ex. deploy single-cluster
+# output: ~/single-cluster-deployment-2022-01-01_1200.log.txt
 function deploy() {
     local timestamp
     pushd "$HOME/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests" || return
     timestamp="$(date +'%Y-%m-%d_%H%M')"
-    echo "Start time: $timestamp"
+    echo "Deploying $1 FT flavor. Start time: $timestamp"
     time bazelisk run //tests:feature_tests_ci --stamp \
     --test_timeout=9000 --test_filter="fake" \
     --test_env=TEST_TIMEOUT=9000 \
@@ -95,6 +96,24 @@ function deploy() {
     --test_env=DEPLOYER_FLAVOR="$1" \
     --test_env=DEPLOYER_CONFIG=infra/deployer/default-deployer.json \
     --test_env=ENABLE_TEARDOWN=false  2>&1 | tee "$HOME/$1-deployment-$timestamp.log.txt"
+    echo "$1 deployed. Start time: $timestamp, end time: $(date +'%Y-%m-%d_%H%M')"
+    popd || return
+}
+
+# ex. ft single-cluster
+# output: ~/single-cluster-ft-run-2022-01-01_1200.log.txt
+function ft() {
+    local timestamp
+    pushd "$HOME/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests" || return
+    timestamp="$(date +'%Y-%m-%d_%H%M')"
+    echo "Start time: $timestamp"
+    time bazelisk run //tests:feature_tests_ci --stamp \
+    --test_timeout=9000 \
+    --test_env=TEST_TIMEOUT=9000 \
+    --test_env=HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" \
+    --test_env=DEPLOYER_FLAVOR="$1" \
+    --test_env=DEPLOYER_CONFIG=infra/deployer/default-deployer.json \
+    --test_env=ENABLE_TEARDOWN=false  2>&1 | tee "$HOME/$1-ft-run-$timestamp.log.txt"
     echo "Start time: $timestamp, end time: $(date +'%Y-%m-%d_%H%M')"
     popd || return
 }
