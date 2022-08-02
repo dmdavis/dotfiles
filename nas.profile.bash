@@ -19,7 +19,9 @@ source "$BASEDIR"/includes/bashit.bash
 
 export PATH="/opt/bin:/usr/local/mariadb10/bin/:$PATH"
 export SHELL='/bin/bash'
+
 alias py='python3'
+alias cat='bat'
 
 export GITLAB_HOME='/volume1/docker/volumes/gitlab-ce'
 
