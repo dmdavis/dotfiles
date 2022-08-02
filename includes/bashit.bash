@@ -114,8 +114,8 @@ export HISTTIMEFORMAT=': %Y-%m-%d_%H:%M:%S; '
 # Synchronize history command
 alias hs='history -a ; history -n'
 
-# Set default CDPATH
-export CDPATH=".:$HOME"
+# Set default CDPATH - disabled because I think its causing cd autocomplete to kill terminal window
+#export CDPATH=".:$HOME"
 
 # Dotfiles /bin with `imgls`
 export PATH="${HOME}/.files/bin:$PATH"
