@@ -86,6 +86,12 @@ tmd() {
     ssh -t "$DEV_USER@$DEV_HOST" 'tmux attach -t dev-vm || tmux -CC new -A -s dev-vm'
 }
 
+# iTerm tmux to Ubuntu dev box
+tmu() {
+    it2prof tmux-ubuntu
+    ssh -t "$DEV_USER@$DEV_HOST_UBUNTU" 'tmux attach -t dev-vm-ubuntu || tmux -CC new -A -s dev-vm-ubuntu'
+}
+
 # iTerm tmux to NAS
 #tmn() {
 #    it2prof tmux-nas
