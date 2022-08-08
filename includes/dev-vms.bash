@@ -66,6 +66,7 @@ function mk() {
 
 export OPENSTACK_DEPLOYER='infra/deployer/default-deployer.json'
 export AWS_DEPLOYER='infra/deployer/default-aws-deployer.json'
+export ENABLE_TEARDOWN='false'
 
 # ex. deploy single-cluster
 # output: ~/single-cluster-deployment-2022-01-01_1200.log.txt
@@ -81,7 +82,7 @@ function deploy() {
     --test_env=HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" \
     --test_env=DEPLOYER_FLAVOR="$1" \
     --test_env=DEPLOYER_CONFIG="$OPENSTACK_DEPLOYER" \
-    --test_env=ENABLE_TEARDOWN=false  2>&1 | tee "$runlog"
+    --test_env=ENABLE_TEARDOWN="$ENABLE_TEARDOWN"  2>&1 | tee "$runlog"
     echo "$1 deployed. Start time: $timestamp, end time: $(date +'%Y-%m-%d_%H%M')"
     echo "Run log located at $runlog"
     popd || return
@@ -101,7 +102,7 @@ function ft() {
     --test_env=HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" \
     --test_env=DEPLOYER_FLAVOR="$1" \
     --test_env=DEPLOYER_CONFIG="$OPENSTACK_DEPLOYER" \
-    --test_env=ENABLE_TEARDOWN=false  2>&1 | tee "$runlog"
+    --test_env=ENABLE_TEARDOWN="$ENABLE_TEARDOWN"  2>&1 | tee "$runlog"
     echo "$1 feature tests complete. Start time: $timestamp, end time: $(date +'%Y-%m-%d_%H%M')"
     echo "Run log located at $runlog"
     popd || return
@@ -109,6 +110,7 @@ function ft() {
 
 # ex. aws single-cluster
 # output: ~/single-cluster-aws-run-2022-01-01_1200.log.txt
+# Always tear down AWS machines cuz $$$
 function aws() {
     local timestamp runlog
     pushd "$HOME/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests" || return
@@ -132,6 +134,7 @@ export ARTIFACTORY_HOST=""
 export ARTIFACTORY_URL="https://${ARTIFACTORY_HOST}/artifactory"
 export COMMON_PYPI_REMOTE="${ARTIFACTORY_URL}/api/pypi/pypi-remote/simple"
 
+# Add Cargo, golang, and home directory /bin folders to PATH
 export PATH=${HOME}/bin:${HOME}/go/bin:${HOME}/.cargo/bin:${PATH}
 
 # Don't forget, nvim using .vimrc isn't automatic and not in ansadm yet.

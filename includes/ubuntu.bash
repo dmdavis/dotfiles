@@ -8,8 +8,5 @@ fi
 # https://github.com/sharkdp/bat
 alias cat='batcat --theme=TwoDark'
 
-# Other Ubuntu clarification aliases
-alias delta='git-delta'
-
 # VSCode requires access to TMPDIR on host
 export TMPDIR="${HOME}/tmp"
