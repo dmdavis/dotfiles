@@ -132,4 +132,8 @@ export ARTIFACTORY_HOST=""
 export ARTIFACTORY_URL="https://${ARTIFACTORY_HOST}/artifactory"
 export COMMON_PYPI_REMOTE="${ARTIFACTORY_URL}/api/pypi/pypi-remote/simple"
 
-export PATH=${HOME}/bin:${HOME}/go/bin:${PATH}
+export PATH=${HOME}/bin:${HOME}/go/bin:${HOME}/.cargo/bin:${PATH}
+
+# Don't forget, nvim using .vimrc isn't automatic and not in ansadm yet.
+# See https://neovim.io/doc/user/nvim.html#nvim-from-vim
+alias v=nvim
