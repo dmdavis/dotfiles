@@ -25,8 +25,6 @@ source "$BASEDIR"/includes/ubuntu.bash
 # shellcheck source=./includes/dev-vms.bash
 source "$BASEDIR"/includes/dev-vms.bash
 
-# See /usr/share/doc/fzf/README.Debian for more info on fzf config under Ubuntu
+# See /usr/share/doc/fzf/README.Debian for more info on fzf config under Ubuntu.
 # BashIt's fzf plugin isn't working
 source /usr/share/doc/fzf/examples/key-bindings.bash
-# Assume completion is hosed, too
-source /usr/share/doc/fzf/examples/completions.bash
