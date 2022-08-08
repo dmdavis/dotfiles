@@ -132,4 +132,4 @@ export ARTIFACTORY_HOST=""
 export ARTIFACTORY_URL="https://${ARTIFACTORY_HOST}/artifactory"
 export COMMON_PYPI_REMOTE="${ARTIFACTORY_URL}/api/pypi/pypi-remote/simple"
 
-export PATH=${HOME}/go/bin:${PATH}
+export PATH=${HOME}/bin:${HOME}/go/bin:${PATH}
