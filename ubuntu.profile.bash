@@ -29,4 +29,4 @@ source "$BASEDIR"/includes/dev-vms.bash
 # BashIt's fzf plugin isn't working
 source /usr/share/doc/fzf/examples/key-bindings.bash
 # Assume completion is hosed, too
-source /usr/share/doc/fzf/examples/completion.bash
+source /usr/share/doc/fzf/examples/completions.bash
