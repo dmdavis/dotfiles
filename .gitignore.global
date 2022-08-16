@@ -1,5 +1,6 @@
 # JetBrains IDEs
 .idea
 
-# pyenv local python
+# pyenv
 .python-version
+.pyenvrc
