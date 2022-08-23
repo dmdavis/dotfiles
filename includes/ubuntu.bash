@@ -6,7 +6,7 @@ fi
 
 # I'm Batcat (under Ubuntu)
 # https://github.com/sharkdp/bat
-alias cat='batcat --theme=TwoDark'
+alias bat='batcat --theme=TwoDark'
 
 # VSCode requires access to TMPDIR on host
 export TMPDIR="${HOME}/tmp"
