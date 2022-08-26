@@ -49,6 +49,8 @@ macscp() {
     scp "$MAC_USER@$MAC_HOST:$COPY_PATH" "${2:-.}"
 }
 
+export LOCAL_LOGFILE_FOLDER="$HOME/logs"
+
 alias bz='bazelisk'
 export BASE_TAG=''
 function mk() {
@@ -60,7 +62,7 @@ function mk() {
         basetag="$BASE_TAG-make"
     fi
     echo "Start time: $timestamp"
-    time make HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" baseTag="$BASE_TAG" "$1" 2>&1 | tee "$HOME/$basetag-$1-$timestamp.log.txt"
+    time make HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" baseTag="$BASE_TAG" "$1" 2>&1 | tee "$LOCAL_LOGFILE_FOLDER/$basetag-$1-$timestamp.log.txt"
     echo "Start time: $timestamp, end time: $(date +'%Y-%m-%d_%H%M')"
 }
 
@@ -74,7 +76,7 @@ function deploy() {
     local timestamp runlog
     pushd "$HOME/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests" || return
     timestamp="$(date +'%Y-%m-%d_%H%M')"
-    runlog="$HOME/$1-deployment-$timestamp.log.txt"
+    runlog="$LOCAL_LOGFILE_FOLDER/$1-deployment-$timestamp.log.txt"
     echo "Deploying $1 FT flavor. Start time: $timestamp"
     time bazelisk run //tests:feature_tests_ci --stamp \
     --test_timeout=9000 --test_filter="fake" \
@@ -94,7 +96,7 @@ function ft() {
     local timestamp runlog
     pushd "$HOME/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests" || return
     timestamp="$(date +'%Y-%m-%d_%H%M')"
-    runlog="$HOME/$1-ft-run-$timestamp.log.txt"
+    runlog="$LOCAL_LOGFILE_FOLDER/$1-ft-run-$timestamp.log.txt"
     echo "Starting $1 feature tests. Start time: $timestamp"
     time bazelisk run //tests:feature_tests_ci --stamp \
     --test_timeout=9000 \
@@ -115,7 +117,7 @@ function aws() {
     local timestamp runlog
     pushd "$HOME/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests" || return
     timestamp="$(date +'%Y-%m-%d_%H%M')"
-    runlog="$HOME/$1-aws-run-$timestamp.log.txt"
+    runlog="$LOCAL_LOGFILE_FOLDER/$1-aws-run-$timestamp.log.txt"
     echo "Starting $1 feature tests. Start time: $timestamp"
     time bazelisk run //tests:feature_tests_ci --stamp \
     --test_timeout=9000 \
