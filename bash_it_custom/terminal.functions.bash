@@ -5,9 +5,8 @@ function title() {
     echo -ne "\e]1;$1\a"
 }
 
-# Switch to cyan, echo, then reset4
+export MSG_COLOR="$echo_cyan"
+
 function msg() {
-    tput setaf 6
-    echo "$@"
-    tput sgr0
+    echo -e "${MSG_COLOR}$*${echo_normal}"
 }
