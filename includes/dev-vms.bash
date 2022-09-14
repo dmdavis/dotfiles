@@ -90,6 +90,20 @@ function deploy() {
     popd || return
 }
 
+# ex. bzl //ui/... --blah
+# output: ~/bazelisk-2022-01-01_1200.log.txt
+function bzl() {
+    local timestamp runlog
+    pushd "$HOME/go/src/ssd-git.juniper.net/contrail/cn2" || return
+    timestamp="$(date +'%Y-%m-%d_%H%M')"
+    runlog="$LOCAL_LOGFILE_FOLDER/bazelisk-$timestamp.log.txt"
+    echo "Starting bazelisk: 'bzl $*'. Start time: $timestamp"
+    time bazelisk "$@" 2>&1 | tee "$runlog"
+    echo "Bazelisk complete: 'bzl $*'. Start time: $timestamp, end time: $(date +'%Y-%m-%d_%H%M')"
+    echo "Run log located at $runlog"
+    popd || return
+}
+
 # ex. ft single-cluster
 # output: ~/single-cluster-ft-run-2022-01-01_1200.log.txt
 function ft() {
