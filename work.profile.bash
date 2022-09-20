@@ -129,5 +129,5 @@ function newtoold() {
 
 alias lc='limactl'
 
-# Respect the top level ~/bin folder, or it's your ass.
-export PATH="${HOME}/bin:$PATH"
+# Add home, Node v14, and JDK 11 bin folders to PATH
+export PATH="${HOME}/bin:/opt/homebrew/opt/node@14/bin:/opt/homebrew/opt/openjdk@11/bin:$PATH"

@@ -84,7 +84,7 @@ function deploy() {
     --test_env=HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" \
     --test_env=DEPLOYER_FLAVOR="$1" \
     --test_env=DEPLOYER_CONFIG="$OPENSTACK_DEPLOYER" \
-    --test_env=ENABLE_TEARDOWN="$ENABLE_TEARDOWN"  2>&1 | tee "$runlog"
+    --test_env=ENABLE_TEARDOWN="$ENABLE_TEARDOWN" 2>&1 | tee "$runlog"
     echo "$1 deployed. Start time: $timestamp, end time: $(date +'%Y-%m-%d_%H%M')"
     echo "Run log located at $runlog"
     popd || return
@@ -118,7 +118,7 @@ function ft() {
     --test_env=HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" \
     --test_env=DEPLOYER_FLAVOR="$1" \
     --test_env=DEPLOYER_CONFIG="$OPENSTACK_DEPLOYER" \
-    --test_env=ENABLE_TEARDOWN="$ENABLE_TEARDOWN"  2>&1 | tee "$runlog"
+    --test_env=ENABLE_TEARDOWN="$ENABLE_TEARDOWN" 2>&1 | tee "$runlog"
     echo "$1 feature tests complete. Start time: $timestamp, end time: $(date +'%Y-%m-%d_%H%M')"
     echo "Run log located at $runlog"
     popd || return
@@ -139,7 +139,7 @@ function aws() {
     --test_env=HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" \
     --test_env=DEPLOYER_FLAVOR="$1" \
     --test_env=DEPLOYER_CONFIG="$AWS_DEPLOYER" \
-    --test_env=ENABLE_TEARDOWN=true  2>&1 | tee "$runlog"
+    --test_env=ENABLE_TEARDOWN=true 2>&1 | tee "$runlog"
     echo "$1 feature tests complete. Start time: $timestamp, end time: $(date +'%Y-%m-%d_%H%M')"
     echo "Run log located at $runlog"
     popd || return
