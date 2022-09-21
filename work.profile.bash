@@ -92,6 +92,11 @@ tmu() {
     ssh -t "$DEV_USER@$DEV_HOST_UBUNTU" 'tmux attach -t dev-vm-ubuntu || tmux -CC new -A -s dev-vm-ubuntu'
 }
 
+# Open SSH tunnel to Ubuntu VM for VNC client
+uvt() {
+    ssh -L 59000:localhost:5901 -C -N -l "$DEV_USER" "$DEV_HOST_UBUNTU"
+}
+
 # iTerm tmux to NAS
 #tmn() {
 #    it2prof tmux-nas
