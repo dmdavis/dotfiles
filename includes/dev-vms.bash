@@ -62,7 +62,7 @@ function mk() {
         basetag="$BASE_TAG-make"
     fi
     echo "Start time: $timestamp"
-    time make HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" baseTag="$BASE_TAG" "$1" 2>&1 | tee "$LOCAL_LOGFILE_FOLDER/$basetag-$1-$timestamp.log.txt"
+    time make HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" baseTag="$basetag" "$1" 2>&1 | tee "$LOCAL_LOGFILE_FOLDER/$basetag-$1-$timestamp.log.txt"
     echo "Start time: $timestamp, end time: $(date +'%Y-%m-%d_%H%M')"
 }
 
