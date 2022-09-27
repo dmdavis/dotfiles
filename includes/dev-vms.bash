@@ -53,6 +53,28 @@ export LOCAL_LOGFILE_FOLDER="$HOME/logs"
 
 alias bz='bazelisk'
 export BASE_TAG=''
+
+# Change and display BASE_TAG
+function basetag() {
+    local old_tag
+    if [ -z "$BASE_TAG" ]; then
+        old_tag='empty string'
+    else
+        old_tag="$BASE_TAG"
+    fi
+    if [ -z "$1" ]; then
+        if [ "$old_tag" != "$BASE_TAG" ]; then
+            echo "BASE_TAG is not defined"
+        else
+            echo "BASE_TAG='$BASE_TAG'"
+        fi
+        return
+    fi
+    export BASE_TAG="$1"
+    echo "BASE_TAG changed from $old_tag to $BASE_TAG"
+}
+
+
 function mk() {
     local timestamp basetag
     timestamp="$(date +'%Y-%m-%d_%H%M')"
