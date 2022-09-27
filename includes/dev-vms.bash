@@ -167,6 +167,57 @@ function aws() {
     popd || return
 }
 
+# Deploy CN2 to minikube
+function minikube_deploy() {
+    # MINIKUBE_RUNTIME := cri-o
+    # MINIKUBE_KUBEVERSION := 1.20.1
+    # BASE_TAG := master-latest
+    # ROOT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+    # HOST_REGISTRY = $(HOST_IP):5000
+    # REGISTRY = $(HOST_REGISTRY)/atom-docker/cn2/bazel-build/dev
+    # INSECURE=true
+    # MINIKUBE_INSECURE :=
+    # MINIKUBE_INSECURE += --insecure-registry $(shell echo $(REGISTRY) | sed 's:/.*::')
+    # MINIKUBE_DRIVER :=
+    # MINIKUBE_DRIVER += --driver kvm  # on Linux
+    # MINIKUBE_CONTRAIL_ISO_LATEST := minikube.iso
+    # MINIKUBE_CONTRAIL_ISO_URL := https://svl-artifactory.juniper.net/artifactory/atom-static-dev/cn2/minikube/v1.19.0
+    # MINIKUBE_ISO_URL := --iso-url=$(MINIKUBE_CONTRAIL_ISO_URL)/$(MINIKUBE_CONTRAIL_ISO_LATEST)
+    # minikube start $(MINIKUBE_ISO_URL) $(MINIKUBE_DRIVER) $(MINIKUBE_INSECURE) --cni $(ROOT_DIR)/../deployer/manifests/kustomize/applier/custom/$(TAG)/minikube/deployer.yaml --container-runtime $(MINIKUBE_RUNTIME) --memory $(MINIKUBE_RAM) --cpus $(MINIKUBE_CPU) --kubernetes-version $(MINIKUBE_KUBEVERSION) --wait=all $(MINIKUBE_FORCE)
+    local branch force
+    branch=$(git branch --show-current 2>/dev/null || git rev-parse --abbrev-ref HEAD)
+    if [ "$USER" == 'root' ]; then
+        force='--force'
+    else
+        force=''
+    fi
+    minikube start \
+        --iso-url=https://svl-artifactory.juniper.net/artifactory/atom-static-dev/cn2/minikube/v1.19.0/minikube.iso \
+        --insecure-registry http://localhost:5000/atom-docker/cn2/bazel-build/dev \
+        --cni "$CN2_PATH/deployer/manifests/kustomize/applier/custom/$branch/minikube/deployer.yaml" \
+        --container-runtime cri-o --driver kvm --memory 16G --cpu 2 \
+        --kubernetes-version 1.20.1 --wait=all "$force"
+}
+alias mkd=''
+
+# Clean CN2 development custom deployers
+function clean_custom_deployers() {
+    for f in ${CN2_PATH}/deployer/manifests/kustomize/applier/custom; do
+        fuser -s "$f" || rm -rf "$f"
+        echo "Deleted $f"
+    done
+}
+alias ccd='clean_custom_deployers'
+
+# Clean unopened files from $TMPDIR
+function clean_temp_dir() {
+    for f in ${TMPDIR}; do
+        fuser -s "$f" || rm -rf "$f"
+        echo "Deleted $f"
+    done
+}
+alias ctd='clean_temp_dir'
+
 # Define this in your .bashrc
 export ARTIFACTORY_HOST=""
 export ARTIFACTORY_URL="https://${ARTIFACTORY_HOST}/artifactory"
