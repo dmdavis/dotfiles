@@ -209,11 +209,22 @@ function clean_custom_deployers() {
 }
 alias ccd='clean_custom_deployers'
 
+function contains() {
+    [[ $1 =~ (^|[[:space:]])$2($|[[:space:]]) ]] && return 0 || return 1
+}
+
 # Clean unopened files from $TMPDIR
 function clean_temp_dir() {
+    local reserved
+    reserved="generate_bash_completion.sh bazel-complete-template.bash bazel-complete-header.bash .bazeliskrc"
     for f in ${TMPDIR}; do
-        fuser -s "$f" || rm -rf "$f"
-        echo "Deleted $f"
+        contains reserved f
+        if [ $? ]; then
+            fuser -s "$f" || rm -rf "$f"
+            echo "Deleted $f"
+        else
+            echo "Skipping $f"
+        fi
     done
 }
 alias ctd='clean_temp_dir'
