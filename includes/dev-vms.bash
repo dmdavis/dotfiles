@@ -75,7 +75,7 @@ function basetag() {
 }
 
 
-function mk() {
+function make_cn2() {
     local timestamp basetag
     timestamp="$(date +'%Y-%m-%d_%H%M')"
     if [[ -z "${BASE_TAG}" ]]; then
@@ -87,6 +87,7 @@ function mk() {
     time make HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" baseTag="$basetag" "$1" 2>&1 | tee "$LOCAL_LOGFILE_FOLDER/$basetag-$1-$timestamp.log.txt"
     echo "Start time: $timestamp, end time: $(date +'%Y-%m-%d_%H%M')"
 }
+alias mak='make_cn2'
 
 export OPENSTACK_DEPLOYER='infra/deployer/default-deployer.json'
 export AWS_DEPLOYER='infra/deployer/default-aws-deployer.json'
@@ -168,7 +169,7 @@ function aws() {
 }
 
 # Deploy CN2 to minikube
-function minikube_deploy() {
+function minikube_deploy_cn2() {
     # MINIKUBE_RUNTIME := cri-o
     # MINIKUBE_KUBEVERSION := 1.20.1
     # BASE_TAG := master-latest
@@ -198,7 +199,7 @@ function minikube_deploy() {
         --container-runtime cri-o --driver kvm --memory 16G --cpu 2 \
         --kubernetes-version 1.20.1 --wait=all "$force"
 }
-alias mkd=''
+alias mkd='minikube_deploy_cn2'
 
 # Clean CN2 development custom deployers
 function clean_custom_deployers() {
