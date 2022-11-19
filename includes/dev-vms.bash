@@ -74,8 +74,11 @@ function basetag() {
     echo "BASE_TAG changed from $old_tag to $BASE_TAG"
 }
 
-
 function make_cn2() {
+    if [[ "$DOCKER_REPO_HOST" == "127.0.0.1" || "$DOCKER_REPO_HOST" == "localhost" ]]; then
+        echo "DOCKER_REPO_HOST == $DOCKER_REPO_HOST! It should point to your public IP address for feature tests."
+        return
+    fi
     local timestamp basetag
     timestamp="$(date +'%Y-%m-%d_%H%M')"
     if [[ -z "${BASE_TAG}" ]]; then
