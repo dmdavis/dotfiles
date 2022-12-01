@@ -45,23 +45,20 @@ export PATH="$GEM_PATH/bin:$PATH"
 # Can I get a little work done, please?
 alias fucknetscope='sudo launchctl unload /Library/LaunchDaemons/com.netskope.stagentsvc.plist'
 
+# Old macbook contrail classic generateDS paths.
+
 # Contrail schema
-export CONTRAIL_XML_SCHEMA_DIR='/Users/daled/Projects/contrail/contrail-api-client/schema'
-export CONTRAIL_ALL_CFG_XSD="$CONTRAIL_XML_SCHEMA_DIR/all_cfg.xsd"
-export CONTRAIL_YAML_SCHEMA_DIR='/Users/daled/go/src/contrail-config-ng/vnc-proxy/api'
+#export CONTRAIL_XML_SCHEMA_DIR='/Users/daled/Projects/contrail/contrail-api-client/schema'
+#export CONTRAIL_ALL_CFG_XSD="$CONTRAIL_XML_SCHEMA_DIR/all_cfg.xsd"
+#export CONTRAIL_YAML_SCHEMA_DIR='/Users/daled/go/src/contrail-config-ng/vnc-proxy/api'
 
 # Contrail generateDS
-export GENERATEDS_PYTHON_BIN='/Users/daled/.pyenv/versions/generateDS-2.7.17/bin/python'
-export GENERATEDS_SCRIPT='/Users/daled/Projects/contrail/contrail-api-client/generateds/generateDS.py'
-function generateDS() {
-    ${GENERATEDS_PYTHON_BIN} ${GENERATEDS_SCRIPT} "$@"
-}
-function genDSgo() {
-    generateDS -f -o "$1" -g golang-api ${CONTRAIL_ALL_CFG_XSD}
-}
-function genDSyml() {
-    generateDS -f -o "${1:-${CONTRAIL_YAML_SCHEMA_DIR}}" -g contrail-json-schema ${CONTRAIL_ALL_CFG_XSD}
-}
+#export GENERATEDS_PYTHON_BIN='/Users/daled/.pyenv/versions/generateDS-2.7.17/bin/python'
+#export GENERATEDS_SCRIPT='/Users/daled/Projects/contrail/contrail-api-client/generateds/generateDS.py'
+
+#function genDSyml() {
+#    generateDS -f -o "${1:-${CONTRAIL_YAML_SCHEMA_DIR}}" -g contrail-json-schema ${CONTRAIL_ALL_CFG_XSD}
+#}
 
 # Development host shortcuts (prefer tmd to dev)
 alias dev='ssh $DEV_USER@$DEV_HOST'

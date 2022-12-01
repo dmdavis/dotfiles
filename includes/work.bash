@@ -112,3 +112,18 @@ offs_webui() {
     echo "Cleaning up ${path}"
     rm -rf "$path"
 }
+
+# Contrail schema
+export CONTRAIL_XML_SCHEMA_DIR="${HOME}/go/src/ssd-git.juniper.net/contrail/cn2/src/contrail-api-client/schema"
+export CONTRAIL_ALL_CFG_XSD="$CONTRAIL_XML_SCHEMA_DIR/all_cfg.xsd"
+
+# Contrail generateDS
+export GENERATEDS_PYTHON_BIN="${HOME}/.pyenv/versions/cn2-3.10/bin/python"
+export GENERATEDS_SCRIPT="${HOME}/go/src/ssd-git.juniper.net/contrail/cn2/src/contrail-api-client/generateds/generateDS.py"
+
+function generateDS() {
+    ${GENERATEDS_PYTHON_BIN} "${GENERATEDS_SCRIPT}" "$@"
+}
+function genDSgo() {
+    generateDS -f -o "$1" -g golang-api "${CONTRAIL_ALL_CFG_XSD}"
+}
