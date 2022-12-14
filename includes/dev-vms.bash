@@ -236,7 +236,8 @@ function clean_temp_dir() {
 }
 alias ctd='clean_temp_dir'
 
-alias scons='${CN2_PYENV_BIN}/pipenv run scons'
+export PIPENV="${HOME}/.local/bin/pipenv"
+alias scons='${PIPENV} run scons'
 
 # Define this in your .bashrc
 export ARTIFACTORY_HOST=""
