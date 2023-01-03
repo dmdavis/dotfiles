@@ -17,14 +17,15 @@ export LAB_PRIVATE_KEY="$FT_PATH/infra/deployer/ci/keys/ftvm_rsa"
 # Lab users and home folder paths for various FT cluster flavors
 export OCP_USER="${OCP_USER:-core}"
 export OCP_HOME="${OCP_HOME:-/var/home}"
-export OCP_NETWORK="10.87.89"
+#export OCP_NETWORK="10.87.89"
+export OCP_NETWORK="10.87.88"
 export K8S_USER="${K8S_USER:-ubuntu}"
 export K8S_HOME="${K8S_HOME:-/home}"
 export K8S_NETWORK="10.87.88"
 
-# Initially default to k8s flavors
-export LAB_USER="${LAB_USER:-ubuntu}"
-export LAB_HOME="${LAB_HOME:-/home}"
+# Initially default to ocp flavors
+export LAB_USER="${LAB_USER:-core}"
+export LAB_HOME="${LAB_HOME:-/var/home}"
 export LAB_NETWORK="${LAB_NETWORK:-10.87.88}"
 
 k8suconf() {
