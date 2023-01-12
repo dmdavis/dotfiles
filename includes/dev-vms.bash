@@ -250,3 +250,16 @@ export PATH=${HOME}/bin:${HOME}/go/bin:${HOME}/.cargo/bin:${PATH}
 # Don't forget, nvim using .vimrc isn't automatic and not in ansadm yet.
 # See https://neovim.io/doc/user/nvim.html#nvim-from-vim
 alias v=nvim
+
+# Export the WORKSPACE status settings found by `cn2/tools/workspace-status.sh`.
+function export_workspace_vars() {
+    local envvars keyvar
+    mapfile -t envvars < <( "${GOPATH}/src/ssd-git.juniper.net/contrail/cn2/tools/workspace-status.sh" )
+    declare -p envvars
+    for i in "${envvars[@]}"
+    do
+        IFS=' ' read -r -a keyvar <<< "$i"
+        echo "${keyvar[0]}=${keyvar[1]}"
+        export "${keyvar[0]}"="${keyvar[1]}"
+    done
+}
