@@ -83,6 +83,12 @@ tmd() {
     ssh -t "$DEV_USER@$DEV_HOST" 'tmux attach -t dev-vm || tmux -CC new -A -s dev-vm'
 }
 
+# iTerm tmux to Frontier devenv
+tmf() {
+    it2prof tmux-frontier
+    ssh -t "$DEV_USER@$DEV_HOST_FRONTIER" 'tmux attach -t daled-output || tmux -CC new -A -s daled-output'
+}
+
 # iTerm tmux to Ubuntu dev box
 tmu() {
     it2prof tmux-ubuntu

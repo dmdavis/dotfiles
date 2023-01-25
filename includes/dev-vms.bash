@@ -96,7 +96,7 @@ function scons_dpdk() {
     local timestamp
     timestamp="$(date +'%Y-%m-%d_%H%M')"
     echo "Start time: $timestamp"
-    time pipenv run scons --opt=production build/production/vrouter/dpdk/contrail-vrouter-dpdk | tee "$LOCAL_LOGFILE_FOLDER/scons_contrail-vrouter-dpdk-$timestamp.log.txt"
+    time pipenv run scons --opt=production build/production/vrouter/dpdk/contrail-vrouter-dpdk 2>&1 | tee "$LOCAL_LOGFILE_FOLDER/scons_contrail-vrouter-dpdk-$timestamp.log.txt"
     echo "Start time: $timestamp, end time: $(date +'%Y-%m-%d_%H%M')"
 }
 
