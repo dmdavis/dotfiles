@@ -32,4 +32,7 @@ export PROMPT_COMMAND='__bp_precmd_invoke_cmd; _pyenv_virtualenv_hook; _direnv_h
 
 # I'm Batman
 # https://github.com/sharkdp/bat
-alias cat='bat --theme=TwoDark'
+alias bat='bat --theme=TwoDark'
+
+# Get status of macOS firewall
+alias firewall='/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate --getblockall --getallowsigned --getstealthmode'
