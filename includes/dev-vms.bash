@@ -263,3 +263,39 @@ function export_workspace_vars() {
         export "${keyvar[0]}"="${keyvar[1]}"
     done
 }
+
+function update_fabric_mocks() {
+    local fabric_mgmt_api_path
+    fabric_mgmt_api_path=$(go list -modfile=go.mod -m -f '{{.Dir}}' -mod=mod ssd-git.juniper.net/contrail/fabric-mgmt-api)
+    pushd "$fabric_mgmt_api_path" || { echo "error: couldn't cd to $fabric_mgmt_api_path"; return 1; }
+    bazelisk run //:engctl -- genmock link --path="$(pwd)"
+    popd || { echo "error: couldn't return to original directory"; return 2; }
+}
+
+function whole_enchilada() {
+    pushd "${HOME}/go/src/ssd-git.juniper.net/contrail/cn2" ||
+        {
+            echo "error: couldn't cd to ${HOME}/go/src/ssd-git.juniper.net/contrail/cn2"
+            return 1
+        }
+    # Start fresh. Leftovers in go.sum can result in WORKSPACE dependencies after
+    # `bazelisk run \\:gazelle-update-repos`.
+    rm -f go.sum
+    # Recursively remove go build and module download caches entirely.
+    #
+    # * The -cache flag causes clean to remove the entire go build cache.
+    # * The -modcache flag causes clean to remove the entire module download,
+    #   including unpacked source code of versioned dependencies.
+    # * The -i flag causes clean to remove the corresponding installed archive
+    #   or binary (what 'go install' would create).
+    # * The -r flag causes clean to be applied recursively to all the
+    #   dependencies of the packages named by the import paths.
+    go clean -cache -modcache -i -r
+    # go mod tidy will fail because `fabric_mgmt_api` mocks need to be generated.
+    go mod download
+    update_fabric_mocks || return 2
+    go mod tidy
+    bazelisk run '//:gazelle'
+    bazelisk run '//:gazelle-update-repos'
+    popd || { echo "error: couldn't return to original directory"; return 2; }
+}
