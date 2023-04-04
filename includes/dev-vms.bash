@@ -295,7 +295,7 @@ function whole_enchilada() {
     go mod download
     update_fabric_mocks || return 2
     go mod tidy
-    bazelisk run '//:gazelle'
     bazelisk run '//:gazelle-update-repos'
+    bazelisk run '//:gazelle'
     popd || { echo "error: couldn't return to original directory"; return 2; }
 }
