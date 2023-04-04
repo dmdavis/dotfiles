@@ -267,17 +267,19 @@ function export_workspace_vars() {
 function update_fabric_mocks() {
     local fabric_mgmt_api_path
     fabric_mgmt_api_path=$(go list -modfile=go.mod -m -f '{{.Dir}}' -mod=mod ssd-git.juniper.net/contrail/fabric-mgmt-api)
-    pushd "$fabric_mgmt_api_path" || { echo "error: couldn't cd to $fabric_mgmt_api_path"; return 1; }
+    pushd "$fabric_mgmt_api_path" || { echo "❗️error: couldn't cd to $fabric_mgmt_api_path"; return 1; }
+    echo "🌯️ Updating fabric_mgmt_api mocks"
     bazelisk run //:engctl -- genmock link --path="$(pwd)"
-    popd || { echo "error: couldn't return to original directory"; return 2; }
+    popd || { echo "❗️error: couldn't return to original directory"; return 2; }
 }
 
-function whole_enchilada() {
+function partial_enchilada() {
     pushd "${HOME}/go/src/ssd-git.juniper.net/contrail/cn2" ||
         {
-            echo "error: couldn't cd to ${HOME}/go/src/ssd-git.juniper.net/contrail/cn2"
+            echo "❗️error: couldn't cd to ${HOME}/go/src/ssd-git.juniper.net/contrail/cn2"
             return 1
         }
+    echo "🌯️ Removing cn2/go.sum"
     # Start fresh. Leftovers in go.sum can result in WORKSPACE dependencies after
     # `bazelisk run \\:gazelle-update-repos`.
     rm -f go.sum
@@ -290,12 +292,27 @@ function whole_enchilada() {
     #   or binary (what 'go install' would create).
     # * The -r flag causes clean to be applied recursively to all the
     #   dependencies of the packages named by the import paths.
+    echo "🌯️ Cleaning go cache and modcache"
     go clean -cache -modcache -i -r
     # go mod tidy will fail because `fabric_mgmt_api` mocks need to be generated.
+    echo "🌯️ Downloading go mods"
     go mod download
     update_fabric_mocks || return 2
+    echo "🌯️ Tidying cn2/go.mod"
     go mod tidy
+    popd || { echo "❗️error: couldn't return to original directory"; return 3; }
+}
+
+function whole_enchilada() {
+    pushd "${HOME}/go/src/ssd-git.juniper.net/contrail/cn2" ||
+        {
+            echo "❗️error: couldn't cd to ${HOME}/go/src/ssd-git.juniper.net/contrail/cn2"
+            return 1
+        }
+    partial_enchilada
+    echo "🌯️ Running gazelle update-repos"
     bazelisk run '//:gazelle-update-repos'
+    echo "🌯️ Running gazelle update"
     bazelisk run '//:gazelle'
-    popd || { echo "error: couldn't return to original directory"; return 2; }
+    popd || { echo "❗️error: couldn't return to original directory"; return 3; }
 }
