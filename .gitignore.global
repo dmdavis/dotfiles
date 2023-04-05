@@ -1,5 +1,7 @@
 # JetBrains IDEs
 .idea
+.uuid
+.ijwb
 
 # pyenv
 .python-version
