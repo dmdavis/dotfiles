@@ -138,6 +138,20 @@ function bzl() {
     popd || return
 }
 
+# ex. gol //ui/... --blah
+# output: ~/go-2022-01-01_1200.log.txt
+function gol() {
+    local timestamp runlog
+    pushd "$HOME/go/src/ssd-git.juniper.net/contrail/cn2" || return
+    timestamp="$(date +'%Y-%m-%d_%H%M')"
+    runlog="$LOCAL_LOGFILE_FOLDER/go-$timestamp.log.txt"
+    echo "Starting go: 'go $*'. Start time: $timestamp"
+    time go "$@" 2>&1 | tee "$runlog"
+    echo "Go complete: 'go $*'. Start time: $timestamp, end time: $(date +'%Y-%m-%d_%H%M')"
+    echo "Run log located at $runlog"
+    popd || return
+}
+
 # ex. ft single-cluster
 # output: ~/single-cluster-ft-run-2022-01-01_1200.log.txt
 function ft() {
