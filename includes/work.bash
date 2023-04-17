@@ -67,7 +67,7 @@ k8ssh() {
 scpk9s() {
     # TODO Add arg check
     echo "Copying k9s to $LAB_USER@$LAB_NETWORK.$1:$LAB_HOME/$LAB_USER/"
-    scp -i "$LAB_PRIVATE_KEY" ~/local/bin/k9s "$LAB_USER@$LAB_NETWORK.$1:$LAB_HOME/$LAB_USER/"
+    scp -i "$LAB_PRIVATE_KEY" ~/.local/bin/k9s "$LAB_USER@$LAB_NETWORK.$1:$LAB_HOME/$LAB_USER/"
 }
 
 # args: private key path, user, ip/host, home dir
