@@ -52,6 +52,8 @@ macscp() {
 export LOCAL_LOGFILE_FOLDER="$HOME/logs"
 
 alias bz='bazelisk'
+alias bzq='bazelisk query'
+
 export BASE_TAG=''
 
 # Change and display BASE_TAG
