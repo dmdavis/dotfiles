@@ -53,6 +53,7 @@ export LOCAL_LOGFILE_FOLDER="$HOME/logs"
 
 alias bz='bazelisk'
 alias bzq='bazelisk query'
+alias bzt='bazelisk test'
 
 export BASE_TAG=''
 
