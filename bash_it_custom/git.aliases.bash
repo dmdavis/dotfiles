@@ -5,7 +5,7 @@
 # 1b441e7 on Apr 4, 2018
 
 # bash_it git completion only loads on macOS because there's no reliable path
-# to it on on the various distributions. Try a few known locations here.
+# to it on the various distributions. Try a few known locations here.
 if [[ "$(uname -s)" == 'Linux' ]] ; then
     # On Centos 7, git completion is lazy-loaded. __git_complete doesn't exist
     # until "git TAB" is called, so source the completion file if it is there.
@@ -24,6 +24,15 @@ fi
 
 git-branch-current() {
     git rev-parse --abbrev-ref HEAD
+}
+
+git-whoami() {
+    echo "Git Global Contact:"
+    echo "git config --global user.name '$(git config --global user.name)'"
+    echo "git config --global user.email '$(git config --global user.email)'"
+    echo "Git Local Contact:"
+    echo "git config user.name '$(git config user.name)'"
+    echo "git config user.email '$(git config user.email)'"
 }
 
 # Git
