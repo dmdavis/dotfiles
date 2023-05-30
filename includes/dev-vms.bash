@@ -290,10 +290,10 @@ function update_fabric_mocks() {
     popd || { echo "❗️error: couldn't return to original directory"; return 2; }
 }
 
-function partial_enchilada() {
-    pushd "${HOME}/go/src/ssd-git.juniper.net/contrail/cn2" ||
+function __partial_enchilada() {
+    pushd "$1" ||
         {
-            echo "❗️error: couldn't cd to ${HOME}/go/src/ssd-git.juniper.net/contrail/cn2"
+            echo "❗️error: couldn't cd to $1"
             return 1
         }
     echo "🌯️ Removing cn2/go.sum"
@@ -320,16 +320,36 @@ function partial_enchilada() {
     popd || { echo "❗️error: couldn't return to original directory"; return 3; }
 }
 
-function whole_enchilada() {
-    pushd "${HOME}/go/src/ssd-git.juniper.net/contrail/cn2" ||
+function partial_enchilada() {
+    __partial_enchilada "${HOME}/go/src/ssd-git.juniper.net/contrail/cn2"
+}
+
+function partial_enchilada_ft() {
+    __partial_enchilada "${HOME}/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests"
+}
+
+function __whole_enchilada() {
+    pushd "$1" ||
         {
-            echo "❗️error: couldn't cd to ${HOME}/go/src/ssd-git.juniper.net/contrail/cn2"
+            echo "❗️error: couldn't cd to $1"
             return 1
         }
-    partial_enchilada
+    if [ "$2" = "FT" ]; then
+        partial_enchilada_ft
+    else
+        partial_enchilada
+    fi
     echo "🌯️ Running gazelle update-repos"
     bazelisk run '//:gazelle-update-repos'
     echo "🌯️ Running gazelle update"
     bazelisk run '//:gazelle'
     popd || { echo "❗️error: couldn't return to original directory"; return 3; }
+}
+
+function whole_enchilada() {
+    __whole_enchilada "${HOME}/go/src/ssd-git.juniper.net/contrail/cn2" "CN2"
+}
+
+function whole_enchilada_ft() {
+    __whole_enchilada "${HOME}/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests" "FT"
 }
