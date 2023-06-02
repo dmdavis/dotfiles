@@ -290,6 +290,29 @@ function update_fabric_mocks() {
     popd || { echo "❗️error: couldn't return to original directory"; return 2; }
 }
 
+export JUNIPER_SOURCE_DIR="${HOME}/go/src/ssd-git.juniper.net"
+export CONTRAIL_SOURCE_DIR="${JUNIPER_SOURCE_DIR}/contrail"
+export OPTS_BZL="${CONTRAIL_SOURCE_DIR}/cn2/opts.bzl"
+
+function update_ft_sut_atom() {
+    local ft_sut_atom_path
+    ft_sut_atom_path=$(go list -modfile=go.mod -m -f '{{.Dir}}' -mod=mod ssd-git.juniper.net/atom/atom)
+    pushd "$ft_sut_atom_path" || { echo "❗️error: couldn't cd to $ft_sut_atom_path"; return 1; }
+    echo "🌯️ Checking atom out at commit currently used by feature_tests"
+    git fetch
+    git checkout "$(awk -F '=' '/FT_SUT_ATOM_COMMIT/ {print $2}' "${OPTS_BZL}" | xargs)"
+    # Attempt to turn off ccache
+    "$SUDO" rm -f /usr/local/bin/g++
+    "$SUDO" rm -f /usr/local/bin/gcc
+    "$SUDO" rm -f /usr/local/bin/cc
+    "$SUDO" rm -f /usr/local/bin/c++
+     PATH="/usr/bin;$PATH"
+     echo "Syncing atom bazelisk to populate generated code"
+     bazelisk clean --expunge
+     make bazel-sync
+     popd || { echo "❗️error: couldn't return to original directory"; return 2; }
+}
+
 function __partial_enchilada() {
     pushd "$1" ||
         {
