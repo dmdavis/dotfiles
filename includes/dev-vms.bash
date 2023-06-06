@@ -116,12 +116,12 @@ function deploy() {
     runlog="$LOCAL_LOGFILE_FOLDER/$1-deployment-$timestamp.log.txt"
     echo "Deploying $1 FT flavor. Start time: $timestamp"
     time bazelisk run //tests:feature_tests_ci --stamp \
-    --test_timeout=9000 --test_filter="fake" \
-    --test_env=TEST_TIMEOUT=9000 \
-    --test_env=HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" \
-    --test_env=DEPLOYER_FLAVOR="$1" \
-    --test_env=DEPLOYER_CONFIG="$OPENSTACK_DEPLOYER" \
-    --test_env=ENABLE_TEARDOWN="$ENABLE_TEARDOWN" 2>&1 | tee "$runlog"
+        --test_timeout=9000 --test_filter="fake" \
+        --test_env=TEST_TIMEOUT=9000 \
+        --test_env=HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" \
+        --test_env=DEPLOYER_FLAVOR="$1" \
+        --test_env=DEPLOYER_CONFIG="$OPENSTACK_DEPLOYER" \
+        --test_env=ENABLE_TEARDOWN="$ENABLE_TEARDOWN" 2>&1 | tee "$runlog"
     echo "$1 deployed. Start time: $timestamp, end time: $(date +'%Y-%m-%d_%H%M')"
     echo "Run log located at $runlog"
     popd || return
@@ -164,12 +164,12 @@ function ft() {
     runlog="$LOCAL_LOGFILE_FOLDER/$1-ft-run-$timestamp.log.txt"
     echo "Starting $1 feature tests. Start time: $timestamp"
     time bazelisk run //tests:feature_tests_ci --stamp \
-    --test_timeout=9000 \
-    --test_env=TEST_TIMEOUT=9000 \
-    --test_env=HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" \
-    --test_env=DEPLOYER_FLAVOR="$1" \
-    --test_env=DEPLOYER_CONFIG="$OPENSTACK_DEPLOYER" \
-    --test_env=ENABLE_TEARDOWN="$ENABLE_TEARDOWN" 2>&1 | tee "$runlog"
+        --test_timeout=9000 \
+        --test_env=TEST_TIMEOUT=9000 \
+        --test_env=HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" \
+        --test_env=DEPLOYER_FLAVOR="$1" \
+        --test_env=DEPLOYER_CONFIG="$OPENSTACK_DEPLOYER" \
+        --test_env=ENABLE_TEARDOWN="$ENABLE_TEARDOWN" 2>&1 | tee "$runlog"
     echo "$1 feature tests complete. Start time: $timestamp, end time: $(date +'%Y-%m-%d_%H%M')"
     echo "Run log located at $runlog"
     popd || return
@@ -185,12 +185,12 @@ function aws() {
     runlog="$LOCAL_LOGFILE_FOLDER/$1-aws-run-$timestamp.log.txt"
     echo "Starting $1 feature tests. Start time: $timestamp"
     time bazelisk run //tests:feature_tests_ci --stamp \
-    --test_timeout=9000 \
-    --test_env=TEST_TIMEOUT=9000 \
-    --test_env=HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" \
-    --test_env=DEPLOYER_FLAVOR="$1" \
-    --test_env=DEPLOYER_CONFIG="$AWS_DEPLOYER" \
-    --test_env=ENABLE_TEARDOWN=true 2>&1 | tee "$runlog"
+        --test_timeout=9000 \
+        --test_env=TEST_TIMEOUT=9000 \
+        --test_env=HOST_REGISTRY="$DOCKER_REPO_HOST:$DOCKER_REPO_PORT" \
+        --test_env=DEPLOYER_FLAVOR="$1" \
+        --test_env=DEPLOYER_CONFIG="$AWS_DEPLOYER" \
+        --test_env=ENABLE_TEARDOWN=true 2>&1 | tee "$runlog"
     echo "$1 feature tests complete. Start time: $timestamp, end time: $(date +'%Y-%m-%d_%H%M')"
     echo "Run log located at $runlog"
     popd || return
@@ -242,7 +242,7 @@ alias ccd='clean_custom_deployers'
 function clean_temp_dir() {
     local filename
     for f in "$TMPDIR"/*; do
-    filename=$(basename "$f")
+        filename=$(basename "$f")
         if [[ $filename = @(generate_bash_completion.sh|bazel-complete-template.bash|bazel-complete-header.bash|.bazeliskrc) ]]; then
             echo "Skipping $f"
         else
@@ -271,23 +271,13 @@ alias v=nvim
 # Export the WORKSPACE status settings found by `cn2/tools/workspace-status.sh`.
 function export_workspace_vars() {
     local envvars keyvar
-    mapfile -t envvars < <( "${GOPATH}/src/ssd-git.juniper.net/contrail/cn2/tools/workspace-status.sh" )
+    mapfile -t envvars < <("${GOPATH}/src/ssd-git.juniper.net/contrail/cn2/tools/workspace-status.sh")
     declare -p envvars
-    for i in "${envvars[@]}"
-    do
-        IFS=' ' read -r -a keyvar <<< "$i"
+    for i in "${envvars[@]}"; do
+        IFS=' ' read -r -a keyvar <<<"$i"
         echo "${keyvar[0]}=${keyvar[1]}"
         export "${keyvar[0]}"="${keyvar[1]}"
     done
-}
-
-function update_fabric_mocks() {
-    local fabric_mgmt_api_path
-    fabric_mgmt_api_path=$(go list -modfile=go.mod -m -f '{{.Dir}}' -mod=mod ssd-git.juniper.net/contrail/fabric-mgmt-api)
-    pushd "$fabric_mgmt_api_path" || { echo "❗️error: couldn't cd to $fabric_mgmt_api_path"; return 1; }
-    echo "🌯️ Updating fabric_mgmt_api mocks"
-    bazelisk run //:engctl -- genmock link --path="$(pwd)"
-    popd || { echo "❗️error: couldn't return to original directory"; return 2; }
 }
 
 export JUNIPER_SOURCE_DIR="${HOME}/go/src/ssd-git.juniper.net"
@@ -297,7 +287,10 @@ export OPTS_BZL="${CONTRAIL_SOURCE_DIR}/cn2/opts.bzl"
 function update_ft_sut_atom() {
     local ft_sut_atom_path
     ft_sut_atom_path=$(go list -modfile=go.mod -m -f '{{.Dir}}' -mod=mod ssd-git.juniper.net/atom/atom)
-    pushd "$ft_sut_atom_path" || { echo "❗️error: couldn't cd to $ft_sut_atom_path"; return 1; }
+    pushd "$ft_sut_atom_path" || {
+        echo "❗️error: couldn't cd to $ft_sut_atom_path"
+        return 1
+    }
     echo "🌯️ Checking atom out at commit currently used by feature_tests"
     git fetch
     git checkout "$(awk -F '=' '/FT_SUT_ATOM_COMMIT/ {print $2}' "${OPTS_BZL}" | xargs)"
@@ -306,73 +299,15 @@ function update_ft_sut_atom() {
     "$SUDO" rm -f /usr/local/bin/gcc
     "$SUDO" rm -f /usr/local/bin/cc
     "$SUDO" rm -f /usr/local/bin/c++
-     PATH="/usr/bin;$PATH"
-     echo "Syncing atom bazelisk to populate generated code"
-     bazelisk clean --expunge
-     make bazel-sync
-     popd || { echo "❗️error: couldn't return to original directory"; return 2; }
+    PATH="/usr/bin;$PATH"
+    echo "Syncing atom bazelisk to populate generated code"
+    bazelisk clean --expunge
+    make bazel-sync
+    popd || {
+        echo "❗️error: couldn't return to original directory"
+        return 2
+    }
 }
 
-function __partial_enchilada() {
-    pushd "$1" ||
-        {
-            echo "❗️error: couldn't cd to $1"
-            return 1
-        }
-    echo "🌯️ Removing cn2/go.sum"
-    # Start fresh. Leftovers in go.sum can result in WORKSPACE dependencies after
-    # `bazelisk run \\:gazelle-update-repos`.
-    rm -f go.sum
-    # Recursively remove go build and module download caches entirely.
-    #
-    # * The -cache flag causes clean to remove the entire go build cache.
-    # * The -modcache flag causes clean to remove the entire module download,
-    #   including unpacked source code of versioned dependencies.
-    # * The -i flag causes clean to remove the corresponding installed archive
-    #   or binary (what 'go install' would create).
-    # * The -r flag causes clean to be applied recursively to all the
-    #   dependencies of the packages named by the import paths.
-    echo "🌯️ Cleaning go cache and modcache"
-    go clean -cache -modcache -i -r
-    # go mod tidy will fail because `fabric_mgmt_api` mocks need to be generated.
-    echo "🌯️ Downloading go mods"
-    go mod download
-    update_fabric_mocks || return 2
-    echo "🌯️ Tidying cn2/go.mod"
-    go mod tidy
-    popd || { echo "❗️error: couldn't return to original directory"; return 3; }
-}
-
-function partial_enchilada() {
-    __partial_enchilada "${HOME}/go/src/ssd-git.juniper.net/contrail/cn2"
-}
-
-function partial_enchilada_ft() {
-    __partial_enchilada "${HOME}/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests"
-}
-
-function __whole_enchilada() {
-    pushd "$1" ||
-        {
-            echo "❗️error: couldn't cd to $1"
-            return 1
-        }
-    if [ "$2" = "FT" ]; then
-        partial_enchilada_ft
-    else
-        partial_enchilada
-    fi
-    echo "🌯️ Running gazelle update-repos"
-    bazelisk run '//:gazelle-update-repos'
-    echo "🌯️ Running gazelle update"
-    bazelisk run '//:gazelle'
-    popd || { echo "❗️error: couldn't return to original directory"; return 3; }
-}
-
-function whole_enchilada() {
-    __whole_enchilada "${HOME}/go/src/ssd-git.juniper.net/contrail/cn2" "CN2"
-}
-
-function whole_enchilada_ft() {
-    __whole_enchilada "${HOME}/go/src/ssd-git.juniper.net/contrail/cn2/feature_tests" "FT"
-}
+# shellcheck source=~/go/src/ssd-git.juniper.net/contrail/cn2/tools/gazelle-helpers.sh
+. "${HOME}/go/src/ssd-git.juniper.net/contrail/cn2/tools/gazelle-helpers.sh"
