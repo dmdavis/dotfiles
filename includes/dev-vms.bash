@@ -309,12 +309,5 @@ function update_ft_sut_atom() {
     }
 }
 
-function update_cn2_golang() {
-    # shellcheck source=~/go/src/ssd-git.juniper.net/contrail/cn2/tools/common-setup.sh
-    . "${HOME}/go/src/ssd-git.juniper.net/contrail/cn2/tools/common-setup.sh"
-    checkAndInstallGoLang
-    "${LOCAL_BIN_DIR}/go" env -w GOPRIVATE=ssd-git.juniper.net
-}
-
 # shellcheck source=~/go/src/ssd-git.juniper.net/contrail/cn2/tools/gazelle-helpers.sh
 . "${HOME}/go/src/ssd-git.juniper.net/contrail/cn2/tools/gazelle-helpers.sh"
