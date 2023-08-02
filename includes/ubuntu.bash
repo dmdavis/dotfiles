@@ -9,4 +9,6 @@ fi
 alias bat='batcat --theme=TwoDark'
 
 # VSCode requires access to TMPDIR on host
-export TMPDIR="${HOME}/tmp"
+# Can no longer use this because of idiots hard-coding temp directory paths in
+# tests and a shit-show review process.
+#export TMPDIR="${HOME}/tmp"
