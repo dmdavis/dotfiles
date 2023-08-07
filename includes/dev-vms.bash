@@ -309,5 +309,16 @@ function update_ft_sut_atom() {
     }
 }
 
+# Regenerate CN2 boilerplate
+function gencn2() {
+    pushd "$HOME/go/src/ssd-git.juniper.net/contrail/cn2" || return
+    make -C contrail/ generate
+    make -C kube-manager/ generate
+    make -C gsi/ generate
+    make -C readiness/ generate
+    make -C deployer/ generate
+    popd || return
+}
+
 # shellcheck source=~/go/src/ssd-git.juniper.net/contrail/cn2/tools/gazelle-helpers.sh
 . "${HOME}/go/src/ssd-git.juniper.net/contrail/cn2/tools/gazelle-helpers.sh"
