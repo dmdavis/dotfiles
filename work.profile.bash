@@ -37,6 +37,8 @@ source "$BASEDIR"/includes/mac.bash
 source "$BASEDIR"/includes/minikube.bash
 # shellcheck source=./includes/motd-fabulous.bash
 source "$BASEDIR"/includes/motd-fabulous.bash
+# shellcheck source=./includes/old-laptop.bash
+#source "$BASEDIR"/includes/old-laptop.bash
 
 export GEM_HOME="$HOME/.gems"
 export GEM_PATH="$HOME/.gems"
@@ -120,22 +122,14 @@ function prev() {
     sh -c "pet new $(printf %q "$PREV")"
 }
 
-# Some helpers for copying crap from old laptop to new.
-export OLD_MACBOOK=''
-export NEW_MACBOOK=''
-alias oldmb='ssh $DEV_USER@$OLD_MACBOOK'
-alias newmb='ssh $DEV_USER@$NEW_MACBOOK'
-function oldtonew() {
-    # oldtonew ~/go/src/ssd-git.juniper.net/contrail
-    mkdir -p "$1"
-    rsync -azvhP "${DEV_USER}@${OLD_MACBOOK}:${1}/" "$1"
-}
-function newtoold() {
-    ssh "${DEV_USER}@${NEW_MACBOOK}" mkdir -p "$1"
-    rsync -azvhP "$1/" "${DEV_USER}@${OLD_MACBOOK}:${1}"
-}
-
 alias lc='limactl'
 
-# Add home, Node v14, and JDK 11 bin folders to PATH
-export PATH="${HOME}/bin:/opt/homebrew/opt/node@14/bin:/opt/homebrew/opt/openjdk@11/bin:$PATH"
+# Add Node v14 and JDK 11 bin folders to PATH
+export PATH="/opt/homebrew/opt/node@14/bin:/opt/homebrew/opt/openjdk@11/bin:$PATH"
+
+# Add rust environment
+# shellcheck source=/Users/daled/.cargo/env
+source "${HOME}/.cargo/env"
+
+# Put home/bin at the front of PATH
+export PATH="${HOME}/bin:$PATH"
