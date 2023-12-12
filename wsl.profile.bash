@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
 
+if [[ "$DOTFILE_TRACE" -eq 1 ]]; then
+    echo "* Sourcing wsl.profile.bash"
+    echo "PATH = $PATH"
+fi
+
 # Uncomment to debug .bashrc
 #set -o xtrace
 
 # Location of .files directory
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-export PYTHON_VERSION='3.8.5'
+export PYTHON_VERSION='3.8.10'
 alias python=python3
 
 # Fix WSL's funky bash colors.
