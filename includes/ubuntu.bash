@@ -18,4 +18,9 @@ if [ "$upgradeable" != 'Listing...' ]; then
     echo "Upgradeable apt packages:"
     echo
     echo "$upgradeable"
+    echo
+    echo "To upgrade:"
+    echo "  sudo update & sudo apt upgrade -y"
+    echo "To upgrade 'held back' packages:"
+    echo "  sudo apt-get --with-new-pkgs upgrade -y <packages>"
 fi
