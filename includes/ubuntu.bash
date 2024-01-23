@@ -16,5 +16,6 @@ upgradeable=$(apt list --upgradeable 2>/dev/null)
 if [ "$upgradeable" != 'Listing...' ]; then
     echo
     echo "Upgradeable apt packages:"
+    echo
     echo "$upgradeable"
 fi
