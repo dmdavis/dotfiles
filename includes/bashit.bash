@@ -126,3 +126,7 @@ updotfiles() {
     git up
     popd || return
 }
+
+# Increase history size in both memory and the history save file.
+HISTSIZE=5000
+HISTFILESIZE=20000
