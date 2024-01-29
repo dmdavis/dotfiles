@@ -24,3 +24,11 @@ if [ "$upgradeable" != 'Listing...' ]; then
     echo "To upgrade 'held back' packages:"
     echo "  sudo apt-get --with-new-pkgs upgrade -y <packages>"
 fi
+
+# No Bash-It plugin yet for cargo and go environments.
+
+# shellcheck source=../../.cargo/env
+[ -f "${HOME}/.cargo/env" ] && source "${HOME}/.cargo/env"
+
+# shellcheck source=../../.go-env.bash
+[ -f "${HOME}/.go-env.bash" ] && source "${HOME}/.go-env.bash"

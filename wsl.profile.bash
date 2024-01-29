@@ -24,13 +24,9 @@ export GIT_HOSTING='git@github.com'
 
 # shellcheck source=./includes/bashit.bash
 source "$BASEDIR"/includes/bashit.bash
-# shellcheck source=./includes/ubuntu.bash
-source "$BASEDIR"/includes/ubuntu.bash
 # shellcheck source=./includes/kubectl.bash
 source "$BASEDIR"/includes/kubectl.bash
+# shellcheck source=./includes/ubuntu.bash
+source "$BASEDIR"/includes/ubuntu.bash
 # shellcheck source=./includes/ls-colors.bash
 source "$BASEDIR"/includes/ls-colors.bash
-
-# No Bash-It plugin yet for rust and cargo.
-# shellcheck source=../.cargo/env
-[ -f "${HOME}/.cargo/env" ] && source "${HOME}/.cargo/env"
