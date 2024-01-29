@@ -10,7 +10,8 @@ fi
 # Location of .files directory
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-export PYTHON_VERSION='3.8.10'
+alias python=python3
+alias ipython=ipython3
 
 # Your place for hosting Git repos. I use this for private repos.
 # TODO: Set this to NAS git
