@@ -25,6 +25,9 @@ if [ "$upgradeable" != 'Listing...' ]; then
     echo "  sudo apt-get --with-new-pkgs upgrade -y <packages>"
 fi
 
+# Is a package installed? i.e. aptlq build-essential. If no, returns nothing.
+alias aptlq='apt -qq list'
+
 # No Bash-It plugin yet for cargo and go environments.
 
 # shellcheck source=../../.cargo/env
