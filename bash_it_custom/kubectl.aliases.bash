@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+cite about-plugin
+about-plugin 'Kubectl aliases'
+
 if [[ $(command -v kubectl) != "" ]]; then
     alias kcaf='kubectl apply -f'
     alias kccf='kubectl create -f'
