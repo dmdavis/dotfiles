@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cp --reflink=always -u -R /volume1/photo-video-originals/Pictures/Originals /var/services/homes/dale/Photos/Originals
