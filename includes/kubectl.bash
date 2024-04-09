@@ -15,3 +15,6 @@ alias kcgsan='kubectl get services --all-namespaces'
 alias kclp="kubectl label pods"
 alias kcx='kubectl exec -it'
 alias kcxsp="kubectl expose"
+
+# k = kc = kubectl
+alias k=kubectl
