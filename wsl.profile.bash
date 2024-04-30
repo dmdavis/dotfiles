@@ -30,3 +30,10 @@ source "$BASEDIR"/includes/kubectl.bash
 source "$BASEDIR"/includes/ubuntu.bash
 # shellcheck source=./includes/ls-colors.bash
 source "$BASEDIR"/includes/ls-colors.bash
+
+# TODO: Check Ansible playbooks to see why my local go path is always
+# last. Take a look at NUC10. I think I encountered this before. Hack it
+# here for now.
+export PATH="${HOME}/go/bin:$PATH"
+
+set +e
