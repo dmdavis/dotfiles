@@ -8,6 +8,9 @@ fi
 # https://github.com/sharkdp/bat
 alias bat='batcat --theme=TwoDark'
 
+# Bazelisk/Bazel
+alias bz='bazelisk'
+
 lsb_release --description
 lsb_release --release
 lsb_release --codename
