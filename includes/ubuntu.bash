@@ -11,9 +11,11 @@ alias bat='batcat --theme=TwoDark'
 # Bazelisk/Bazel
 alias bz='bazelisk'
 
-lsb_release --description
-lsb_release --release
-lsb_release --codename
+if [[ "$LSB_INFO" -eq 1 ]]; then
+  lsb_release --description 2>/dev/null
+  lsb_release --release 2>/dev/null
+  lsb_release --codename 2>/dev/null
+fi
 
 upgradeable=$(apt list --upgradeable 2>/dev/null)
 if [ "$upgradeable" != 'Listing...' ]; then
@@ -38,3 +40,8 @@ alias aptlq='apt -qq list'
 
 # shellcheck source=../../.go-env.bash
 [ -f "${HOME}/.go-env.bash" ] && source "${HOME}/.go-env.bash"
+
+# The Bash-It plugin doesn't always work?
+
+# shellcheck source=../../.fzf.bash
+#[ -f "${HOME}/.fzf.bash" ] && source "${HOME}/.fzf.bash"

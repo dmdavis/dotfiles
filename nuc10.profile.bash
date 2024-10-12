@@ -20,7 +20,7 @@ export GIT_HOSTING='git@github.com'
 # shellcheck source=./includes/bashit.bash
 source "$BASEDIR"/includes/bashit.bash
 # shellcheck source=./includes/microk8s.bash
-source "$BASEDIR"/includes/microk8s.bash
+#source "$BASEDIR"/includes/microk8s.bash
 # shellcheck source=./includes/ubuntu.bash
 source "$BASEDIR"/includes/ubuntu.bash
 # shellcheck source=./includes/ls-colors.bash
