@@ -25,3 +25,8 @@ source "$BASEDIR"/includes/bashit.bash
 source "$BASEDIR"/includes/ubuntu.bash
 # shellcheck source=./includes/ls-colors.bash
 source "$BASEDIR"/includes/ls-colors.bash
+
+# Apt-installed vagrant
+if [ -d /opt/vagrant/bin ]; then
+  export PATH="$PATH:/opt/vagrant/bin"
+fi

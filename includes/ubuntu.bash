@@ -33,15 +33,31 @@ fi
 # Is a package installed? i.e. aptlq build-essential. If no, returns nothing.
 alias aptlq='apt -qq list'
 
-# No Bash-It plugin yet for cargo and go environments.
-
+# No Bash-It plugin yet for cargo.
 # shellcheck source=../../.cargo/env
 [ -f "${HOME}/.cargo/env" ] && source "${HOME}/.cargo/env"
 
+# The Bash-It plugin doesn't export GO_ROOT.
 # shellcheck source=../../.go-env.bash
 [ -f "${HOME}/.go-env.bash" ] && source "${HOME}/.go-env.bash"
 
-# The Bash-It plugin doesn't always work?
+# The Bash-It fzf plugin doesn't appear to work. When installing fzf, you can
+# enable the key-bindings, but not auto-completion. Doing so results in a bash
+# error when sourcing ~/.fzf.bash:
+#
+# -bash: eval: line 701: unexpected EOF while looking for matching `''
+#
+# TODO: Fix EOF error in source ~/.fzf/shell/completion.bash
 
 # shellcheck source=../../.fzf.bash
-#[ -f "${HOME}/.fzf.bash" ] && source "${HOME}/.fzf.bash"
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi

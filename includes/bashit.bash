@@ -117,12 +117,8 @@ alias hs='history -a ; history -n'
 # Set default CDPATH - disabled because I think its causing cd autocomplete to kill terminal window
 #export CDPATH=".:$HOME"
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
-    # Dotfiles /bin with `imgls`
-    PATH="$HOME/.local/bin:$PATH"
-fi
-
+# Dotfiles /bin with `imgls`
+export PATH="${HOME}/.files/bin:$PATH"
 
 # Update ~/.files repo
 updotfiles() {
