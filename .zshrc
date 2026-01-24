@@ -152,25 +152,6 @@ t() {
   tmux -CC attach -t "$1" || tmux -CC new -A -s "$1"
 }
 
-
-
-# Upload a movie or TV show to a subfolder of the `/volume1/video` NAS share.
-upvid() {
-  if [ -z "$1" ] || [ -z "$2" ]; then
-    echo "USAGE: upvid path-to-file-or-folder nas-video-sub-folder"
-    return 1
-  fi
-
-  echo Copying "$1" to "$NAS_IP:/volume1/video/$2"
-  if rsync -azvhP -e "ssh -p $NAS_SSH_PORT" "$1" "$NAS_USER@$NAS_IP":/volume1/video/"$2"; then
-    echo Moving "$1" to Trash
-    trash "$1"
-  else
-    echo "Failed to copy $1 to $NAS_IP:/volume1/video/$2"
-    return 1
-  fi
-}
-
 # Custom Aliases
 alias alg='alias | grep'
 alias ff='fastfetch --logo /Users/dale/SynologyDrive/Pictures/Avatars/rick_sanchez-4295.png.jpg --logo-type iterm --logo-width 60 --logo-height 29 --logo-padding-right 1'
@@ -179,21 +160,7 @@ alias llo='ll --permission octal'
 alias lc='l | lolcat'
 alias llc='ll | lolcat'
 
-# NAS and pi-hole shortcuts from old .files repo
-# . "${HOME}/Repos/dotfiles/bash_it_custom/nas.zsh"
 
-# Don't store these in public repositories.
-export NAS_IP='192.168.1.201'
-export NAS_SSH_PORT='4224'
-export NAS_USER='dale'
-
-export NUC_IP='192.168.1.232'
-export NUC_SSH_PORT='22'
-export NUC_USER='dale'
-
-export PI_HOLE_IP='192.168.1.245'
-export PI_HOLE_SSH_PORT='22'
-export PI_HOLE_USER='root'
 
 # Terragrunt
 alias tg=terragrunt
@@ -217,8 +184,10 @@ if (( ${+commands[task]} )); then
   eval "$(task --completion zsh)"
 fi
 
-# toko testing
-alias toko=/Users/dale/GolandProjects/toko/cmd/toko/toko
-
 # LS_COLORS
 source "$HOME/Repos/LS_COLORS/lscolors.sh"
+
+# Host-specific overrides I don't want to check into version control.
+if [[ -f "$DOTFILES/overrides.zsh" ]]; then
+  source "$DOTFILES/overrides.zsh"
+fi

@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
-# Define these exports in .zshrc, not files checked into git.
+# Define the actual values of these exports in files NOT checked into version
+# control.
 export NAS_IP=''
 export NAS_SSH_PORT=''
 export NAS_USER=''
@@ -28,4 +29,21 @@ cpnas() {
 # Ex: nascp ~/.gitignore ~/
 nascp() {
     scp -P "$NAS_SSH_PORT" "$NAS_USER@$NAS_IP:$1" "$2"
+}
+
+# Upload a movie or TV show to a subfolder of the `/volume1/video` NAS share.
+upvid() {
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "USAGE: upvid path-to-file-or-folder nas-video-sub-folder"
+        return 1
+    fi
+
+    echo Copying "$1" to "$NAS_IP:/volume1/video/$2"
+    if rsync -azvhP -e "ssh -p $NAS_SSH_PORT" "$1" "$NAS_USER@$NAS_IP":/volume1/video/"$2"; then
+        echo Moving "$1" to Trash
+        trash "$1"
+    else
+        echo "Failed to copy $1 to $NAS_IP:/volume1/video/$2"
+        return 1
+    fi
 }

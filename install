@@ -1,37 +1,64 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 set -e
 
-# Location of .files directory
-BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-export BASEDIR
+# Location of dotfiles repo
+# Using Zsh specific syntax to get the absolute path of the script
+DOTFILES=${${(%):-%x}:A:h}
 
-# If Bash-it isn't installed, offer to install it.
-if [ ! -d ~/.bash_it ]
-then
-    while true; do
-        # shellcheck disable=SC2088
-        read -rp "~/.bash_it not found. Install Bash-it?" yn
-        case $yn in
-            [Yy]* ) git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it; ~/.bash_it/install.sh; break;;
-            [Nn]* ) exit;;
-            * ) echo "Please answer Y (yes) or N (no)";;
-        esac
-    done
-fi
+echo "Dotfiles directory: $DOTFILES"
 
-if [[ "$OSTYPE" == "darwin"* ]]
-then
-    # If OS X and Homebrew is not installed, offer to install it.
-    if [[ $(command -v brew) == "" ]]
-    then
-        while true; do
-            read -rp "Homebrew not installed. Install it?" yn
-            case $yn in
-                [Yy]* ) /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"; break;;
-                [Nn]* ) exit;;
-                * ) echo "Please answer Y (yes) or N (no)";;
-            esac
-        done
+# Files to symlink
+files=(".zshrc" ".zshenv" ".zprofile")
+
+for file in $files; do
+  target="$HOME/$file"
+  source="$DOTFILES/$file"
+
+  if [[ -L "$target" ]]; then
+    # It's a symbolic link
+    current_link=$(readlink "$target")
+    # Handle both relative and absolute links if necessary,
+    # but here we expect absolute as we created it with absolute path $DOTFILES/file
+    if [[ "$current_link" == "$source" ]]; then
+      echo "✅ $file is already correctly symlinked."
+    else
+      echo "⚠️  $file is a symlink but points to $current_link"
+      printf "Update it to point to $source? (y/n) "
+      read -k 1 reply
+      echo
+      if [[ $reply == "y" ]]; then
+        ln -sf "$source" "$target"
+        echo "Updated $file symlink."
+      fi
     fi
-fi
+  elif [[ -d "$target" ]]; then
+    echo "❌ Warning: $target is a directory. Skipping."
+  elif [[ -f "$target" ]]; then
+    # It's a regular file
+    echo "⚠️  $target exists and is a regular file."
+    printf "Move it to trash and replace with symlink? (y/n) "
+    read -k 1 reply
+    echo
+    if [[ $reply == "y" ]]; then
+      if [[ "$OSTYPE" == "darwin"* ]]; then
+        if command -v trash >/dev/null 2>&1; then
+          trash "$target"
+        else
+          echo "trash command not found, using mv $target ${target}.bak"
+          mv "$target" "${target}.bak"
+        fi
+      else
+        echo "Not on macOS, using mv $target ${target}.bak"
+        mv "$target" "${target}.bak"
+      fi
+      ln -s "$source" "$target"
+      echo "Created symlink for $file."
+    fi
+  else
+    # File doesn't exist
+    echo "Creating symlink for $file."
+    ln -s "$source" "$target"
+  fi
+done
+

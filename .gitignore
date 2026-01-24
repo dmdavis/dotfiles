@@ -76,3 +76,5 @@ target/
 
 .autoenv.zsh
 .autoenv_leave.zsh
+
+overrides.zsh
