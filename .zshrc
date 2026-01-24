@@ -160,7 +160,7 @@ alias llo='ll --permission octal'
 alias lc='l | lolcat'
 alias llc='ll | lolcat'
 
-
+alias ldf="lsd -aF --ignore-glob '[!.]*' --ignore-glob '.' --ignore-glob '..' | grep -v '/$'"
 
 # Terragrunt
 alias tg=terragrunt

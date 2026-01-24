@@ -9,7 +9,7 @@ DOTFILES=${${(%):-%x}:A:h}
 echo "Dotfiles directory: $DOTFILES"
 
 # Files to symlink
-files=(".zshrc" ".zshenv" ".zprofile")
+files=(".zshrc" ".zshenv" ".zprofile" ".vimrc")
 
 for file in $files; do
   target="$HOME/$file"
