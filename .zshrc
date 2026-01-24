@@ -144,7 +144,7 @@ source "$HOME/.zshenv"
 eval "$(mise activate zsh)"
 
 if [[ "$HOSTNAME" == "Dales-MacBook-Pro.local" ]]; then
-  source "$DOTFILES/nas.bash"
+  source "$DOTFILES/nas.zsh"
 fi
 
 # tmux helper
@@ -180,7 +180,7 @@ alias lc='l | lolcat'
 alias llc='ll | lolcat'
 
 # NAS and pi-hole shortcuts from old .files repo
-# . "${HOME}/Repos/dotfiles/bash_it_custom/nas.bash"
+# . "${HOME}/Repos/dotfiles/bash_it_custom/nas.zsh"
 
 # Don't store these in public repositories.
 export NAS_IP='192.168.1.201'

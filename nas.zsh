@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
-# Define these exports in .bashrc, not files checked into git.
+# Define these exports in .zshrc, not files checked into git.
 export NAS_IP=''
 export NAS_SSH_PORT=''
 export NAS_USER=''
@@ -20,12 +20,12 @@ alias pi-hole='ssh -p $PI_HOLE_SSH_PORT $PI_HOLE_USER@$PI_HOLE_IP'
 
 # Copy a local file to a remote directory on the NAS
 # Ex: cpnas ~/foo ~/
-function cpnas() {
+cpnas() {
     scp -P "$NAS_SSH_PORT" "$1" "$NAS_USER@$NAS_IP:$2"
 }
 
 # Copy a file on the NAS to a local directory
 # Ex: nascp ~/.gitignore ~/
-function nascp() {
+nascp() {
     scp -P "$NAS_SSH_PORT" "$NAS_USER@$NAS_IP:$1" "$2"
 }
