@@ -10,7 +10,18 @@ branch. I'm currently using [zimfw][] for my Z-shell configuration.
 To install, execute the following commands in a shell:
 
 ```bash
-git clone git@github.com:dmdavis/dotfiles.git ~/.files && ~/.files/install
+git clone --recursive git@github.com:dmdavis/dotfiles.git ~/.files
+~/.files/install
+```
+
+### Submodules
+
+This repository uses git submodules. If you've already cloned the repository
+without the `--recursive` flag, or if you're updating an existing installation,
+run:
+
+```bash
+git submodule update --init --recursive
 ```
 
 Cheers! :beer:

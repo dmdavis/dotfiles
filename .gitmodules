@@ -1,0 +1,3 @@
+[submodule "vendor/LS_COLORS"]
+	path = vendor/LS_COLORS
+	url = https://github.com/trapd00r/LS_COLORS

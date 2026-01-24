@@ -185,7 +185,7 @@ if (( ${+commands[task]} )); then
 fi
 
 # LS_COLORS
-source "$HOME/Repos/LS_COLORS/lscolors.sh"
+source "$HOME/.files/vendor/LS_COLORS/lscolors.sh"
 
 # Host-specific overrides I don't want to check into version control.
 if [[ -f "$DOTFILES/overrides.zsh" ]]; then
