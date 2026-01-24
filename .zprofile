@@ -5,3 +5,6 @@
 # variable settings, etc.; as a general rule, it should not change the shell
 # environment at all. Rather, it should be used to set the terminal type and run
 # a series of external commands (fortune, msgs, etc).
+
+# Added by Toolbox App
+export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
