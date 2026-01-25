@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # Start configuration added by Zim install {{{
 #
 # User configuration sourced by interactive shells
@@ -160,6 +162,10 @@ alias llo='ll --permission octal'
 alias lc='l | lolcat'
 alias llc='ll | lolcat'
 
+# nnn
+alias n='nnn -H -U -d'
+
+# ls dotfiles
 alias ldf="lsd -aF --ignore-glob '[!.]*' --ignore-glob '.' --ignore-glob '..' | grep -v '/$'"
 
 # Terragrunt
