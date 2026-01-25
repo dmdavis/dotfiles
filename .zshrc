@@ -165,8 +165,9 @@ alias llc='ll | lolcat'
 # nnn
 alias n='nnn -H -U -d'
 
-# ls dotfiles
-alias ldf="lsd -aF --ignore-glob '[!.]*' --ignore-glob '.' --ignore-glob '..' | grep -v '/$'"
+# ls aliases filtered to .files (ldf) and .folders (ldd) while preserving lsd colors
+alias ldf="lsd -AF --color=always --ignore-glob '[!.]*' | grep --color=never -v '/$'"
+alias ldd="lsd -AF --color=always --ignore-glob '[!.]*' | grep --color=never '/$'"
 
 # Terragrunt
 alias tg=terragrunt
