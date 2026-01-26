@@ -12,13 +12,6 @@ export DOTFILES=${${(%):-%x}:A:h}
 # Homebrew
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="$HOME/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
-
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:$HOME/.cache/lm-studio/bin"
-
 # Rust
 . "$HOME/.cargo/env"
 export RUST_BACKTRACE=1
