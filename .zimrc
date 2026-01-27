@@ -31,14 +31,14 @@ zmodule utility
 zmodule archive
 # Adds aliases for Homebrew.
 zmodule homebrew
+# Zsh Run-Help
+zmodule run-help
 # Configures fzf for faster fetching of files and directories names.
 zmodule fzf
 # Shown when there is no command and user presses ENTER.
 zmodule magic-enter
 # All kubectl aliases in one function.
 zmodule k
-# Manages all python venvs in one place.
-zmodule pvenv
 
 #
 # Community Modules
@@ -48,6 +48,10 @@ zmodule pvenv
 zmodule joke/zim-helm
 # Sets up k9s in zsh.
 zmodule joke/zim-k9s
+# GitHub CLI
+zmodule joke/zim-github-cli
+# yq
+zmodule joke/zim-yq
 
 #
 # Prompt
