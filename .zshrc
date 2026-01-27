@@ -19,6 +19,12 @@ fi
 # Zsh configuration
 # -----------------
 
+# Hook: Pre-zim customization (before Zim loads)
+# Use this for zstyles, early bindkeys, options, etc.
+[[ -f "$DOTFILES/local/zshrc-pre.zsh" ]] && source "$DOTFILES/local/zshrc-pre.zsh"
+[[ -f "$DOTFILES/machines/$HOSTNAME/zshrc-pre.zsh" ]] && source "$DOTFILES/machines/$HOSTNAME/zshrc-pre.zsh"
+[[ -f "$DOTFILES/machines/$HOSTNAME/local/zshrc-pre.zsh" ]] && source "$DOTFILES/machines/$HOSTNAME/local/zshrc-pre.zsh"
+
 #
 # History
 #
@@ -123,6 +129,12 @@ fi
 # Initialize modules.
 source ${ZIM_HOME}/init.zsh
 
+# Hook: Post-zim customization (after Zim loads, before other config)
+# Use this for customizations that depend on Zim modules
+[[ -f "$DOTFILES/local/zshrc-post-zim.zsh" ]] && source "$DOTFILES/local/zshrc-post-zim.zsh"
+[[ -f "$DOTFILES/machines/$HOSTNAME/zshrc-post-zim.zsh" ]] && source "$DOTFILES/machines/$HOSTNAME/zshrc-post-zim.zsh"
+[[ -f "$DOTFILES/machines/$HOSTNAME/local/zshrc-post-zim.zsh" ]] && source "$DOTFILES/machines/$HOSTNAME/local/zshrc-post-zim.zsh"
+
 # ------------------------------
 # Post-init module configuration
 # ------------------------------
@@ -145,8 +157,11 @@ source "$HOME/.zshenv"
 # Ensure mise is activated for ZSH
 eval "$(mise activate zsh)"
 
-if [[ "$HOSTNAME" == "Dales-MacBook-Pro.local" ]]; then
-  source "$DOTFILES/nas.zsh"
+# Load machine profile files (tracked configs shared across fresh installs)
+if [[ -d "$DOTFILES/machines/$HOSTNAME" ]]; then
+  for file in "$DOTFILES/machines/$HOSTNAME"/*.zsh(N); do
+    source "$file"
+  done
 fi
 
 # tmux helper
@@ -194,7 +209,13 @@ fi
 # LS_COLORS
 source "$HOME/.files/vendor/LS_COLORS/lscolors.sh"
 
-# Host-specific overrides I don't want to check into version control.
+# Hook: Final customization (aliases, functions, completions)
+# Use this for everything else - aliases, functions, etc.
+[[ -f "$DOTFILES/local/zshrc-final.zsh" ]] && source "$DOTFILES/local/zshrc-final.zsh"
+[[ -f "$DOTFILES/machines/$HOSTNAME/zshrc-final.zsh" ]] && source "$DOTFILES/machines/$HOSTNAME/zshrc-final.zsh"
+[[ -f "$DOTFILES/machines/$HOSTNAME/local/zshrc-final.zsh" ]] && source "$DOTFILES/machines/$HOSTNAME/local/zshrc-final.zsh"
+
+# DEPRECATED: Legacy overrides file (use local/zshrc-final.zsh instead)
 if [[ -f "$DOTFILES/overrides.zsh" ]]; then
   source "$DOTFILES/overrides.zsh"
 fi

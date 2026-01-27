@@ -79,3 +79,7 @@ target/
 
 overrides.zsh
 backups/
+
+# Machine-specific local configurations (not tracked)
+local/
+machines/*/local/

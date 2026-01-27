@@ -19,3 +19,13 @@ export RUST_LOG=info
 
 # Personal ~/bin folder
 export PATH="$HOME/bin:$PATH"
+
+# Hook: Early environment customization (before anything else)
+# Use this for PATH modifications, early exports, etc.
+[[ -f "$DOTFILES/local/env-pre.zsh" ]] && source "$DOTFILES/local/env-pre.zsh"
+
+# Hook: Machine profile environment (tracked configs)
+[[ -f "$DOTFILES/machines/$HOSTNAME/env.zsh" ]] && source "$DOTFILES/machines/$HOSTNAME/env.zsh"
+
+# Hook: Machine-specific local environment (untracked configs)
+[[ -f "$DOTFILES/machines/$HOSTNAME/local/env.zsh" ]] && source "$DOTFILES/machines/$HOSTNAME/local/env.zsh"

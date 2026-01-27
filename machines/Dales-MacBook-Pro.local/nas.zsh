@@ -1,7 +1,6 @@
 #!/usr/bin/env zsh
 
-# Define the actual values of these exports in files NOT checked into version
-# control.
+# Define placeholder values (actual values are in local/nas-secrets.zsh)
 export NAS_IP=''
 export NAS_SSH_PORT=''
 export NAS_USER=''
@@ -13,6 +12,9 @@ export NUC_USER=''
 export PI_HOLE_IP=''
 export PI_HOLE_SSH_PORT=''
 export PI_HOLE_USER=''
+
+# Load actual credentials from untracked file
+[[ -f "$DOTFILES/machines/$HOSTNAME/local/nas-secrets.zsh" ]] && source "$DOTFILES/machines/$HOSTNAME/local/nas-secrets.zsh"
 
 alias nas='ssh -p $NAS_SSH_PORT $NAS_USER@$NAS_IP'
 alias nuc='ssh -p $NUC_SSH_PORT $NUC_USER@$NUC_IP'
