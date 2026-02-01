@@ -3,7 +3,7 @@
 This repository contains my personal collection of initialization and
 configuration scripts. It was originally inspired by [Jeff Geerling's dotfiles][]
 repo. For my old Bash-based configuration using [Bash-It][], see the `bash-it`
-branch. I'm currently using [zimfw][] for my Z-shell configuration.
+branch. I'm currently using [zimfw][] for my Z-shell configuration on macOS.
 
 ## Installation
 

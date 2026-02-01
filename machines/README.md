@@ -1,11 +1,12 @@
 # Machine Profiles
 
-This directory contains machine-specific configurations that ARE tracked in version control.
+This directory contains machine-specific configurations that ARE tracked in 
+version control.
 
-## When to use machine profiles vs local/
+## When to use machine profiles vs. local/
 
 **Use `machines/<hostname>/`** for:
-- Configuration you want to share across fresh OS installs
+- Configuration you want to share across fresh OS installations
 - Settings you want to track in git (can reference in documentation)
 - Patterns/templates you might reuse on other machines
 - Example: network helpers, common aliases for a specific machine type
@@ -19,48 +20,29 @@ This directory contains machine-specific configurations that ARE tracked in vers
 ## Creating a new machine profile
 
 1. Find your hostname:
-   ```bash
+   ```sh
    hostname
    ```
 
 2. Create profile directory:
-   ```bash
+   ```sh
    mkdir -p "machines/$(hostname)"
    ```
 
-3. Add `.zsh` files:
-   - Any `.zsh` file in the profile will be auto-sourced in `.zshrc`
-   - Files are loaded in alphabetical order
-   - Consider prefixing with numbers if order matters: `01-env.zsh`, `02-aliases.zsh`
+3. Put environment variables that should load in [`.zshenv`](../.zshenv) in a 
+   `machines/$(hostname)/env-pre.zsh` file. Be careful not to put commands
+   in these files that produce output or assume the shell is attached to a tty. 
 
-4. For untracked configs, create a `local/` subdirectory:
-   ```bash
+4. Add `.zsh` files:
+   - Any `.zsh` files *not* named j`env.zsh` in the profile's folder will be 
+     auto-sourced at the end of `.zshrc`.
+   - Files are loaded in alphabetical order
+   - Consider prefixing with numbers if order matters: `01-env.zsh`, 
+     `02-aliases.zsh`, etc.
+
+5. For untracked configs and sensitive data, create a `local/` subdirectory and
+   put them in it:
+   ```sh
    mkdir -p "machines/$(hostname)/local"
    ```
-
-## Hook points
-
-Machine profiles can use the same hook points as the global `local/` directory:
-
-- `env.zsh` - Sourced in `.zshenv`
-- `zshrc-pre.zsh` - Before Zim initialization
-- `zshrc-post-zim.zsh` - After Zim loads
-- `zshrc-final.zsh` - At the end of `.zshrc`
-- `local/` subdirectory - Same hooks, but untracked
-
-## Example structure
-
-```
-machines/
-├── work-laptop/
-│   ├── env.zsh           # Work-specific PATH entries (tracked)
-│   ├── aliases.zsh       # Work aliases (tracked)
-│   └── local/
-│       └── secrets.zsh   # Company VPN, keys (untracked)
-├── home-server/
-│   └── systemd.zsh       # Server management helpers (tracked)
-└── Dales-MacBook-Pro.local/
-    ├── nas.zsh           # NAS helpers template (tracked)
-    └── local/
-        └── nas-creds.zsh # Actual IPs and credentials (untracked)
-```
+   Then you can source them from your files in `machines/$(hostname)`.

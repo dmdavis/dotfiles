@@ -1,29 +1,18 @@
 #!/usr/bin/env zsh
 
 # Start configuration added by Zim install {{{
-#
-# User configuration sourced by interactive shells
-#
 
-# JetBrains IDEs run zsh with this set to read env vars.
+# JetBrains IDEs run zsh with `INTELLIJ_ENVIRONMENT_READER` set to read env vars.
 # Keep this path FAST and SILENT (no output, no downloads, no prompts).
 if [[ -n "${INTELLIJ_ENVIRONMENT_READER:-}" ]]; then
   # Only laod things that affect PATH/env:
   source "$HOME/.zshenv"
-  # Things you might need in an IDE shell:
-  eval "$(mise activate zsh)"
   return
 fi
 
 # -----------------
 # Zsh configuration
 # -----------------
-
-# Hook: Pre-zim customization (before Zim loads)
-# Use this for zstyles, early bindkeys, options, etc.
-[[ -f "$DOTFILES/local/zshrc-pre.zsh" ]] && source "$DOTFILES/local/zshrc-pre.zsh"
-[[ -f "$DOTFILES/machines/$HOSTNAME/zshrc-pre.zsh" ]] && source "$DOTFILES/machines/$HOSTNAME/zshrc-pre.zsh"
-[[ -f "$DOTFILES/machines/$HOSTNAME/local/zshrc-pre.zsh" ]] && source "$DOTFILES/machines/$HOSTNAME/local/zshrc-pre.zsh"
 
 #
 # History
@@ -129,12 +118,6 @@ fi
 # Initialize modules.
 source ${ZIM_HOME}/init.zsh
 
-# Hook: Post-zim customization (after Zim loads, before other config)
-# Use this for customizations that depend on Zim modules
-[[ -f "$DOTFILES/local/zshrc-post-zim.zsh" ]] && source "$DOTFILES/local/zshrc-post-zim.zsh"
-[[ -f "$DOTFILES/machines/$HOSTNAME/zshrc-post-zim.zsh" ]] && source "$DOTFILES/machines/$HOSTNAME/zshrc-post-zim.zsh"
-[[ -f "$DOTFILES/machines/$HOSTNAME/local/zshrc-post-zim.zsh" ]] && source "$DOTFILES/machines/$HOSTNAME/local/zshrc-post-zim.zsh"
-
 # ------------------------------
 # Post-init module configuration
 # ------------------------------
@@ -152,17 +135,12 @@ for key ('j') bindkey -M vicmd ${key} history-substring-search-down
 unset key
 # }}} End configuration added by Zim install
 
+# ----------------------
+# Post-Zim Configuration
+# ----------------------
+
 # Load env vars from ~/.zshenv
 source "$HOME/.zshenv"
-# Ensure mise is activated for ZSH
-eval "$(mise activate zsh)"
-
-# Load machine profile files (tracked configs shared across fresh installs)
-if [[ -d "$DOTFILES/machines/$HOSTNAME" ]]; then
-  for file in "$DOTFILES/machines/$HOSTNAME"/*.zsh(N); do
-    source "$file"
-  done
-fi
 
 # tmux helper
 t() {
@@ -170,7 +148,7 @@ t() {
 }
 
 # Custom Aliases
-alias alg='alias | grep'
+alias alg='alias | rg'
 alias ff='fastfetch --logo /Users/dale/SynologyDrive/Pictures/Avatars/rick_sanchez-4295.png.jpg --logo-type iterm --logo-width 60 --logo-height 29 --logo-padding-right 1'
 alias lo='l --permission octal'
 alias llo='ll --permission octal'
@@ -206,16 +184,27 @@ if (( ${+commands[task]} )); then
   eval "$(task --completion zsh)"
 fi
 
-# LS_COLORS
-source "$HOME/.files/vendor/LS_COLORS/lscolors.sh"
+# LS_COLORS Tokyo Night (Moon)
+export LS_COLORS="$(vivid generate tokyonight-moon)"
 
-# Hook: Final customization (aliases, functions, completions)
-# Use this for everything else - aliases, functions, etc.
-[[ -f "$DOTFILES/local/zshrc-final.zsh" ]] && source "$DOTFILES/local/zshrc-final.zsh"
-[[ -f "$DOTFILES/machines/$HOSTNAME/zshrc-final.zsh" ]] && source "$DOTFILES/machines/$HOSTNAME/zshrc-final.zsh"
-[[ -f "$DOTFILES/machines/$HOSTNAME/local/zshrc-final.zsh" ]] && source "$DOTFILES/machines/$HOSTNAME/local/zshrc-final.zsh"
+# Synch this machine's Brewfile with the currently installed brews and casks.
+sync_brewfile() {
+  brewfile="$DOTFILES/machines/$HOSTNAME/Brewfile"
+  brew bundle dump --global --force --file="$brewfile"
+}
 
-# DEPRECATED: Legacy overrides file (use local/zshrc-final.zsh instead)
-if [[ -f "$DOTFILES/overrides.zsh" ]]; then
-  source "$DOTFILES/overrides.zsh"
+# Load machine profiles
+if [[ -d "$DOTFILES/machines/$HOSTNAME" ]]; then
+  for file in "$DOTFILES/machines/$HOSTNAME"/*.zsh(N); do
+    # Get the basename of the file
+    filename=$(basename "$file")
+
+    # Skip ~/.zshenv customizations
+    if [[ "$filename" == "env.zsh" ]]; then
+      continue
+    fi
+
+    # shellcheck disable=SC1090
+    source "$file"
+  done
 fi
