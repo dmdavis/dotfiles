@@ -81,5 +81,5 @@ overrides.zsh
 backups/
 
 # Machine-specific local configurations (not tracked)
-local/
 machines/*/local/
+machines/GEIMACKYQY0XFKG4/*/
