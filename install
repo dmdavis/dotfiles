@@ -62,5 +62,35 @@ for file in $files; do
   fi
 done
 
-echo "Ensuring ~/bin exists"
+echo "✅ Ensuring ~/bin exists"
 mkdir -p "$HOME/bin"
+
+# Use stow to manage ~/.config dotfiles
+echo ""
+echo "Setting up ~/.config with stow..."
+
+if ! command -v stow >/dev/null 2>&1; then
+  echo "❌ stow is not installed. Install it with: brew install stow"
+  exit 1
+fi
+
+if [[ -d "$DOTFILES/config" ]]; then
+  mkdir -p "$HOME/.config"
+  cd "$DOTFILES"
+
+  # Use stow to create symlinks for config directory
+  # -t specifies target directory, -R restows (updates existing links)
+  if stow -v -t "$HOME/.config" config 2>&1 | grep -q "LINK"; then
+    echo "✅ Config files stowed successfully"
+  else
+    # If no new links, check if already stowed
+    stow -n -t "$HOME/.config" config >/dev/null 2>&1
+    if [[ $? -eq 0 ]]; then
+      echo "✅ Config files already correctly stowed"
+    else
+      echo "⚠️  Some config conflicts detected. Run 'stow -t ~/.config config' manually to see details."
+    fi
+  fi
+else
+  echo "⚠️  No config directory found in $DOTFILES"
+fi

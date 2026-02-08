@@ -86,6 +86,8 @@ brew "restish"
 brew "ripgrep"
 # Daemon to provide vmnet.framework support for rootless QEMU
 brew "socket_vmnet"
+# Organize software neatly under a single directory tree (e.g. /usr/local)
+brew "stow"
 # Tool to build, change, and version infrastructure
 brew "terraform"
 # Thin wrapper for Terraform e.g. for locking state
