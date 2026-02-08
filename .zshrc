@@ -154,6 +154,18 @@ alias lo='l --permission octal'
 alias llo='ll --permission octal'
 alias lc='l | lolcat'
 alias llc='ll | lolcat'
+alias lt='ll --tree'
+alias o='l --permission octal'
+alias ot='o --tree'
+
+# fd hidden files with optional max depth
+fdh() {
+  if [[ -n "$1" ]]; then
+    fd --hidden --max-depth "$1" "${@:2}"
+  else
+    fd --hidden "$@"
+  fi
+}
 
 # nnn
 alias n='nnn -H -U -d'
@@ -190,7 +202,7 @@ export LS_COLORS="$(vivid generate tokyonight-moon)"
 # Synch this machine's Brewfile with the currently installed brews and casks.
 sync_brewfile() {
   brewfile="$DOTFILES/machines/$HOSTNAME/Brewfile"
-  brew bundle dump --global --force --file="$brewfile"
+  brew bundle dump --force --describe --file="$brewfile"
 }
 
 # Load machine profiles

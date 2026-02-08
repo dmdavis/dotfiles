@@ -32,6 +32,8 @@ brew "gawk"
 brew "gh"
 # Small git utilities
 brew "git-extras"
+# Render markdown on the CLI
+brew "glow"
 # GNU Privacy Guard (OpenPGP)
 brew "gnupg"
 # Open source programming language to build simple/reliable/efficient software
