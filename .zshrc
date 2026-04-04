@@ -199,11 +199,23 @@ fi
 # LS_COLORS Tokyo Night (Moon)
 export LS_COLORS="$(vivid generate tokyonight-moon)"
 
+# Yazi shell wrapper
+function y() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  command yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd < "$tmp"
+  [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+  rm -f -- "$tmp"
+}
+
 # Synch this machine's Brewfile with the currently installed brews and casks.
 sync_brewfile() {
   brewfile="$DOTFILES/machines/$HOSTNAME/Brewfile"
   brew bundle dump --force --describe --file="$brewfile"
 }
+
+# zoxide
+eval "$(zoxide init zsh)"
 
 # Load machine profiles
 if [[ -d "$DOTFILES/machines/$HOSTNAME" ]]; then
