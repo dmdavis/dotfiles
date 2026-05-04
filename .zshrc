@@ -195,6 +195,7 @@ fi
 if (( ${+commands[task]} )); then
   eval "$(task --completion zsh)"
 fi
+alias t=task
 
 # LS_COLORS Tokyo Night (Moon)
 export LS_COLORS="$(vivid generate tokyonight-moon)"
@@ -217,6 +218,12 @@ sync_brewfile() {
 # zoxide
 eval "$(zoxide init zsh)"
 
+# Suppress fnm's noisy INFO logs on shell start
+export RUST_LOG=fnm=error
+# fnm (Node.js) and and its zsh completions
+eval "$(fnm env --use-on-cd)"
+. <(fnm completions --shell zsh)
+
 # Load machine profiles
 if [[ -d "$DOTFILES/machines/$HOSTNAME" ]]; then
   for file in "$DOTFILES/machines/$HOSTNAME"/*.zsh(N); do
@@ -232,3 +239,6 @@ if [[ -d "$DOTFILES/machines/$HOSTNAME" ]]; then
     source "$file"
   done
 fi
+
+# OpenClaw Completion
+source "/Users/dale/.openclaw/completions/openclaw.zsh"
