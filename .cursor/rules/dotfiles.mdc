@@ -1,0 +1,22 @@
+---
+alwaysApply: true
+description: "Safety and convention rules for Dale's dotfiles repo"
+---
+
+# Dotfiles — Cursor Rules
+
+## Safety
+- Never commit or push without explicit user instruction.
+- Never read or modify `machines/*/local/` — contains credentials/secrets.
+- Never run destructive commands (rm -rf, force push, hard reset) without confirmation.
+- Prefer targeted edits. Do not refactor or add comments beyond what was asked.
+
+## Project Layout
+- Zsh + Zim framework; config in `.zshrc`, `.zimrc`
+- `~/.config` symlinks managed via `stow` (`install` script, `config/` directory)
+- Machine-specific: `machines/Dales-MacBook-Pro.local/`
+- Secrets (untracked): `machines/*/local/`
+
+## Style
+- Use `trash` instead of `rm` for deletions in shell scripts.
+- Prefer editing existing files over creating new ones.
