@@ -84,6 +84,7 @@ brew "opentofu"
 brew "restish"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
+brew "rsync"
 # Daemon to provide vmnet.framework support for rootless QEMU
 brew "socket_vmnet"
 # Organize software neatly under a single directory tree (e.g. /usr/local)

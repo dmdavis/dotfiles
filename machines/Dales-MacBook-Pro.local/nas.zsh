@@ -79,7 +79,7 @@ upvid() {
         fi
     fi
 
-    local -a rsync_opts=(-azvhP -e "ssh -p $NAS_SSH_PORT")
+    local -a rsync_opts=(-azvhP --protect-args -e "ssh -p $NAS_SSH_PORT")
     $dry_run && rsync_opts+=(--dry-run)
 
     echo "Copying '$source' → $NAS_IP:$remote_path"
