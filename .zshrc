@@ -149,7 +149,7 @@ t() {
 
 # Custom Aliases
 alias alg='alias | rg'
-alias ff='fastfetch --logo /Users/dale/SynologyDrive/Pictures/Avatars/rick_sanchez-4295.png.jpg --logo-type iterm --logo-width 60 --logo-height 29 --logo-padding-right 1'
+alias ff='fastfetch --logo $HOME/SynologyDrive/Pictures/Avatars/rick_sanchez-4295.png.jpg --logo-type iterm --logo-width 60 --logo-height 29 --logo-padding-right 1'
 alias lo='l --permission octal'
 alias llo='ll --permission octal'
 alias lc='l | lolcat'
@@ -241,4 +241,4 @@ if [[ -d "$DOTFILES/machines/$HOSTNAME" ]]; then
 fi
 
 # OpenClaw Completion
-source "/Users/dale/.openclaw/completions/openclaw.zsh"
+source "$HOME/.openclaw/completions/openclaw.zsh"
