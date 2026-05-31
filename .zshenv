@@ -11,6 +11,7 @@ export DOTFILES=${${(%):-%x}:A:h}
 
 # Homebrew
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+export HOMEBREW_NO_REQUIRE_TAP_TRUST=1
 
 # Rust
 . "$HOME/.cargo/env"
