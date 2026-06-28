@@ -1,26 +1,22 @@
 #!/usr/bin/env zsh
 
-# Load actual credentials from untracked files
-# shellcheck source=./local/nas-secrets.zsh
-[[ -f "$DOTFILES/machines/$HOSTNAME/local/nas-secrets.zsh" ]] && source "$DOTFILES/machines/$HOSTNAME/local/nas-secrets.zsh"
-
-alias nas='ssh -p $NAS_SSH_PORT $NAS_USER@$NAS_IP'
-alias nuc='ssh -p $NUC_SSH_PORT $NUC_USER@$NUC_IP'
-alias pihole='ssh -p $PI_HOLE_SSH_PORT $PI_HOLE_USER@$PI_HOLE_IP'
-alias pi-hole='ssh -p $PI_HOLE_SSH_PORT $PI_HOLE_USER@$PI_HOLE_IP'
+alias nas='ssh nas.home.dmdavis.net'
+alias nuc='ssh nuc10.home.dmdavis.net'
+alias pihole='ssh pi-hole.home.dmdavis.net'
+alias pi-hole='ssh pi-hole.home.dmdavis.net'
 
 # TODO: Review nas.zsh functions; improve or remove
 
 # Copy a local file to a remote directory on the NAS
 # Ex: cpnas ~/foo ~/
 cpnas() {
-    scp -P "$NAS_SSH_PORT" "$1" "$NAS_USER@$NAS_IP:$2"
+    scp "$1" "nas.home.dmdavis.net:$2"
 }
 
 # Copy a file on the NAS to a local directory
 # Ex: nascp ~/.gitignore ~/
 nascp() {
-    scp -P "$NAS_SSH_PORT" "$NAS_USER@$NAS_IP:$1" "$2"
+    scp "nas.home.dmdavis.net:$1" "$2"
 }
 
 # Upload a movie or TV show to a subfolder of the `/volume1/video` NAS share.
@@ -60,10 +56,10 @@ upvid() {
     local source="${positional[1]}"
     local dest="${positional[2]}"
     local remote_path="/volume1/video/$dest"
-    local remote="$NAS_USER@$NAS_IP"
+    local remote="nas.home.dmdavis.net"
 
     # Check if remote directory exists; prompt to create if not
-    if ! ssh -q -p "$NAS_SSH_PORT" "$remote" "test -d '$remote_path'" 2>/dev/null; then
+    if ! ssh -q "$remote" "test -d '$remote_path'" 2>/dev/null; then
         echo "Remote directory does not exist: $remote_path"
         if $dry_run; then
             echo "[dry-run] Would prompt to create '$remote_path'"
@@ -71,7 +67,7 @@ upvid() {
             echo -n "Create it? [y/N] "
             read -r response
             if [[ "$response" =~ ^[Yy]$ ]]; then
-                ssh -p "$NAS_SSH_PORT" "$remote" "mkdir -p '$remote_path'"
+                ssh "$remote" "mkdir -p '$remote_path'"
             else
                 echo "Aborting."
                 return 1
@@ -79,10 +75,10 @@ upvid() {
         fi
     fi
 
-    local -a rsync_opts=(-azvhP --protect-args -e "ssh -p $NAS_SSH_PORT")
+    local -a rsync_opts=(-azvhP --protect-args -e ssh)
     $dry_run && rsync_opts+=(--dry-run)
 
-    echo "Copying '$source' → $NAS_IP:$remote_path"
+    echo "Copying '$source' → $remote:$remote_path"
     if rsync "${rsync_opts[@]}" "$source" "$remote:$remote_path"; then
         if ! $dry_run; then
             echo -n "Move '$source' to Trash? [y/N] "
