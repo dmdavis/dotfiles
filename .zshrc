@@ -140,7 +140,7 @@ unset key
 # ----------------------
 
 # Load env vars from ~/.zshenv
-source "$HOME/.zshenv"
+#source "$HOME/.zshenv"
 
 # tmux helper
 t() {
@@ -257,4 +257,4 @@ if [[ -d "$DOTFILES/machines/$HOSTNAME" ]]; then
 fi
 
 # OpenClaw Completion
-source "$HOME/.openclaw/completions/openclaw.zsh"
+#source "$HOME/.openclaw/completions/openclaw.zsh"

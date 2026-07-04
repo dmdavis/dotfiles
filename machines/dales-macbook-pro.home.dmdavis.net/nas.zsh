@@ -59,7 +59,7 @@ upvid() {
     local remote="nas.home.dmdavis.net"
 
     # Check if remote directory exists; prompt to create if not
-    if ! ssh -q "$remote" "test -d '$remote_path'" 2>/dev/null; then
+    if ! ssh -q "$remote" "test -d '$remote_path'"; then
         echo "Remote directory does not exist: $remote_path"
         if $dry_run; then
             echo "[dry-run] Would prompt to create '$remote_path'"
@@ -67,7 +67,10 @@ upvid() {
             echo -n "Create it? [y/N] "
             read -r response
             if [[ "$response" =~ ^[Yy]$ ]]; then
-                ssh "$remote" "mkdir -p '$remote_path'"
+                if ! ssh "$remote" "mkdir -p '$remote_path'"; then
+                    echo "Failed to create remote directory: $remote_path"
+                    return 1
+                fi
             else
                 echo "Aborting."
                 return 1
