@@ -1,27 +1,36 @@
+tap "anomalyco/tap"
+tap "homebrew/core"
 tap "homebrew/services"
 tap "rest-sh/tap"
+tap "steipete/tap"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.13"
 # Shell extension to jump to frequently used directories
 brew "autojump"
+# Bourne-Again SHell, a UNIX command interpreter
+brew "bash"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # Double-entry accounting tool that works on plain text files
 brew "beancount"
 # Powerful, enterprise-ready, open source web server with automatic HTTPS
 brew "caddy"
-# CLI to install, manage & troubleshoot Kubernetes clusters running Cilium
-brew "cilium-cli"
 # Apjanke's fork of the classic cowsay project
 brew "cowsay"
-# Portable devkit for CI/CD pipelines
-brew "dagger"
+# TIFF library and utilities
+brew "libtiff"
+# Perl lib for reading and writing EXIF metadata
+brew "exiftool"
 # Like neofetch, but much faster because written mostly in C
 brew "fastfetch"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
 # Play, record, convert, and stream select audio and video codecs
 brew "ffmpeg"
+# Create thumbnails for your video files
+brew "ffmpegthumbnailer"
+# Fast and simple Node.js version manager
+brew "fnm"
 # Infamous electronic fortune-cookie generator
 brew "fortune"
 # Command-line fuzzy finder written in Go
@@ -30,6 +39,8 @@ brew "fzf"
 brew "gawk"
 # GitHub command-line tool
 brew "gh"
+# Highest-quality GIF encoder based on pngquant
+brew "gifski"
 # Small git utilities
 brew "git-extras"
 # Render markdown on the CLI
@@ -38,34 +49,40 @@ brew "glow"
 brew "gnupg"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
-# Task is a task runner/build tool that aims to be simpler and easier to use
-brew "go-task"
 # Fast linters runner for Go
 brew "golangci-lint"
-# Go manage your Ollama models
-brew "gollama"
 # Kubernetes package manager
 brew "helm"
 # Improved top (interactive process viewer)
 brew "htop"
+# Tools and libraries to manipulate images in select formats
+brew "imagemagick"
+# Duplicate file finder and an enhanced fork of 'fdupes'
+brew "jdupes"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
 # Kubernetes CLI To Manage Your Clusters In Style!
 brew "k9s"
-# Run local Kubernetes cluster in Docker
-brew "kind"
-# SDK for building Kubernetes APIs using CRDs
-brew "kubebuilder"
 # Kubernetes command-line interface
 brew "kubernetes-cli"
 # Library to render SVG files using Cairo
 brew "librsvg"
+# LLM inference in C/C++
+brew "llama.cpp"
+# Access large language models from the command-line
+brew "llm"
 # Rainbows and unicorns in your console!
 brew "lolcat"
 # Clone of ls with colorful output, file type icons, and more
 brew "lsd"
 # Make/rake-like build tool using Go
 brew "mage"
+# Unified display of technical and tag data for audio/video
+brew "media-info"
 # Polyglot runtime manager (asdf rust clone)
 brew "mise"
+# AI on the command-line
+brew "mods"
 # 'traceroute' and 'ping' in a single tool
 brew "mtr"
 # NCurses Disk Usage
@@ -76,59 +93,68 @@ brew "neovim"
 brew "nnn"
 # Modern shell for the GitHub era
 brew "nushell"
-# Create, run, and share large language models (LLMs)
-brew "ollama"
-# Drop-in replacement for Terraform. Infrastructure as Code Tool
-brew "opentofu"
+# PDF rendering library (based on the xpdf-3.0 code base)
+brew "poppler"
 # CLI tool for interacting with REST-ish HTTP APIs
 brew "restish"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# Utility that provides fast incremental file transfer
 brew "rsync"
-# Daemon to provide vmnet.framework support for rootless QEMU
-brew "socket_vmnet"
+# 7-Zip is a file archiver with a high compression ratio
+brew "sevenzip"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
-# Tool to build, change, and version infrastructure
-brew "terraform"
-# Thin wrapper for Terraform e.g. for locking state
-brew "terragrunt"
+# Multi-modal AI tool to extract and summarize content
+brew "summarize"
 # Official tldr client written in Rust
 brew "tlrc"
 # Terminal multiplexer
 brew "tmux"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
 # Vulnerability scanner for container images, file systems, and Git repos
 brew "trivy"
+# Command-line unarchiving tools supporting multiple formats
+brew "unar"
 # Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
 # Generator for LS_COLORS with support for multiple color themes
 brew "vivid"
 # Command-line XML and HTML beautifier and content extractor
 brew "xq"
+# Blazing fast terminal file manager written in Rust, based on async I/O
+brew "yazi"
+# Fast Rust based tool to serialize text-based files for LLM consumption
+brew "yek"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
+# Shell extension to navigate your filesystem faster
+brew "zoxide"
+# The AI coding agent built for the terminal.
+brew "anomalyco/tap/opencode"
+# Lightning-fast macOS screenshots & AI vision analysis
+brew "steipete/tap/peekaboo"
 # Collection of apps and services for photography, design, video, web, and UX
 cask "adobe-creative-cloud"
 # Application launcher and productivity software
 cask "alfred"
 # User-friendly GUI app for Homebrew
 cask "applite"
-# Multi-track audio editor and recorder
-cask "audacity"
 # Tool to flash OS images to SD cards & USB drives
 cask "balenaetcher"
 # Monitors common persistence locations
 cask "blockblock"
 # Web browser focusing on privacy
 cask "brave-browser"
+# Menu bar usage monitor for Codex and Claude
+cask "steipete/tap/codexbar"
 # Scans for dylib hijacking
 cask "dhs"
 # Run Stable Diffusion locally
 cask "diffusionbee"
 # Voice and text chat software
 cask "discord"
-# Game of dungeon exploration, combat and magic
-cask "dungeon-crawl-stone-soup-tiles"
 cask "font-0xproto-nerd-font"
 cask "font-3270-nerd-font"
 cask "font-adwaita-mono-nerd-font"
@@ -201,6 +227,8 @@ cask "font-ubuntu-nerd-font"
 cask "font-ubuntu-sans-nerd-font"
 cask "font-victor-mono-nerd-font"
 cask "font-zed-mono-nerd-font"
+# Terminal emulator that uses platform-native UI and GPU acceleration
+cask "ghostty"
 # Tool to optimise images to a smaller size
 cask "imageoptim"
 # Terminal emulator as alternative to Apple's Terminal app
@@ -209,16 +237,14 @@ cask "iterm2"
 cask "jetbrains-toolbox"
 # Menu bar manager
 cask "jordanbaird-ice"
-# Password manager app
-cask "keepassxc"
-# Discover, download, and run local LLMs
-cask "lm-studio"
 # VPN client for secure internet access and private browsing
 cask "nordvpn"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
 # Kubernetes and container management on the desktop
 cask "rancher"
+# Binary authorization system
+cask "santa"
 # Music streaming service
 cask "spotify"
 # System monitor for the menu bar
@@ -240,3 +266,12 @@ vscode "ms-python.vscode-python-envs"
 vscode "pomdtr.excalidraw-editor"
 vscode "stateful.runme"
 vscode "vscodevim.vim"
+uv "nano-pdf"
+uv "ruff"
+uv "ttok"
+uv "ty"
+npm "corepack"
+npm "defuddle-cli"
+npm "openclaw"
+npm "opencommit"
+npm "pnpm"

@@ -228,7 +228,7 @@ function y() {
 # Synch this machine's Brewfile with the currently installed brews and casks.
 sync_brewfile() {
   brewfile="$DOTFILES/machines/$HOSTNAME/Brewfile"
-  brew bundle dump --force --describe --file="$brewfile"
+  brew bundle dump --force --file="$brewfile"
 }
 
 # zoxide
