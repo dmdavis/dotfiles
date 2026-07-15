@@ -234,13 +234,17 @@ sync_brewfile() {
 }
 
 # zoxide
-eval "$(zoxide init zsh)"
+if (( ${+commands[zoxide]} )); then
+  eval "$(zoxide init zsh)"
+fi
 
 # Suppress fnm's noisy INFO logs on shell start
-export RUST_LOG=fnm=error
-# fnm (Node.js) and and its zsh completions
-eval "$(fnm env --use-on-cd)"
-. <(fnm completions --shell zsh)
+if (( ${+commands[fnm]} )); then
+  export RUST_LOG=fnm=error
+  # fnm (Node.js) and and its zsh completions
+  eval "$(fnm env --use-on-cd)"
+  . <(fnm completions --shell zsh)
+fi
 
 # Load machine profiles
 if [[ -d "$DOTFILES/machines/$HOSTNAME" ]]; then
