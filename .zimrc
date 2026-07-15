@@ -37,8 +37,10 @@ zmodule run-help
 zmodule fzf
 # Shown when there is no command and the user presses ENTER.
 zmodule magic-enter
-# All kubectl aliases in one function.
-zmodule k
+# All kubectl aliases in one function. Unlike zim-helm/zim-k9s below, the k
+# module doesn't self-guard, so gate it on kubectl actually being installed
+# (absent on the NAS) to avoid a "command not found: kubectl" at every startup.
+(( ${+commands[kubectl]} )) && zmodule k
 
 #
 # Community Modules
