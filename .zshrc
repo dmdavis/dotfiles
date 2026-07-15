@@ -214,7 +214,9 @@ fi
 alias t=task
 
 # LS_COLORS Tokyo Night (Moon)
-export LS_COLORS="$(vivid generate tokyonight-moon)"
+if (( ${+commands[vivid]} )); then
+  export LS_COLORS="$(vivid generate tokyonight-moon)"
+fi
 
 # Yazi shell wrapper
 function y() {
