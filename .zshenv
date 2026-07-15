@@ -9,20 +9,11 @@ export HOSTNAME="$(hostname)"
 # Location of dotfiles repo
 export DOTFILES=${${(%):-%x}:A:h}
 
-# Homebrew
-export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
-export HOMEBREW_NO_REQUIRE_TAP_TRUST=1
-
-# Rust
-. "$HOME/.cargo/env"
-export RUST_BACKTRACE=1
-export RUST_LOG=info
-
 # Personal ~/bin folder
 export PATH="$HOME/bin:$PATH"
 
+# Dev-laptop (macOS) environment — Homebrew, Rust, mise. Skipped on the NAS / Linux.
+[[ "$OSTYPE" == darwin* && -f "$DOTFILES/env.darwin.zsh" ]] && source "$DOTFILES/env.darwin.zsh"
+
 # Hook: Machine profile environment (tracked configs)
 [[ -f "$DOTFILES/machines/$HOSTNAME/env.zsh" ]] && source "$DOTFILES/machines/$HOSTNAME/env.zsh"
-
-# mise tools
-eval "$(mise activate zsh)"
