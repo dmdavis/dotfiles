@@ -1,0 +1,42 @@
+# Font
+font-family = "JetBrainsMono Nerd Font"
+font-size = 14
+
+# Theme — use a built-in theme name or path to a custom theme file
+# Run `ghostty +list-themes` to see all built-in options
+theme = "Alien Blood"
+
+# Window
+window-padding-x = 8
+window-padding-y = 8
+macos-titlebar-style = tabs
+
+# Transparency
+background-opacity = 0.5
+background-blur = macos-glass-regular
+
+# Shell integration — auto-detected for zsh/bash/fish
+# Enables semantic zones, prompt marks, working dir tracking
+shell-integration = detect
+# ssh-terminfo: auto-install xterm-ghostty terminfo on remote hosts (fixes
+#   zsh double-echo when a box lacks the entry). ssh-env: propagate TERM/COLORTERM.
+shell-integration-features = ssh-env,ssh-terminfo
+
+# Performance
+# renderer = metal                 # default on macOS, no need to set manually
+
+# Scrollback
+scrollback-limit = 10000
+
+# Cursor
+cursor-style = bar
+cursor-style-blink = true
+
+# Copy on select (like iTerm2 behavior)
+copy-on-select = clipboard
+
+# Open new windows/tabs in the same working directory
+window-inherit-working-directory = true
+
+# Confirm before closing a window with a running process
+confirm-close-surface = true
