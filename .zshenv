@@ -17,3 +17,6 @@ export PATH="$HOME/bin:$PATH"
 
 # Hook: Machine profile environment (tracked configs)
 [[ -f "$DOTFILES/machines/$HOSTNAME/env.zsh" ]] && source "$DOTFILES/machines/$HOSTNAME/env.zsh"
+
+# Hook: Machine-local secrets (untracked, gitignored)
+[[ -f "$DOTFILES/machines/$HOSTNAME/local/env.zsh" ]] && source "$DOTFILES/machines/$HOSTNAME/local/env.zsh"
