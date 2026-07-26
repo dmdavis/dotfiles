@@ -3,8 +3,13 @@
 # Ghostty's `ssh-terminfo` feature installs xterm-ghostty on remote hosts, but
 # DSM ships no `tic`, so it fails (noisily) on every connection to the NAS.
 # Wrap Ghostty's ssh function to skip the attempt for those hosts and connect
-# with the same fallback TERM/env it would have ended up using anyway.
-if (( $+functions[ssh] )); then
+# with the same fallback TERM/env it would have ended up using anyway. Ghostty
+# defines that function from a deferred init that runs on the first precmd —
+# after .zshrc — so the wrapper has to be installed from a precmd hook too.
+_wrap_ghostty_ssh() {
+    precmd_functions=(${precmd_functions:#_wrap_ghostty_ssh})
+    (( $+functions[ssh] )) || return 0
+
     functions[_ghostty_ssh]=$functions[ssh]
 
     ssh() {
@@ -20,6 +25,11 @@ if (( $+functions[ssh] )); then
             *) _ghostty_ssh "$@" ;;
         esac
     }
+}
+
+if [[ "$GHOSTTY_SHELL_FEATURES" == *ssh-terminfo* ]]; then
+    typeset -ag precmd_functions
+    precmd_functions+=(_wrap_ghostty_ssh)
 fi
 
 alias nas='ssh nas.home.dmdavis.net'
