@@ -1,5 +1,27 @@
 #!/usr/bin/env zsh
 
+# Ghostty's `ssh-terminfo` feature installs xterm-ghostty on remote hosts, but
+# DSM ships no `tic`, so it fails (noisily) on every connection to the NAS.
+# Wrap Ghostty's ssh function to skip the attempt for those hosts and connect
+# with the same fallback TERM/env it would have ended up using anyway.
+if (( $+functions[ssh] )); then
+    functions[_ghostty_ssh]=$functions[ssh]
+
+    ssh() {
+        local ssh_hostname
+        ssh_hostname=$(command ssh -G "$@" 2>/dev/null | awk '/^hostname /{print $2; exit}')
+
+        case "$ssh_hostname" in
+            nas.home.dmdavis.net)
+                TERM=xterm-256color command ssh \
+                    -o "SetEnv COLORTERM=truecolor" \
+                    -o "SendEnv TERM_PROGRAM TERM_PROGRAM_VERSION" "$@"
+                ;;
+            *) _ghostty_ssh "$@" ;;
+        esac
+    }
+fi
+
 alias nas='ssh nas.home.dmdavis.net'
 alias nuc='ssh nuc10.home.dmdavis.net'
 alias pihole='ssh pi-hole.home.dmdavis.net'
