@@ -15,9 +15,6 @@ secrets live in `machines/<hostname>/local/` (not tracked).
 
 - Shell: Zsh with Zim framework (`.zimrc`, `.zshrc`)
 - Config symlinks managed via `stow` (see `install` script); targets go in `config/`
-- Brewfile lives at `machines/Dales-MacBook-Pro.local/Brewfile`
-- Machine env vars: `machines/Dales-MacBook-Pro.local/env.zsh`
-- NAS helpers: `machines/Dales-MacBook-Pro.local/nas.zsh`
 - Use `trash` (not `rm`) to delete files
 
 ## Out of Scope
