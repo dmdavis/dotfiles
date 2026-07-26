@@ -15,7 +15,25 @@ secrets live in `machines/<hostname>/local/` (not tracked).
 
 - Shell: Zsh with Zim framework (`.zimrc`, `.zshrc`)
 - Config symlinks managed via `stow` (see `install` script); targets go in `config/`
-- Use `trash` (not `rm`) to delete files
+
+## Preferred Tools
+
+Fast tools are installed (Homebrew, on PATH) — prefer them over the POSIX defaults.
+
+| Task | Use | Instead of | Notes |
+|------|-----|-----------|-------|
+| Search text | `rg` | `grep -r` | Much faster. Skips `.git` by default; use `--hidden` to reach dotfiles at the repo root. |
+| Find files | `fd` | `find` | `fd pattern` / `fd -e zsh`. Skips hidden files — most of this repo is hidden, so `fd -H` is usually what you want. |
+| Delete files | `trash` | `rm` | Recoverable from Finder. |
+| YAML | `yq` | hand-parsing | |
+| JSON | `jq` | — | Also for `.claude/` and `.idea/` configs. |
+| XML / HTML | `xq` | — | |
+| macOS plists | `plutil` | — | `plutil -extract <key> raw -o - <file>`; see `darwin.zsh` for the Postgres.app usage. |
+| Preview markdown | `glow` | `cat` | Rendered terminal output. |
+| Nicer listing / view | `lsd`, `bat` | `ls`, `cat` | |
+| GitHub | `gh` | web/API by hand | |
+
+Not installed: `sd`, `delta`, `eza` — ask before installing (see Safety).
 
 ## Out of Scope
 
