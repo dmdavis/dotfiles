@@ -41,6 +41,7 @@ These tools are detected at shell startup and skipped gracefully if absent:
 |------|-------------|
 | [fnm](https://github.com/Schniz/fnm) | Fast Node.js version manager with automatic `.nvmrc` support. |
 | [mise](https://github.com/jdx/mise) | Polyglot version manager for Node, Python, Go, and more. |
+| [Postgres.app](https://postgresapp.com) | Local PostgreSQL server (macOS). `pgapp-reindex` rebuilds indexes and clears the app's "databases must be reindexed" warning. |
 | [task](https://taskfile.dev) | Task runner that reads `Taskfile.yml` in the current directory. |
 | [vivid](https://github.com/sharkdp/vivid) | Generates `LS_COLORS` for the Tokyo Night theme. |
 | [zoxide](https://github.com/ajeetdsouza/zoxide) | Smart `cd` that learns your most-used directories. |

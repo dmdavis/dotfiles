@@ -246,6 +246,9 @@ if (( ${+commands[fnm]} )); then
   . <(fnm completions --shell zsh)
 fi
 
+# macOS-only interactive configuration (env vars live in env.darwin.zsh)
+[[ "$OSTYPE" == darwin* && -f "$DOTFILES/darwin.zsh" ]] && source "$DOTFILES/darwin.zsh"
+
 # Load machine profiles
 if [[ -d "$DOTFILES/machines/$HOSTNAME" ]]; then
   for file in "$DOTFILES/machines/$HOSTNAME"/*.zsh(N); do
