@@ -199,4 +199,44 @@ _pgapp_reindex_check() {
   done < "$(_pgapp_server_cache)"
 }
 
+# ---------------
+# Preferred tools
+# ---------------
+#
+# Verifies the fast tools listed in the Preferred Tools table of CLAUDE.md
+# are on PATH. `plutil` ships with macOS, so it's checked but never reported
+# as missing/installable.
+
+dotfiles-check-tools() {
+  emulate -L zsh
+  local -A tools=(
+    rg       "brew install ripgrep"
+    fd       "brew install fd"
+    trash    "brew install trash"
+    yq       "brew install yq"
+    jq       "brew install jq"
+    xq       "brew install yq"
+    plutil   "(built-in)"
+    glow     "brew install glow"
+    lsd      "brew install lsd"
+    bat      "brew install bat"
+    gh       "brew install gh"
+    defuddle "npm i -g defuddle-cli"
+  )
+
+  local tool hint missing=0
+  local -a lines
+  for tool hint in "${(@kv)tools}"; do
+    if command -v "$tool" >/dev/null 2>&1; then
+      lines+=("✓ $tool")
+    else
+      lines+=("✗ $tool${hint:+ — $hint}")
+      (( missing++ ))
+    fi
+  done
+  print -l -- "${(@on)lines}"
+
+  return $(( missing > 0 ))
+}
+
 [[ -o interactive ]] && _pgapp_reindex_check
