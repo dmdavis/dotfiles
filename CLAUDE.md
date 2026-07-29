@@ -32,6 +32,7 @@ Fast tools are installed (Homebrew, on PATH) — prefer them over the POSIX defa
 | Preview markdown | `glow` | `cat` | Rendered terminal output. |
 | Nicer listing / view | `lsd`, `bat` | `ls`, `cat` | |
 | GitHub | `gh` | web/API by hand | |
+| Read web pages | `defuddle parse <url> --md` | `WebFetch` | Strips nav/ads/boilerplate — far fewer tokens. Skip it for `.md` URLs, which are already clean. npm, not Homebrew: `npm i -g defuddle-cli`. |
 
 Not installed: `sd`, `delta`, `eza` — ask before installing (see Safety).
 
