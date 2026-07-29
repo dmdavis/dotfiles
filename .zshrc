@@ -157,7 +157,7 @@ alias lt='ll --tree'
 alias o='l --permission octal'
 alias ot='o --tree'
 
-# Portable fastfetch with logo; was previously:
+# Portable fastfetch with logo; previously, this was:
 # alias ff='fastfetch --logo $HOME/SynologyDrive/Pictures/Avatars/rick_sanchez-4295.png.jpg --logo-type iterm --logo-width 60 --logo-height 29 --logo-padding-right 1'
 ff() {
   local logo_type
@@ -167,7 +167,7 @@ ff() {
   *)         logo_type="chafa"  ;;   # ASCII fallback for everything else
   esac
   fastfetch \
-    --logo "$HOME/SynologyDrive/Pictures/Avatars/rick_sanchez-4295.png.jpg" \
+    --logo "$DOTFILES/.ff-logo.jpg" \
     --logo-type "$logo_type" \
     --logo-width 60 \
     --logo-height 29 \

@@ -83,3 +83,6 @@ backups/
 # Machine-specific local configurations (not tracked)
 machines/*/local/
 machines/GEIMACKYQY0XFKG4/*
+
+# Logo to display with ff()
+.ff-logo.jpg
