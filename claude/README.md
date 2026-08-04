@@ -1,11 +1,11 @@
 # Claude Code Status Line
 
 `statusline.sh` renders the Claude Code status line: model, thinking effort,
-working directory, git branch, context-window usage, lines changed, cost,
-elapsed time, and a short session ID.
+working directory, git branch, context-window usage, subagent dispatches,
+lines changed, cost, elapsed time, and a short session ID.
 
 ```
-⧉ Opus 5 │ high │  .files │  main │ ◕ 42% (84k/200k) │ +12/-3 │ $0.42 │ 15m │ ⏻ a1b2c3d4
+⧉ Opus 5 │ high │  .files │  main │ ◕ 42% (84k/200k) │ ⚙ h4 o1 s10 │ +12/-3 │ $0.42 │ 15m │ ⏻ a1b2c3d4
 ```
 
 Claude Code pipes a JSON blob to the script on stdin and prints whatever it
@@ -66,7 +66,9 @@ printf '%s' '{"model":{"display_name":"Opus 5"},"workspace":{"current_dir":"'"$H
   | ~/.files/claude/statusline.sh; echo
 ```
 
-That should print the example line above.
+That should print the example line above, minus the `⚙` segment — the sample
+session ID has no subagent transcripts on disk, so that segment is correctly
+omitted.
 
 ## Troubleshooting
 
@@ -82,3 +84,10 @@ That should print the example line above.
 - Colors are raw ANSI escapes; no external theme or dependency beyond `jq`.
 - The context segment turns yellow at 50% and red with a `⚠` at 80%.
 - Only the first 8 characters of the session ID are shown.
+- The subagent segment (`⚙ h4 o1 s10`) counts Task/Agent dispatches this
+  session, grouped by model — first letter plus count. A green `⚡n` appends
+  when `n` subagent transcripts were written within the last minute, which
+  approximates "still running". The harness JSON carries no subagent data, so
+  this is read off disk from `~/.claude/projects/*/$session_id/subagents/`;
+  the segment is absent for sessions that never dispatched one, including the
+  sample payload above.

@@ -43,6 +43,35 @@ if [ "$ctx_limit" -gt 0 ] 2>/dev/null; then
   ctx_str="${col}◕ ${pct}% ${DIM}(${k}k/${limit_k}k)${col}${warn}${RST}"
 fi
 
+# --- Subagent dispatches (Task/Agent tool; e.g. Superpowers stage 4) --------
+# The harness JSON carries no subagent data, so read it off disk instead. Each
+# dispatch writes agent-<id>.meta.json (agentType, description, model) beside
+# its transcript. Glob by session_id rather than re-deriving the encoded
+# project-dir name from cwd — the id is unique and the encoding is lossy.
+agents_str=""
+if [ -n "$session" ]; then
+  subdir=""
+  for d in "$HOME"/.claude/projects/*/"$session"/subagents; do
+    [ -d "$d" ] && { subdir="$d"; break; }
+  done
+  if [ -n "$subdir" ]; then
+    # Cumulative dispatches this session, grouped by model: "h4 o1 s10"
+    breakdown=$(jq -rs 'map(.model // "?")
+                        | group_by(.)
+                        | map("\(.[0] | .[0:1])\(length)")
+                        | join(" ")' "$subdir"/*.meta.json 2>/dev/null)
+    # Transcripts written to within the last minute ≈ still running.
+    # BSD find: use -mmin, NOT -newermt with a relative string (misparses).
+    live=$(find "$subdir" -name '*.jsonl' -mmin -1 2>/dev/null | wc -l | tr -d ' ')
+    if [ -n "$breakdown" ]; then
+      agents_str="${MAG}⚙ ${breakdown}${RST}"
+      if [ "${live:-0}" -gt 0 ] 2>/dev/null; then
+        agents_str="${agents_str}${GRN} ⚡${live}${RST}"
+      fi
+    fi
+  fi
+fi
+
 # --- Thinking level ----------------------------------------------------------
 think_str=""
 if [ "$thinking_on" = "true" ] && [ -n "$effort" ]; then
@@ -72,6 +101,7 @@ out="${out}${SEP}${think_str}"
 [ -n "$cwd" ]     && out="${out}${SEP}${BLU} ${cwd##*/}${RST}"
 [ -n "$branch" ]  && out="${out}${SEP}${CYN} ${branch}${RST}"
 [ -n "$ctx_str" ] && out="${out}${SEP}${ctx_str}"
+[ -n "$agents_str" ] && out="${out}${SEP}${agents_str}"
 if [ "$added" -gt 0 ] || [ "$removed" -gt 0 ]; then
   out="${out}${SEP}${GRN}+${added}${RST}/${RED}-${removed}${RST}"
 fi
