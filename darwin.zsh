@@ -239,4 +239,51 @@ dotfiles-check-tools() {
   return $(( missing > 0 ))
 }
 
+# --------
+# Obsidian
+# --------
+#
+# Keeps Obsidian templates in sync between independent vaults (home vs. the
+# GEICO work vault) via this repo, since they can't share Obsidian Sync.
+# $OBSIDIAN_VAULT_DIR is set per-machine in machines/$HOSTNAME/env.zsh.
+# Copy only — no symlink, since iCloud's Files provider doesn't handle those
+# reliably, and the work vault is a separate iCloud/Sync account anyway.
+#
+# The template itself depends on the templater-obsidian, dataview, and
+# customjs plugins (customjs supplies cJS()/Widgets, used by the daily-quote
+# block) — install those in the destination vault or that block will error.
+
+obsidian-template-push() {
+  emulate -L zsh
+  if [[ -z "$OBSIDIAN_VAULT_DIR" ]]; then
+    print -u2 "obsidian-template-push: \$OBSIDIAN_VAULT_DIR is not set"
+    return 1
+  fi
+  local vault_file="$OBSIDIAN_VAULT_DIR/Resources/Obsidian/Templates/Daily Note Template.md"
+  local repo_file="$DOTFILES/obsidian/templates/Daily Note Template.md"
+  if [[ ! -f "$vault_file" ]]; then
+    print -u2 "obsidian-template-push: not found: $vault_file"
+    return 1
+  fi
+  cp "$vault_file" "$repo_file"
+  print "obsidian-template-push: copied to $repo_file — commit it in \$DOTFILES"
+}
+
+obsidian-template-pull() {
+  emulate -L zsh
+  if [[ -z "$OBSIDIAN_VAULT_DIR" ]]; then
+    print -u2 "obsidian-template-pull: \$OBSIDIAN_VAULT_DIR is not set"
+    return 1
+  fi
+  git -C "$DOTFILES" pull --ff-only || return 1
+  local repo_file="$DOTFILES/obsidian/templates/Daily Note Template.md"
+  local vault_file="$OBSIDIAN_VAULT_DIR/Resources/Obsidian/Templates/Daily Note Template.md"
+  if [[ ! -f "$repo_file" ]]; then
+    print -u2 "obsidian-template-pull: not found: $repo_file"
+    return 1
+  fi
+  cp "$repo_file" "$vault_file"
+  print "obsidian-template-pull: copied to $vault_file"
+}
+
 [[ -o interactive ]] && _pgapp_reindex_check
