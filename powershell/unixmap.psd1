@@ -156,10 +156,20 @@ inventory — the running shell is.
     # Tier B — hand-written shims. Metadata only; the code is in functions/.
     # ---------------------------------------------------------------------
     Shims = @(
-        @{ Name = 'll';       File = 'listing.ps1';     Group = 'listing';    Requires = 'lsd';  Removes = 'll';   Note = 'lsd -lh. The zsh original chained through two aliases.' }
-        @{ Name = 'l';        File = 'listing.ps1';     Group = 'listing';    Requires = 'lsd';  Note = 'll -A' }
-        @{ Name = 'lt';       File = 'listing.ps1';     Group = 'listing';    Requires = 'lsd';  Note = 'Tree view.' }
-        @{ Name = 'lo';       File = 'listing.ps1';     Group = 'listing';    Requires = 'lsd';  Note = 'Octal permissions.' }
+        @{ Name = 'ls';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Removes = 'ls'; Note = 'Plain lsd. The built-in ls alias must be removed first or this is unreachable.' }
+        @{ Name = 'll';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Removes = 'll'; Note = 'lsd -lh. The zsh original chained through two aliases; PowerShell aliases do not chain.' }
+        @{ Name = 'l';        File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'lsd -lhA' }
+        @{ Name = 'lt';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Tree view.' }
+        @{ Name = 'lr';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Tree view; same as lt in the zsh set.' }
+        @{ Name = 'lo';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Octal permissions.' }
+        @{ Name = 'llo';      File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Octal permissions, without -A.' }
+        @{ Name = 'o';        File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Same as lo.' }
+        @{ Name = 'ot';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Octal permissions, tree.' }
+        @{ Name = 'lk';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Sorted by size, ascending.' }
+        @{ Name = 'lx';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Sorted by extension.' }
+        @{ Name = 'lm';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Paged, via Out-Host -Paging rather than piping to less.' }
+        @{ Name = 'ldf';      File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Dotfiles only. Colour is dropped: the trailing-slash test reads raw text and ANSI reset codes sit between the name and the slash.' }
+        @{ Name = 'ldd';      File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Dot-directories only. Same colour caveat as ldf.' }
         @{ Name = 'which';    File = 'legacy-shims.ps1'; Group = 'files';     Note = 'Currently shells out to where.exe, so it misses functions, aliases and cmdlets. Get-Command is the better answer; see Idioms.' }
         @{ Name = 'touch';    File = 'legacy-shims.ps1'; Group = 'files';     Note = 'Creates the file or bumps LastWriteTime.' }
         @{ Name = 'printenv'; File = 'legacy-shims.ps1'; Group = 'env';       Note = 'Get-ChildItem env:' }

@@ -33,6 +33,28 @@ if (-not (Get-Module -ListAvailable -Name PSScriptAnalyzer)) {
 }
 Import-Module PSScriptAnalyzer
 
+# --- manifest consistency -------------------------------------------------
+# unixmap.psd1 once declared six shim files that had never been written, and
+# generated-aliases.ps1 shipped calling two functions that did not exist, so
+# G.. / Gpc / Gpp failed at the prompt. A manifest that describes an intention
+# rather than the tree is worse than no manifest. Cheap to check, so check it.
+$manifestPath = Join-Path $Path 'unixmap.psd1'
+$manifestProblems = @()
+if (Test-Path -LiteralPath $manifestPath) {
+    $manifest  = Import-PowerShellDataFile -LiteralPath $manifestPath
+    $fnDir     = Join-Path $Path 'functions'
+    $onDisk    = if (Test-Path $fnDir) { (Get-ChildItem $fnDir -Filter '*.ps1' -File).Name } else { @() }
+    foreach ($declared in ($manifest.Shims.File | Sort-Object -Unique)) {
+        if ($declared -notin $onDisk) {
+            $manifestProblems += "unixmap.psd1 declares functions/$declared, which does not exist"
+        }
+    }
+}
+if ($manifestProblems) {
+    $manifestProblems | ForEach-Object { Write-Host $_ -ForegroundColor Red }
+    if ($Strict) { exit 1 }
+}
+
 $files = Get-ChildItem -Path $Path -Recurse -Include '*.ps1', '*.psd1' -File |
     Where-Object { $_.Name -ne 'generated-aliases.ps1' }
 
