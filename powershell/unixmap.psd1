@@ -211,19 +211,32 @@ inventory — the running shell is.
     # `winget show --exact --id` on 2026-08-16 rather than guessed.
     # ---------------------------------------------------------------------
     Tools = @(
-        @{ Name = 'rg';        WingetId = 'BurntSushi.ripgrep.MSVC'; Provides = @('grep') }
-        @{ Name = 'fd';        WingetId = 'sharkdp.fd';              Provides = @('find') }
-        @{ Name = 'lsd';       WingetId = 'lsd-rs.lsd';              Provides = @('ls', 'll', 'l', 'lt', 'lo') }
-        @{ Name = 'bat';       WingetId = 'sharkdp.bat';             Provides = @('cat'); Note = 'Already present on BEAST via Chocolatey under UniGetUI.' }
-        @{ Name = 'fzf';       WingetId = 'junegunn.fzf';            Provides = @('Ctrl+R', 'Ctrl+T') }
-        @{ Name = 'jq';        WingetId = 'jqlang.jq' }
-        @{ Name = 'yq';        WingetId = 'MikeFarah.yq' }
-        @{ Name = 'delta';     WingetId = 'dandavison.delta';        Note = 'git pager.' }
-        @{ Name = 'starship';  WingetId = 'Starship.Starship';       Note = 'Chosen over oh-my-posh: cross-shell, and the Mac already runs asciiship, Zim''s starship-alike.' }
-        @{ Name = 'zoxide';    WingetId = 'ajeetdsouza.zoxide';      Provides = @('j') }
-        @{ Name = 'gsudo';     WingetId = 'gerardog.gsudo';          Provides = @('sudo') }
-        @{ Name = 'eza';       WingetId = 'eza-community.eza';       Note = 'Alternative to lsd. Not installed; listed so the choice is recorded.' }
-        @{ Name = 'oh-my-posh'; WingetId = 'JanDeDobbeleer.OhMyPosh'; Note = 'Deferred. Worth trying in a subshell alongside starship rather than swapping the prompt outright.' }
+        @{ Name = 'rg';        WingetId = 'BurntSushi.ripgrep.MSVC'; Install = $true;  Provides = @('grep') }
+        @{ Name = 'fd';        WingetId = 'sharkdp.fd';              Install = $true;  Provides = @('find') }
+        @{ Name = 'lsd';       WingetId = 'lsd-rs.lsd';              Install = $true;  Provides = @('ls', 'll', 'l', 'lt', 'lo') }
+        @{ Name = 'bat';       WingetId = 'sharkdp.bat';             Install = $false; Provides = @('cat'); Note = 'Already present on BEAST via Chocolatey under UniGetUI. Installing again through winget would give the box two copies from two package managers.' }
+        @{ Name = 'fzf';       WingetId = 'junegunn.fzf';            Install = $true;  Provides = @('Ctrl+R', 'Ctrl+T') }
+        @{ Name = 'jq';        WingetId = 'jqlang.jq';               Install = $true }
+        @{ Name = 'yq';        WingetId = 'MikeFarah.yq';            Install = $true }
+        @{ Name = 'delta';     WingetId = 'dandavison.delta';        Install = $true;  Note = 'git pager.' }
+        @{ Name = 'starship';  WingetId = 'Starship.Starship';       Install = $true;  Note = 'Chosen over oh-my-posh: cross-shell, and the Mac already runs asciiship, Zim''s starship-alike.' }
+        @{ Name = 'zoxide';    WingetId = 'ajeetdsouza.zoxide';      Install = $true;  Provides = @('j') }
+        @{ Name = 'gsudo';     WingetId = 'gerardog.gsudo';          Install = $true;  Provides = @('sudo') }
+        @{ Name = 'eza';       WingetId = 'eza-community.eza';       Install = $false; Note = 'Alternative to lsd. Listed so the choice is recorded, not installed.' }
+        @{ Name = 'oh-my-posh'; WingetId = 'JanDeDobbeleer.OhMyPosh'; Install = $false; Note = 'Deferred. Worth trying in a subshell alongside starship rather than swapping the prompt outright.' }
+    )
+
+    # ---------------------------------------------------------------------
+    # PowerShell modules. Installed from the PSGallery by bootstrap.ps1, not by
+    # winget — different ecosystem, different installer.
+    # ---------------------------------------------------------------------
+    Modules = @(
+        @{ Name = 'PSReadLine';                           Install = $true;  Note = 'Already present at 2.4.5 on BEAST; listed so a fresh machine gets a version new enough for ListView prediction.' }
+        @{ Name = 'PSFzf';                                Install = $true;  Requires = 'fzf'; Note = 'Ctrl+R and Ctrl+T bindings.' }
+        @{ Name = 'Terminal-Icons';                       Install = $true;  Note = 'Needs a Nerd Font in the terminal or it renders as boxes.' }
+        @{ Name = 'CompletionPredictor';                  Install = $true;  Note = 'Feeds ListView prediction from completions as well as history.' }
+        @{ Name = 'Microsoft.PowerShell.ConsoleGuiTools'; Install = $true;  Note = 'Out-ConsoleGridView - an fzf-for-objects picker.' }
+        @{ Name = 'posh-git';                             Install = $false; Note = 'Not needed: starship renders git status itself, and posh-git would duplicate it at a cost to prompt latency.' }
     )
 
     # ---------------------------------------------------------------------
