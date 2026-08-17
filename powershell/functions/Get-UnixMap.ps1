@@ -229,7 +229,11 @@ function Get-UnixMap {
             }
 
             if (-not $Group) {
-                $generated = @(Get-ChildItem Function: | Where-Object { $_.Name -cmatch '^G' }).Count
+                # `-notmatch '-'` excludes Verb-Noun functions: a bare `^G`
+                # count picks up Get-UnixMap itself and reports 112 where the
+                # generator emitted 111.
+                $generated = @(Get-ChildItem Function: |
+                    Where-Object { $_.Name -cmatch '^G' -and $_.Name -notmatch '-' }).Count
                 Write-Host ''
                 Write-Host '  zsh -> PowerShell' -ForegroundColor Cyan
                 Write-Host "  $generated generated git aliases - $(@($map.Shims).Count) shims - $(@($map.NotPorted).Count) not ported - $(@($script:PSParityShadowed).Count) shadowed by case" -ForegroundColor DarkGray
