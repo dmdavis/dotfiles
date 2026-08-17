@@ -251,8 +251,15 @@ foreach ($g in ($groups | Sort-Object Name)) {
     $null = $sb.AppendLine('}')
 }
 
+# Normalise to LF. AppendLine uses Environment.NewLine, so generating on
+# Windows would otherwise produce a CRLF file that git rewrites on commit —
+# which defeats the point of an output that is byte-identical for identical
+# inputs. The repo is checked out with core.autocrlf=false on Windows, so LF
+# here means the working tree and the object store agree.
+$text = $sb.ToString() -replace "`r`n", "`n"
+
 if (-not $ReportOnly) {
-    [IO.File]::WriteAllText($OutputPath, $sb.ToString())
+    [IO.File]::WriteAllText($OutputPath, $text, [System.Text.UTF8Encoding]::new($false))
 }
 
 [pscustomobject]@{
@@ -264,5 +271,5 @@ if (-not $ReportOnly) {
     SkippedDetail   = @($skipped | ForEach-Object { "$($_.Name): $($_.Reason)" })
     Displaced       = @($displaced | ForEach-Object { "$($_.Name) (was $($_.Displaces))" })
     OutputPath      = if ($ReportOnly) { '(report only)' } else { $OutputPath }
-    OutputLines     = ($sb.ToString() -split "`n").Count
+    OutputLines     = ($text -split "`n").Count
 }
