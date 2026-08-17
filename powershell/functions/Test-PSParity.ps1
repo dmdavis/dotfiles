@@ -26,14 +26,21 @@ function Test-PSParity {
     [CmdletBinding()]
     param()
 
+    # try/catch is usable on the right-hand side of an assignment but NOT as a
+    # hashtable value — `@{ K = try {} catch {} }` is a parse error, and a
+    # parse error in a dot-sourced file is loud and breaks the whole profile.
+    $inRedir  = try { [Console]::IsInputRedirected }  catch { 'threw' }
+    $outRedir = try { [Console]::IsOutputRedirected } catch { 'threw' }
+
     [pscustomobject][ordered]@{
         Interactive      = $global:PSParityInteractive
         ConfigRoot       = $PSParityRoot
-        InputRedirected  = try { [Console]::IsInputRedirected }  catch { 'threw' }
-        OutputRedirected = try { [Console]::IsOutputRedirected } catch { 'threw' }
+        InputRedirected  = $inRedir
+        OutputRedirected = $outRedir
         UserInteractive  = [Environment]::UserInteractive
         HostName         = $Host.Name
         PSReadLineLoaded = [bool](Get-Module PSReadLine)
+        LoadErrors       = $global:PSParityLoadErrors
         CommandLineArgs  = ([Environment]::GetCommandLineArgs() -join ' ')
     }
 }

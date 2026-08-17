@@ -10,6 +10,14 @@
 
 # --- completion / fzf (Phase C4) -----------------------------------------
 
+# --- load failures -------------------------------------------------------
+# core.ps1 collects these instead of printing them, because it is forbidden
+# from writing to stdout. This is the first place it is safe to say so.
+if ($global:PSParityLoadErrors.Count) {
+    Write-Host ("powershell config: {0} file(s) failed to load — run Test-PSParity" -f `
+        $global:PSParityLoadErrors.Count) -ForegroundColor Red
+}
+
 # --- banner --------------------------------------------------------------
 # Replaces the old machine-local "Microsoft.Powershell_profile.ps1 done".
 # Useful while the config is in flux because it names the source on disk — if
