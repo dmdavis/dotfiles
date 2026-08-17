@@ -224,7 +224,8 @@ inventory — the running shell is.
         @{ Name = 'rg';        WingetId = 'BurntSushi.ripgrep.MSVC'; Install = $true;  Provides = @('grep') }
         @{ Name = 'fd';        WingetId = 'sharkdp.fd';              Install = $true;  Provides = @('find') }
         @{ Name = 'lsd';       WingetId = 'lsd-rs.lsd';              Install = $true;  Provides = @('ls', 'll', 'l', 'lt', 'lo') }
-        @{ Name = 'bat';       WingetId = 'sharkdp.bat';             Install = $false; Provides = @('cat'); Note = 'Already present on BEAST via Chocolatey under UniGetUI. Installing again through winget would give the box two copies from two package managers.' }
+        @{ Name = 'bat';       WingetId = 'sharkdp.bat';             Install = $true;  Provides = @('cat'); Note = 'Was a Chocolatey package under UniGetUI, which is why it was skipped here originally. Migrated to winget 2026-08-17 - same 0.26.1 - so one package manager owns the shell tooling.' }
+        @{ Name = 'less';      WingetId = 'jftuga.less';             Install = $true;  Note = 'Same Chocolatey migration: 679 there, 704 from winget. Nothing in this config calls it directly, but it is the pager git and delta reach for, and the Chocolatey copy was the only one on PATH.' }
         @{ Name = 'fzf';       WingetId = 'junegunn.fzf';            Install = $true;  Provides = @('Ctrl+R', 'Ctrl+T') }
         @{ Name = 'jq';        WingetId = 'jqlang.jq';               Install = $true }
         @{ Name = 'yq';        WingetId = 'MikeFarah.yq';            Install = $true }

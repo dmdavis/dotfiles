@@ -17,6 +17,9 @@
           "PackageIdentifier": "gerardog.gsudo"
         },
         {
+          "PackageIdentifier": "jftuga.less"
+        },
+        {
           "PackageIdentifier": "jqlang.jq"
         },
         {
@@ -27,6 +30,9 @@
         },
         {
           "PackageIdentifier": "MikeFarah.yq"
+        },
+        {
+          "PackageIdentifier": "sharkdp.bat"
         },
         {
           "PackageIdentifier": "sharkdp.fd"

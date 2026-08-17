@@ -14,10 +14,15 @@
     source of truth and letting `winget import` work standalone for anyone who
     would rather not run bootstrap.ps1.
 
-    Tools marked Install = $false are omitted, with `bat` the interesting case:
-    BEAST already has it via Chocolatey under UniGetUI, and installing it again
-    through winget would leave the box with two copies from two package
-    managers.
+    Tools marked Install = $false are omitted — currently `eza` and
+    `oh-my-posh`, both recorded as considered rather than chosen.
+
+    `bat` used to be omitted too, because the target already had it from
+    Chocolatey under UniGetUI and a second copy from a second package manager
+    is worse than either. That was resolved on 2026-08-17 the other way: every
+    Chocolatey package on the box turned out to have a winget equivalent, so
+    the Chocolatey copies were removed and winget owns the shell tooling.
+    `bat` and `less` are declared here as a result.
 
 .EXAMPLE
     pwsh -File tools/Build-Winget.ps1
