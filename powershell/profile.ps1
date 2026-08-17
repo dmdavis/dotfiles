@@ -32,6 +32,11 @@ $PSParityRoot = $PSScriptRoot
 #
 # Both failure modes are one-way by design: a misread costs the prompt and the
 # banner, but never leaks output into a machine-readable stream.
+#
+# DO NOT reach for [Environment]::UserInteractive as a third signal. Measured
+# in a hand-typed `ssh beast` session on 2026-08-16 — a real prompt, PSReadLine
+# loaded — it reports False. Gating on it means the interactive configuration
+# never loads over SSH at all. IsInputRedirected got the same session right.
 $isRedirected = try { [Console]::IsInputRedirected } catch { $true }
 
 $nonInteractiveSwitch =
