@@ -26,9 +26,12 @@ function Test-PSParity {
     [CmdletBinding()]
     param()
 
-    # try/catch is usable on the right-hand side of an assignment but NOT as a
-    # hashtable value — `@{ K = try {} catch {} }` is a parse error, and a
-    # parse error in a dot-sourced file is loud and breaks the whole profile.
+    # A try/catch IS legal as a hashtable value — but only if no key follows
+    # it. `@{ A = try {} catch {} ; B = 1 }` is a parse error raised at B, and
+    # the error is reported against the opening `@{` line rather than the
+    # culprit, which is why it reads as an unbalanced brace. Parenthesising the
+    # try/catch also fixes it; hoisting into variables is clearer. Measured on
+    # pwsh 7.6.3, not assumed.
     $inRedir  = try { [Console]::IsInputRedirected }  catch { 'threw' }
     $outRedir = try { [Console]::IsOutputRedirected } catch { 'threw' }
 
