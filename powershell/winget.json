@@ -32,6 +32,9 @@
           "PackageIdentifier": "sharkdp.fd"
         },
         {
+          "PackageIdentifier": "smartmontools.smartmontools"
+        },
+        {
           "PackageIdentifier": "Starship.Starship"
         }
       ],

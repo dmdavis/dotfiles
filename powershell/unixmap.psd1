@@ -232,6 +232,7 @@ inventory — the running shell is.
         @{ Name = 'starship';  WingetId = 'Starship.Starship';       Install = $true;  Note = 'Chosen over oh-my-posh: cross-shell, and the Mac already runs asciiship, Zim''s starship-alike.' }
         @{ Name = 'zoxide';    WingetId = 'ajeetdsouza.zoxide';      Install = $true;  Provides = @('j') }
         @{ Name = 'gsudo';     WingetId = 'gerardog.gsudo';          Install = $true;  Provides = @('sudo') }
+        @{ Name = 'smartctl';  WingetId = 'smartmontools.smartmontools'; Install = $true; Note = 'The only route to SMART on this machine. Windows storage APIs report nothing useful behind Intel RST: Get-StorageReliabilityCounter returns zeros and nulls for all four RAID members, and the WMI failure-prediction classes cover only the two standalone HDDs. The RAID 0 arrays holding the boot volumes - the highest-risk disks here, with no redundancy and no backup - are exactly the ones with no early warning.' }
         @{ Name = 'eza';       WingetId = 'eza-community.eza';       Install = $false; Note = 'Alternative to lsd. Listed so the choice is recorded, not installed.' }
         @{ Name = 'oh-my-posh'; WingetId = 'JanDeDobbeleer.OhMyPosh'; Install = $false; Note = 'Deferred. Worth trying in a subshell alongside starship rather than swapping the prompt outright.' }
     )
