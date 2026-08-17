@@ -58,6 +58,27 @@ if ($manifestProblems) {
 $files = Get-ChildItem -Path $Path -Recurse -Include '*.ps1', '*.psd1' -File |
     Where-Object { $_.Name -ne 'generated-aliases.ps1' }
 
+# --- parse check ----------------------------------------------------------
+# PSScriptAnalyzer reports a file it cannot PARSE as clean rather than as
+# broken, so a syntax error sails through the lint gate and only fails when the
+# profile tries to load it. Found the hard way: an unterminated Unicode escape
+# in Get-UnixMap.ps1 passed "clean across 18 files" and then failed at load.
+# Parse first, and treat a parse error as fatal regardless of -Strict.
+$parseFailures = @()
+foreach ($f in $files) {
+    $parseErrors = $null
+    [void][System.Management.Automation.Language.Parser]::ParseFile(
+        $f.FullName, [ref]$null, [ref]$parseErrors)
+    foreach ($pe in $parseErrors) {
+        $parseFailures += "{0}:{1}  PARSE  {2}" -f $f.Name, $pe.Extent.StartLineNumber, $pe.Message
+    }
+}
+if ($parseFailures) {
+    $parseFailures | ForEach-Object { Write-Host $_ -ForegroundColor Red }
+    Write-Host "$($parseFailures.Count) parse error(s) — these break the profile at load." -ForegroundColor Red
+    exit 1
+}
+
 $findings = foreach ($f in $files) {
     Invoke-ScriptAnalyzer -Path $f.FullName -Settings $SettingsPath
 }

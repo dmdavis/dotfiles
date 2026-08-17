@@ -24,6 +24,63 @@ Remove-Alias -Name 'Gl' -Force -ErrorAction SilentlyContinue  # was Get-Location
 Remove-Alias -Name 'Gm' -Force -ErrorAction SilentlyContinue  # was Get-Member
 Remove-Alias -Name 'Gp' -Force -ErrorAction SilentlyContinue  # was Get-ItemProperty
 
+# Names from the zsh set that cannot be reached here, because PowerShell folds
+# case and something else in the same group won. Emitted as data so unixhelp
+# can answer "where did GwR go" at the prompt instead of leaving you guessing.
+#
+# An ARRAY, not a hashtable: groups like GRS/GRs/GrS all fold to one key, so a
+# hashtable would keep exactly one of them and silently lose the rest.
+$script:PSParityShadowed = @(
+    [pscustomobject]@{ Name = 'GbL'; Was = 'git branch --list -vv --all'; KeptAs = 'Gbl' }
+    [pscustomobject]@{ Name = 'GbM'; Was = 'git branch --move --force'; KeptAs = 'Gbm' }
+    [pscustomobject]@{ Name = 'GbS'; Was = 'git show-branch --all'; KeptAs = 'Gbs' }
+    [pscustomobject]@{ Name = 'GCa'; Was = 'git add @(GCl)'; KeptAs = 'Gca' }
+    [pscustomobject]@{ Name = 'GcA'; Was = 'git commit --verbose --patch'; KeptAs = 'Gca' }
+    [pscustomobject]@{ Name = 'GcF'; Was = 'git commit --verbose --amend'; KeptAs = 'Gcf' }
+    [pscustomobject]@{ Name = 'GCO'; Was = 'GCo @(GCl)'; KeptAs = 'Gco' }
+    [pscustomobject]@{ Name = 'GCo'; Was = 'git checkout --ours --'; KeptAs = 'Gco' }
+    [pscustomobject]@{ Name = 'GcO'; Was = 'git checkout --patch'; KeptAs = 'Gco' }
+    [pscustomobject]@{ Name = 'GcP'; Was = 'git cherry-pick --no-commit'; KeptAs = 'Gcp' }
+    [pscustomobject]@{ Name = 'GcR'; Was = 'git reset "HEAD^"'; KeptAs = 'Gcr' }
+    [pscustomobject]@{ Name = 'GcS'; Was = 'git commit --verbose -S'; KeptAs = 'Gcs' }
+    [pscustomobject]@{ Name = 'GCT'; Was = 'GCt @(GCl)'; KeptAs = 'GCt' }
+    [pscustomobject]@{ Name = 'GcU'; Was = 'git commit --squash'; KeptAs = 'Gcu' }
+    [pscustomobject]@{ Name = 'GgL'; Was = 'git grep --files-without-match'; KeptAs = 'Ggl' }
+    [pscustomobject]@{ Name = 'GiA'; Was = 'git add --patch'; KeptAs = 'Gia' }
+    [pscustomobject]@{ Name = 'GiD'; Was = 'git diff --no-ext-diff --cached --word-diff'; KeptAs = 'Gid' }
+    [pscustomobject]@{ Name = 'GiR'; Was = 'git reset --patch'; KeptAs = 'Gir' }
+    [pscustomobject]@{ Name = 'GiU'; Was = 'git add --verbose --all'; KeptAs = 'Giu' }
+    [pscustomobject]@{ Name = 'GiX'; Was = 'git rm --cached -rf'; KeptAs = 'Gix' }
+    [pscustomobject]@{ Name = 'GlG'; Was = 'git log --date-order --graph "--pretty=format:$GitLogOnelineMedium"'; KeptAs = 'Glg' }
+    [pscustomobject]@{ Name = 'GlO'; Was = 'git log --date-order "--pretty=format:$GitLogOnelineMedium"'; KeptAs = 'Glo' }
+    [pscustomobject]@{ Name = 'GmC'; Was = 'git merge --no-commit'; KeptAs = 'Gmc' }
+    [pscustomobject]@{ Name = 'GmS'; Was = 'git merge -S'; KeptAs = 'Gms' }
+    [pscustomobject]@{ Name = 'GpA'; Was = 'git push --all && git push --tags --no-verify'; KeptAs = 'Gpa' }
+    [pscustomobject]@{ Name = 'GpF'; Was = 'git push --force'; KeptAs = 'Gpf' }
+    [pscustomobject]@{ Name = 'GR'; Was = 'git remote'; KeptAs = 'Gr' }
+    [pscustomobject]@{ Name = 'GRa'; Was = 'git remote add'; KeptAs = 'Gra' }
+    [pscustomobject]@{ Name = 'GRS'; Was = 'git remote set-url'; KeptAs = 'Grs' }
+    [pscustomobject]@{ Name = 'GRs'; Was = 'git remote show'; KeptAs = 'Grs' }
+    [pscustomobject]@{ Name = 'GrS'; Was = 'git rebase --exec "git commit --amend --no-edit --no-verify -S"'; KeptAs = 'Grs' }
+    [pscustomobject]@{ Name = 'GS'; Was = 'git submodule'; KeptAs = 'Gs' }
+    [pscustomobject]@{ Name = 'GSa'; Was = 'git submodule add'; KeptAs = 'Gsa' }
+    [pscustomobject]@{ Name = 'GSI'; Was = 'git submodule update --init --recursive'; KeptAs = 'Gsi' }
+    [pscustomobject]@{ Name = 'GSi'; Was = 'git submodule init'; KeptAs = 'Gsi' }
+    [pscustomobject]@{ Name = 'GSl'; Was = 'git submodule status'; KeptAs = 'Gsl' }
+    [pscustomobject]@{ Name = 'GSs'; Was = 'git submodule sync'; KeptAs = 'Gss' }
+    [pscustomobject]@{ Name = 'GsS'; Was = 'git stash save --patch --no-keep-index'; KeptAs = 'Gss' }
+    [pscustomobject]@{ Name = 'GSu'; Was = 'git submodule update --remote'; KeptAs = 'Gsu' }
+    [pscustomobject]@{ Name = 'GwC'; Was = 'git clean -d --force'; KeptAs = 'Gwc' }
+    [pscustomobject]@{ Name = 'GwD'; Was = 'git diff --no-ext-diff --word-diff'; KeptAs = 'Gwd' }
+    [pscustomobject]@{ Name = 'GWm'; Was = 'git worktree move'; KeptAs = 'Gwm' }
+    [pscustomobject]@{ Name = 'GwM'; Was = 'git mv -f'; KeptAs = 'Gwm' }
+    [pscustomobject]@{ Name = 'GwR'; Was = 'git reset --hard'; KeptAs = 'Gwr' }
+    [pscustomobject]@{ Name = 'GwS'; Was = 'git status'; KeptAs = 'Gws' }
+    [pscustomobject]@{ Name = 'GWX'; Was = 'git worktree remove --force'; KeptAs = 'Gwx' }
+    [pscustomobject]@{ Name = 'GWx'; Was = 'git worktree remove'; KeptAs = 'Gwx' }
+    [pscustomobject]@{ Name = 'GwX'; Was = 'git rm -rf'; KeptAs = 'Gwx' }
+)
+
 # --- ported aliases ---
 Set-Alias -Name 'G' -Value 'git' -Force
 function G.. { Set-Location (git-root) }

@@ -206,10 +206,10 @@ if ($displaced) {
 $groups = $emit | Group-Object { $_.Name.ToLowerInvariant() }
 $shadowed = [System.Collections.Generic.List[object]]::new()
 
-$null = $sb.AppendLine()
-$null = $sb.AppendLine('# --- ported aliases ---')
-
-foreach ($g in ($groups | Sort-Object Name)) {
+# Decide every group BEFORE emitting anything, because the shadowed list has to
+# be written into the file ahead of the definitions and cannot be known until
+# each group has picked a winner.
+$plan = foreach ($g in ($groups | Sort-Object Name)) {
     $members = @($g.Group)
     $chosen  = $members |
         Sort-Object @{ Expression = { ($_.Name.ToCharArray() | Where-Object { [char]::IsUpper($_) }).Count } },
@@ -220,6 +220,33 @@ foreach ($g in ($groups | Sort-Object Name)) {
     foreach ($o in $others) {
         $shadowed.Add([pscustomobject]@{ Name = $o.Name; ShadowedBy = $chosen.Name; Was = $o.Body })
     }
+    [pscustomobject]@{ Chosen = $chosen; Others = $others }
+}
+
+$null = $sb.AppendLine()
+$null = $sb.AppendLine(@'
+# Names from the zsh set that cannot be reached here, because PowerShell folds
+# case and something else in the same group won. Emitted as data so unixhelp
+# can answer "where did GwR go" at the prompt instead of leaving you guessing.
+#
+# An ARRAY, not a hashtable: groups like GRS/GRs/GrS all fold to one key, so a
+# hashtable would keep exactly one of them and silently lose the rest.
+'@)
+$null = $sb.AppendLine('$script:PSParityShadowed = @(')
+foreach ($sd in ($shadowed | Sort-Object Name)) {
+    $n = $sd.Name.Replace("'", "''")
+    $w = $sd.Was.Replace("'", "''")
+    $k = $sd.ShadowedBy.Replace("'", "''")
+    $null = $sb.AppendLine("    [pscustomobject]@{ Name = '$n'; Was = '$w'; KeptAs = '$k' }")
+}
+$null = $sb.AppendLine(')')
+
+$null = $sb.AppendLine()
+$null = $sb.AppendLine('# --- ported aliases ---')
+
+foreach ($entry in $plan) {
+    $chosen = $entry.Chosen
+    $others = $entry.Others
 
     if ($chosen.Kind -eq 'alias' -and $others.Count -eq 0) {
         $null = $sb.AppendLine("Set-Alias -Name '$($chosen.Name)' -Value '$($chosen.Body)' -Force")

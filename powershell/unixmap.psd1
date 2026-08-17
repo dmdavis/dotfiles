@@ -260,6 +260,11 @@ inventory — the running shell is.
             Detail  = 'No awk, no cut, no field numbers. `Get-Process | Where-Object CPU -gt 10 | Select-Object Name, CPU`. If you find yourself parsing a string, look for a property first.'
         }
         @{
+            Topic   = 'shorthand'
+            Summary = '? is Where-Object and % is ForEach-Object.'
+            Detail  = 'The two workhorses have single-character aliases, which is what makes one-liners bearable: `ls | ? Length -gt 1MB | % Name`. Note ? is NOT a glob here - PowerShell wildcards are * and ?, but ? at the START of a command position is Where-Object.'
+        }
+        @{
             Topic   = 'formatting'
             Summary = 'Format-Table and Format-List are terminal output, not data.'
             Detail  = 'Anything piped past ft/fl receives formatting records. Use Select-Object to shape data, and put ft LAST if at all. This is the single most common way to break a working script.'
