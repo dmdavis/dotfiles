@@ -195,7 +195,7 @@ inventory — the running shell is.
         @{ Name = 'lc / llc';      Names = @('lc','llc'); Reason = 'lolcat has no maintained Windows build.' }
         @{ Name = 'ff';            Names = @('ff'); Reason = 'fastfetch exists on Windows, but the shim selects a macOS terminal-image protocol (iTerm/kitty).'; Instead = 'Plain fastfetch.' }
         @{ Name = 'y';             Names = @('y');  Reason = 'yazi wrapper; the cwd-file dance is shell-specific.' }
-        @{ Name = 'sync_brewfile'; Names = @('sync_brewfile'); Reason = 'Homebrew.'; Instead = 'winget export, once bootstrap.ps1 exists.' }
+        @{ Name = 'sync_brewfile'; Names = @('sync_brewfile'); Reason = 'Homebrew.'; Instead = 'winget.json, generated from this manifest. Not `winget export`, which returns a device inventory.' }
         @{ Name = 't';             Names = @('t');  Reason = 'The live alias is t=task, which shadows the tmux function of the same name in .zshrc. Neither ports: task is not installed here and tmux does not exist on Windows.'; Instead = 'Windows Terminal panes.' }
         @{ Name = 'tg';            Names = @('tg'); Reason = 'terragrunt is not installed on Windows. It has a Windows build if it is ever wanted.' }
         @{ Name = 'which-command'; Names = @('which-command'); Reason = 'zsh `whence` has no direct equivalent.'; Instead = 'Get-Command, which resolves aliases, functions and cmdlets as well as files — see the `which` idiom.' }

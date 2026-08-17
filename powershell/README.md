@@ -20,6 +20,25 @@ The split is not cosmetic. `sshd` runs the default shell as `pwsh -c`, so
 anything written to stdout during a non-interactive load corrupts every
 `ssh host '...'` result and breaks `scp` with *"Received message too long"*.
 
+## One manifest, and everything else is generated
+
+`unixmap.psd1` is the source of truth: name, PowerShell equivalent, tier,
+reason. Nothing downstream is hand-maintained, because three hand-kept copies
+of the same mapping disagree within a month.
+
+| Run | Produces | When |
+|---|---|---|
+| `tools/dump-aliases.zsh` | `zsh-aliases.dump` | on the Mac, when the zsh side changes |
+| `tools/Build-Aliases.ps1` | `generated-aliases.ps1` | after a new dump, or a manifest rule change |
+| `tools/Build-Winget.ps1` | `winget.json` | after a `Tools` change |
+| `tools/Build-VaultTable.ps1` | Markdown on stdout, for the notes | after any manifest change |
+| `tools/Invoke-Lint.ps1 -Strict` | pass/fail | before every commit |
+
+`Get-UnixMap` (`unixhelp`) is the fifth consumer and generates nothing — it
+reads the manifest live and resolves each entry's status with `Get-Command`, so
+it reports what the session can actually reach rather than what the manifest
+intends.
+
 ## Gotchas
 
 - **Aliases beat functions.** PowerShell resolves Alias → Function → Cmdlet →
