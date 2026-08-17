@@ -109,11 +109,23 @@ function Get-WindowsHealth {
                 $info = & $sc -i $dev 2>$null | Out-String
                 if ($info -notmatch '(?m)^(?:Device Model|Model Number):\s*(.+)$') { continue }
                 $model  = $Matches[1].Trim()
+                # Serial is what identifies a PHYSICAL disk. smartctl --scan
+                # lists the same drive under more than one path — here every
+                # SATA disk appears as both /dev/sdN and /dev/csmiN,P — and
+                # reporting it twice would make every diff of this output noisy.
+                $serial = if ($info -match '(?m)^Serial Number:\s*(.+)$') { $Matches[1].Trim() } else { $dev }
                 $health = (& $sc -H $dev 2>$null | Select-String 'result:|SMART Health Status:' | Select-Object -First 1)
                 $verdict = if ($health) { ($health.ToString() -replace '.*?:\s*', '').Trim() } else { 'unknown' }
-                [ordered]@{ Device = $dev; Model = $model; Health = $verdict }
+                [ordered]@{ Device = $dev; Model = $model; Serial = $serial; Health = $verdict }
             }
-            $smart.Devices = @($devs)
+            # Prefer the CSMI path when a disk has both: it is the one that
+            # keeps working when the disk is an Intel RST array member.
+            $smart.Devices = @($devs |
+                Group-Object Serial |
+                ForEach-Object {
+                    @($_.Group | Sort-Object { $_.Device -notmatch 'csmi' })[0]
+                } |
+                Sort-Object Device)
             foreach ($dv in $smart.Devices) {
                 if ($dv.Health -notmatch 'PASSED|OK') { $findings.Add("SMART on $($dv.Device) ($($dv.Model)): $($dv.Health)") }
             }
