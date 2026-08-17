@@ -86,13 +86,28 @@ if ($env:PSPARITY_ICONS -eq '1' -and (Get-Module -ListAvailable -Name Terminal-I
 
 # --- prompt ---------------------------------------------------------------
 # starship, chosen over oh-my-posh: cross-shell, and the Mac already runs
-# asciiship (Zim's starship-alike). No starship.toml is shipped yet, so this
-# is stock starship — see the open question in the vault note.
+# asciiship (Zim's starship-alike). Configured by the repo's own starship.toml.
 #
 # Must come last: starship overrides the prompt function, and zoxide's
 # --hook prompt wraps whatever prompt exists when it initialises.
 if (Get-Command starship -ErrorAction SilentlyContinue) {
     $env:STARSHIP_SHELL = 'powershell'
+
+    # Ship our own config rather than running stock starship. Stock produced
+    # "Administrator in Beast in ~ via python on aws (us-west-1)" — the
+    # privilege level where the login belongs, plus two modules firing on
+    # incidental files. See starship.toml for what each override is for.
+    $parityStarship = Join-Path $PSParityRoot 'starship.toml'
+    if (Test-Path -LiteralPath $parityStarship) { $env:STARSHIP_CONFIG = $parityStarship }
+
+    # Computed ONCE here, not per prompt: an elevated-session marker for the
+    # prompt to render. Every `ssh beast` session is elevated, which is worth
+    # seeing, but it belongs beside the name rather than replacing it.
+    $env:PSPARITY_ELEVATED = if (
+        ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()
+        ).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+    ) { 'ADMIN' } else { '' }
+
     Invoke-Expression (& starship init powershell)
 }
 

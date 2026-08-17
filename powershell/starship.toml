@@ -1,0 +1,103 @@
+# starship.toml — prompt configuration for Windows sessions.
+#
+# Wired by $env:STARSHIP_CONFIG in interactive.ps1. Without this file starship
+# runs stock, which on BEAST produced a prompt reading
+#
+#     Administrator in 🌐 Beast in ~ via 🐍 on ☁️ (us-west-1)
+#
+# of which three parts were wrong or meaningless. Each fix is noted below.
+
+format = """
+${env_var.PSPARITY_ELEVATED}\
+${env_var.USERNAME}\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$cmd_duration\
+$line_break\
+$character"""
+
+# --- identity -------------------------------------------------------------
+# starship's username module renders "Administrator" rather than the login
+# whenever the session is elevated — and every `ssh beast` session is elevated,
+# because sshd hands out a full admin token with no UAC step. The account is
+# genuinely beast\dale, so the module was reporting the privilege level in the
+# place where the name belongs. Disabled, and the real login comes from the
+# environment instead.
+[username]
+disabled = true
+
+[env_var.USERNAME]
+variable = "USERNAME"
+format = "[$env_value]($style)"
+style = "bold yellow"
+
+# The elevation signal is worth keeping, just not in place of the name. Set
+# once at profile load in interactive.ps1, so this costs no per-prompt work.
+[env_var.PSPARITY_ELEVATED]
+variable = "PSPARITY_ELEVATED"
+default = ""
+format = "[$env_value ]($style)"
+style = "bold red"
+
+[hostname]
+ssh_only = false
+format = "[@$hostname]($style) "
+style = "bold green"
+
+[directory]
+truncation_length = 4
+truncate_to_repo = true
+style = "bold cyan"
+
+# --- git ------------------------------------------------------------------
+[git_branch]
+format = "[$symbol$branch]($style) "
+style = "bold purple"
+
+[git_status]
+style = "bold red"
+
+[cmd_duration]
+min_time = 2_000
+format = "took [$duration]($style) "
+style = "yellow"
+
+# --- modules turned off ---------------------------------------------------
+# Each of these fired on BEAST for a reason that says nothing about what is
+# being worked on.
+#
+#   aws     ~/.aws/config carries region = us-west-1, so the cloud segment
+#           showed on every prompt including in the home directory.
+#   python  a single stray .py file in ~ was enough to trigger it.
+#
+# The rest are pre-emptive: this is a gaming and photography machine with many
+# toolchains installed, and a prompt that announces each one is noise.
+[aws]
+disabled = true
+
+[python]
+disabled = true
+
+[nodejs]
+disabled = true
+
+[dotnet]
+disabled = true
+
+[java]
+disabled = true
+
+[golang]
+disabled = true
+
+[rust]
+disabled = true
+
+[package]
+disabled = true
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"

@@ -159,12 +159,12 @@ inventory — the running shell is.
         @{ Name = 'ls';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Removes = 'ls'; Note = 'Plain lsd. The built-in ls alias must be removed first or this is unreachable.' }
         @{ Name = 'll';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Removes = 'll'; Note = 'lsd -lh. The zsh original chained through two aliases; PowerShell aliases do not chain.' }
         @{ Name = 'l';        File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'lsd -lhA' }
-        @{ Name = 'lt';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Tree view.' }
-        @{ Name = 'lr';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Tree view; same as lt in the zsh set.' }
+        @{ Name = 'lt';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Tree view, --depth 2 by default. Unbounded --tree in the Windows home directory follows 13 reparse points, two of which are infinite loops; an explicit --depth still wins.' }
+        @{ Name = 'lr';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Tree view; same as lt in the zsh set, and same --depth 2 default.' }
         @{ Name = 'lo';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Octal permissions.' }
         @{ Name = 'llo';      File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Octal permissions, without -A.' }
         @{ Name = 'o';        File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Same as lo.' }
-        @{ Name = 'ot';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Octal permissions, tree.' }
+        @{ Name = 'ot';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Octal permissions, tree, --depth 2 by default.' }
         @{ Name = 'lk';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Sorted by size, ascending.' }
         @{ Name = 'lx';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Sorted by extension.' }
         @{ Name = 'lm';       File = 'listing.ps1';      Group = 'listing';   Requires = 'lsd'; Note = 'Paged, via Out-Host -Paging rather than piping to less.' }
