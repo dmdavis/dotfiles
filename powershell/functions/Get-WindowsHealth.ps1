@@ -68,7 +68,7 @@ function Get-WindowsHealth {
 
     # --- disks ------------------------------------------------------------
     $disks = @(Get-PhysicalDisk | Sort-Object DeviceId | ForEach-Object {
-        [ordered]@{
+        [pscustomobject]@{
             Id     = $_.DeviceId
             Model  = $_.FriendlyName
             Media  = $_.MediaType.ToString()
@@ -116,7 +116,7 @@ function Get-WindowsHealth {
                 $serial = if ($info -match '(?m)^Serial Number:\s*(.+)$') { $Matches[1].Trim() } else { $dev }
                 $health = (& $sc -H $dev 2>$null | Select-String 'result:|SMART Health Status:' | Select-Object -First 1)
                 $verdict = if ($health) { ($health.ToString() -replace '.*?:\s*', '').Trim() } else { 'unknown' }
-                [ordered]@{ Device = $dev; Model = $model; Serial = $serial; Health = $verdict }
+                [pscustomobject]@{ Device = $dev; Model = $model; Serial = $serial; Health = $verdict }
             }
             # Prefer the CSMI path when a disk has both: it is the one that
             # keeps working when the disk is an Intel RST array member.
@@ -148,7 +148,7 @@ function Get-WindowsHealth {
     $volumes = @(Get-Volume | Where-Object { $_.DriveLetter } | Sort-Object DriveLetter | ForEach-Object {
         $mount = "$($_.DriveLetter):"
         $pct   = if ($_.Size) { [math]::Round(100 * $_.SizeRemaining / $_.Size, 1) } else { $null }
-        [ordered]@{
+        [pscustomobject]@{
             Mount      = $mount
             Label      = $_.FileSystemLabel
             FreeGB     = [math]::Round($_.SizeRemaining / 1GB, 1)
