@@ -4,6 +4,15 @@
 # machine that has not run bootstrap.ps1 gets a working shell rather than a
 # screenful of errors. core.ps1 has already loaded aliases and shims by now.
 
+# zoxide and starship are both initialised by evaluating the shell code they
+# print. Invoke-Expression is the documented and only supported way to do that
+# for either tool, and the input is the tool's own output rather than anything
+# user-supplied. Suppressed at file scope rather than in the settings file —
+# the rule is worth keeping everywhere else.
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingInvokeExpression', '',
+    Justification = 'Required by zoxide init and starship init; input is each tool own output.')]
+param()
+
 # --- PSReadLine -----------------------------------------------------------
 # The biggest single win, and the one that changes the shell most. Each option
 # below maps to something already configured in .zshrc.
@@ -26,7 +35,17 @@ if (Get-Module -ListAvailable -Name PSReadLine) {
         Set-PSReadLineOption -PredictionViewStyle ListView
     } catch {
         # Older PSReadLine: fall back rather than leave the shell unconfigured.
-        try { Set-PSReadLineOption -PredictionSource History } catch { }
+        try {
+            Set-PSReadLineOption -PredictionSource History
+        } catch {
+            # Not swallowed: an unusable PSReadLine is worth surfacing, and
+            # core.ps1's collector is the channel that never touches stdout.
+            $global:PSParityLoadErrors += [pscustomobject]@{
+                File  = 'interactive.ps1'
+                Stage = 'run'
+                Error = "PSReadLine prediction unavailable: $($_.Exception.Message)"
+            }
+        }
     }
 
     # zsh-history-substring-search: Up/Down filter on what is already typed,
