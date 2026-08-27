@@ -11,5 +11,6 @@ export HOMEBREW_NO_REQUIRE_TAP_TRUST=1
 export RUST_BACKTRACE=1
 export RUST_LOG=info
 
-# mise (polyglot version manager)
-(( ${+commands[mise]} )) && eval "$(mise activate zsh)"
+# mise (polyglot version manager) - this activation is handled by zim-mise
+# https://github.com/joke/zim-mise
+#(( ${+commands[mise]} )) && eval "$(mise activate zsh)"
