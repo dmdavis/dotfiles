@@ -11,3 +11,6 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # Obsidian vault, for obsidian-template-push/-pull (see darwin.zsh)
 export OBSIDIAN_VAULT_DIR="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/Head in the iClouds"
+
+# Fantasy Grounds module folder
+export FG_MODULES_DIR="$HOME/SmiteWorks/Fantasy Grounds/modules"
