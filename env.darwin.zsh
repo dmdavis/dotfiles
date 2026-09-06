@@ -4,7 +4,6 @@
 
 # Homebrew
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
-export HOMEBREW_NO_REQUIRE_TAP_TRUST=1
 
 # Rust
 [[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
