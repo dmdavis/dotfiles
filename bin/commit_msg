@@ -1,0 +1,139 @@
+#!/usr/bin/env zsh
+# Generate a commit message for the current git repo's staged/unstaged
+# changes by asking claude to summarize the diff.
+#
+# When run interactively, shows the generated message and offers to
+# commit it (staging all tracked changes first), edit it, regenerate it,
+# or abort. When output isn't a terminal (e.g. piped), just prints the
+# message and exits, so `commit_msg` still composes in scripts.
+#
+# Usage: commit_msg [--model MODEL] [--effort LEVEL]
+#   --model MODEL    claude model alias/name (default: sonnet)
+#   --effort LEVEL   claude effort level: low, medium, high, xhigh, max
+#                     (default: medium)
+#
+# Haiku was tried as the default (cheaper, stretches a fixed token budget
+# further) but even at max effort it would reliably drop one file from a
+# multi-file diff's summary, so sonnet is the default. Pass --model haiku
+# to opt back in for single-file changes or when spend matters more than
+# thoroughness.
+
+set -euo pipefail
+
+model="sonnet"
+effort="medium"
+
+while (( $# > 0 )); do
+  case "$1" in
+    --model)
+      model="$2"
+      shift 2
+      ;;
+    --effort)
+      effort="$2"
+      shift 2
+      ;;
+    -h|--help)
+      grep '^#' "$0" | sed '1d;s/^# \{0,1\}//'
+      exit 0
+      ;;
+    *)
+      echo "commit_msg: unknown argument: $1" >&2
+      exit 1
+      ;;
+  esac
+done
+
+git rev-parse --is-inside-work-tree >/dev/null 2>&1 || {
+  echo "commit_msg: not inside a git repository" >&2
+  exit 1
+}
+
+generate() {
+  local diff diffstat recent_log prompt
+  diff="$(git diff HEAD --)"
+  if [[ -z "$diff" ]]; then
+    echo "commit_msg: no staged or unstaged changes to summarize" >&2
+    exit 1
+  fi
+
+  diffstat="$(git diff HEAD --stat --)"
+  recent_log="$(git log -n 10 --pretty=format:'%s')"
+
+  prompt=$(cat <<PROMPT
+Write a git commit message for the following diff. The diff may touch
+multiple files — read the whole diff and the file list below, and make
+sure the message accounts for every file with a substantive change, not
+just the first one. Follow the style of this repo's recent commit subject
+lines (shown below) if they suggest a convention (e.g. a type/scope
+prefix); otherwise write a plain imperative subject line. Keep the subject
+under 72 characters. Add a body only if it adds real explanatory value
+beyond the subject, and if there are multiple unrelated changes, cover
+each briefly. Output only the commit message text, with no surrounding
+commentary, headers, or code fences.
+
+Recent commit subjects:
+$recent_log
+
+Files changed:
+$diffstat
+
+Diff:
+$diff
+PROMPT
+)
+
+  claude -p --model "$model" --effort "$effort" --output-format json "$prompt"
+}
+
+# Sets $message and $usage_line from one claude JSON response.
+generate_message() {
+  local response
+  response="$(generate)"
+  message="$(print -r -- "$response" | jq -r '.result')"
+  usage_line="$(print -r -- "$response" | jq -r \
+    '"Cost: $" + ((.total_cost_usd * 10000 | round) / 10000 | tostring) + " (" + (.usage.input_tokens | tostring) + " in / " + (.usage.output_tokens | tostring) + " out tokens, " + (.usage.cache_read_input_tokens | tostring) + " cache read)"')"
+}
+
+# Non-interactive (piped/redirected): just print the message, don't commit.
+if [[ ! -t 1 ]]; then
+  generate | jq -r '.result'
+  exit 0
+fi
+
+generate_message
+
+while true; do
+  print
+  print -- "$message"
+  print
+  print -- "$usage_line"
+  print
+  print -n "Commit with this message? [y]es / [e]dit / [r]egenerate / [n]o: "
+  read -r choice
+
+  case "$choice" in
+    y|Y|yes)
+      git add -u
+      git commit -m "$message"
+      exit 0
+      ;;
+    e|E|edit)
+      tmpfile="$(mktemp)"
+      print -r -- "$message" > "$tmpfile"
+      ${EDITOR:-vi} "$tmpfile"
+      message="$(cat "$tmpfile")"
+      rm -f "$tmpfile"
+      git add -u
+      git commit -m "$message"
+      exit 0
+      ;;
+    r|R|regenerate)
+      generate_message
+      ;;
+    n|N|no|*)
+      echo "commit_msg: aborted, nothing committed" >&2
+      exit 1
+      ;;
+  esac
+done

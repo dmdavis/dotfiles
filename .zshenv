@@ -12,6 +12,9 @@ export DOTFILES=${${(%):-%x}:A:h}
 # Personal ~/bin folder
 export PATH="$HOME/bin:$PATH"
 
+# Dotfiles-repo bin/ (tracked scripts, e.g. commit_msg)
+export PATH="$DOTFILES/bin:$PATH"
+
 # Dev-laptop (macOS) environment — Homebrew, Rust, mise. Skipped on the NAS / Linux.
 [[ "$OSTYPE" == darwin* && -f "$DOTFILES/env.darwin.zsh" ]] && source "$DOTFILES/env.darwin.zsh"
 
